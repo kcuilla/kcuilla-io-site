@@ -579,81 +579,47 @@
 
     <div class="article-style">
       
-<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
-<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
-<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
 
 
-<p>I am an avid R-user. It is my tool of choice when it comes to nearly any project that involves data analysis and visualization. The thing I enjoy most about R is the community. I’ve learned a ton of knowledge from people in the community who constantly share their work and help others. Lately, I’ve been trying to figure out the best way that I can share the things I’ve learned in order to give back to the community, and I stumbled upon the blogdown package.</p>
-<p>In this post, I will give a brief walk-through of how I was able to create this website using blogdown and a few other tools, and also share some tips and resources that were beneficial to me during development.</p>
+<p>I am an avid R-user. It is my tool of choice when it comes to nearly any project that involves data analysis and visualization. The thing I enjoy most about R is the community. I’ve learned a ton of knowledge from people in the community who constantly share their work and help others. Lately, I’ve been trying to figure out the best way that I can share the things I’ve learned in order to give back to the community, and I stumbled upon the <code>blogdown</code> package.</p>
+<p>In this post, I will give a brief walk-through of how I was able to create this website using <code>blogdown</code> and a few other tools, and also share some tips and resources that were beneficial to me during development.</p>
 <div id="getting-started" class="section level1">
 <h1>Getting Started</h1>
-<p>I highly recommend reading the first few chapters of <a href="https://bookdown.org/yihui/blogdown/">blogdown: Creating Websites with R Markdown</a> by Yihui Xie, Amber Thomas, and Alison Presmanes Hill. Not only does the book teach you how to use the blogdown package in R, but it also provides a good tutorial on <a href="https://themes.gohugo.io/">Hugo</a>, which controls the theme of your website, and ways to deploy your website such as through <a href="https://pages.github.com">Github pages</a>, which is what I am using to host my website.</p>
-<p>Another resource that I recommend is this <a href="https://amber.rbind.io/2016/12/19/website/">blog post</a> by Amber Thomas. I found the section on initializing github pages to work with Hugo and blogdown to be especially helpful.</p>
+<p>I highly recommend reading the first few chapters of <a href="https://bookdown.org/yihui/blogdown/">blogdown: Creating Websites with R Markdown</a> by Yihui Xie, Amber Thomas, and Alison Presmanes Hill. Not only does the book teach you how to use the <code>blogdown</code> package in R, but it also provides a good tutorial on <a href="https://themes.gohugo.io/">Hugo</a>, which controls the theme of your website, and ways to deploy your website such as through <a href="https://www.netlify.com/">Netlify</a>, which is what I’m using to host my site.</p>
 </div>
-<div id="blogdown-package" class="section level1">
-<h1>Blogdown Package</h1>
-<ol style="list-style-type: decimal">
-<li>Install the blogdown package within RStudio:</li>
-</ol>
+<div id="github-and-rstudio" class="section level1">
+<h1>Github and RStudio</h1>
+<p>The first thing you will need to do is create a new repository on <a href="https://github.com/">Github</a>. If you are new to Github and are not sure how to do this, I recommend reading this <a href="https://help.github.com/en/github/getting-started-with-github/create-a-repo">how-to article</a> first.</p>
+<p>Once you’ve created the repository in Github, open RStudio and create a new project with Git version control by <code>File -&gt; New Project -&gt; Version Control -&gt; Git</code></p>
+<p><img src="/img/gitform.PNG" /></p>
+<ul>
+<li><b>Repository URL:</b> copy and paste the URL of the Github repository you just made. For me, this is <a href="https://github.com/kcuilla/kcuilla.github.io" class="uri">https://github.com/kcuilla/kcuilla.github.io</a></li>
+<li><b>Project directory name:</b> copy and paste the name of your Github repository. For me, this is kcuilla.github.io</li>
+<li><b>Create project as a subdirectory of:</b> this is the folder location on your local computer where all of your files will be stored. It doesn’t need to be named anything specific, you may name it anything you like.</li>
+</ul>
+<p>Your Github repository is now linked to your project in RStudio and soon you will be able to see any changes you make to files within your working directory appear in the Git tab as shown below:</p>
+<p><img src="/img/gitenvironment.PNG" /></p>
+</div>
+<div id="blogdown-and-hugo" class="section level1">
+<h1>Blogdown and Hugo</h1>
+<p>Install the <code>blogdown</code> package and Hugo in RStudio:</p>
 <pre class="r"><code>install.packages(&quot;blogdown&quot;)
+library(blogdown)
+blogdown::install_hugo()
 </code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Use the helper function to install Hugo:</li>
-</ol>
-<pre class="r"><code>blogdown::install_hugo()
-</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Create a new project in RStudio by clicking <code>File -&gt; New Project</code></li>
-</ol>
-<p>This will be the directory where all the files for your website are stored. You can easily navigate and view these files within RStudio under the Files tab.</p>
-<p><img src="/img/file_folders.PNG" /></p>
-</div>
-<div id="hugo-theme" class="section level1">
-<h1>Hugo Theme</h1>
-<p>Pick a theme for your website from <a href="https://themes.gohugo.io/">Hugo</a>. The theme I settled on was the <a href="https://themes.gohugo.io/academic/">Academic</a> theme because I liked both the look and the functionality, but there are plenty of other options available as well.</p>
-<ol style="list-style-type: decimal">
-<li>Once you have chosen a theme, you can download it using the following blogdown command:</li>
-</ol>
+<p>Pick a theme for your website from <a href="https://themes.gohugo.io/">Hugo Themes</a>. The theme I settled on was the <a href="https://themes.gohugo.io/academic/">Academic</a> theme because I liked both the look and the functionality, but there are plenty of other options available as well.</p>
+<p>Once you have chosen a theme, you can download it using the following <code>blogdown</code> command:</p>
 <pre class="r"><code># Replace user/repo from the theme&#39;s Github repository
 blogdown::new_site(theme = &#39;user/repo&#39;)
 </code></pre>
-<p>The files that control the contents of the theme should be available in your working directory and now you can start editing within RStudio!</p>
-<p><i>(Note: I will not go into detail on how to edit the configuration files as these differ for each theme. However, if you’re interested in the edits that I made within the Academic theme, you can view them on my <a href="https://github.com/kcuilla/kcuilla.github.io/tree/master">github</a>).</i></p>
-<ol start="2" style="list-style-type: decimal">
-<li>To view your edits in real-time, run the command below and you will be able to see a preview of your website in the Viewer tab in RStudio and also have the option to view it in your browser by clicking the ‘Show in new window’ icon:</li>
-</ol>
-<pre class="r"><code>blogdown::serve_site()
-</code></pre>
-<p>You can also embed plots. See Figure <a href="#fig:pie">1</a> for example:</p>
-<pre class="r"><code>par(mar = c(0, 1, 0, 1))
-pie(
-  c(280, 60, 20),
-  c(&#39;Sky&#39;, &#39;Sunny side of pyramid&#39;, &#39;Shady side of pyramid&#39;),
-  col = c(&#39;#0292D8&#39;, &#39;#F7EA39&#39;, &#39;#C4B632&#39;),
-  init.angle = -50, border = NA
-)</code></pre>
-<div class="figure"><span id="fig:pie"></span>
-<img src="/post/2020-02-05-blogdown_files/figure-html/pie-1.png" alt="A fancy pie chart." width="672" />
-<p class="caption">
-Figure 1: A fancy pie chart.
-</p>
+<p>The files that control the contents of the theme should now be available in your working directory and you can view them by navigating through the Files tab in RStudio as shown below:</p>
+<p><img src="/img/file_folders.PNG" /></p>
+<p><i>(Note: I will not go into detail on how to edit the configuration files as these differ for each theme. However, there are normally tutorials provided by the theme creators, and if you’re interested in the edits that I made for the Academic theme, you can view them on my <a href="https://github.com/kcuilla/kcuilla.github.io">github</a>).</i></p>
+<p>In order view your configuration edits to your site, run <code>blogdown::serve_site()</code> and you will be able to see a preview of your website in the Viewer tab in RStudio (or you have the option to view it in your browser by clicking the ‘Show in new window’ icon):</p>
 </div>
-<pre class="r"><code>
-data(diamonds, mpg, package = &quot;ggplot2&quot;)
-
-hchart(mpg, &quot;scatter&quot;, hcaes(x = displ, y = hwy, group = class)) %&gt;% 
-frameWidget(width=&quot;100%&quot;,height=&quot;100%&quot;)
-## Warning: `parse_quosure()` is deprecated as of rlang 0.2.0.
-## Please use `parse_quo()` instead.
-## This warning is displayed once per session.</code></pre>
-<div class="figure"><span id="fig:pie"></span>
-<div id="htmlwidget-1" style="width:100%;height:100%;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/post/2020-02-05-blogdown_files/figure-html//widgets/widget_pie.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
-<p class="caption">
-Figure 1: A fancy pie chart.
-</p>
-</div>
+<div id="git-and-netlify" class="section level1">
+<h1>Git and Netlify</h1>
+<p>Before deploying your files to a website on Netlify, you’ll first need to push them to your Github repository using Git.</p>
 </div>
 
     </div>
