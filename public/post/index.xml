@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts | Kyle Cuilla</title>
+    <link>/post/</link>
+      <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <description>Posts</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Mon, 03 Feb 2020 21:13:14 -0500</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
+      <title>Posts</title>
+      <link>/post/</link>
+    </image>
+    
+    <item>
+      <title>How to Create a Website in R Using the Blogdown Package</title>
+      <link>/post/2020-02-05-blogdown/</link>
+      <pubDate>Mon, 03 Feb 2020 21:13:14 -0500</pubDate>
+      <guid>/post/2020-02-05-blogdown/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/pymjs/pym.v1.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/widgetframe-binding/widgetframe.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;I am an avid R-user. It is my tool of choice when it comes to nearly any project that involves data analysis and visualization. The thing I enjoy most about R is the community. I’ve learned a ton of knowledge from people in the community who constantly share their work and help others. Lately, I’ve been trying to figure out the best way that I can share the things I’ve learned in order to give back to the community, and I stumbled upon the blogdown package.&lt;/p&gt;
+&lt;p&gt;In this post, I will give a brief walk-through of how I was able to create this website using blogdown and a few other tools, and also share some tips and resources that were beneficial to me during development.&lt;/p&gt;
+&lt;div id=&#34;getting-started&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Getting Started&lt;/h1&gt;
+&lt;p&gt;I highly recommend reading the first few chapters of &lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34;&gt;blogdown: Creating Websites with R Markdown&lt;/a&gt; by Yihui Xie, Amber Thomas, and Alison Presmanes Hill. Not only does the book teach you how to use the blogdown package in R, but it also provides a good tutorial on &lt;a href=&#34;https://themes.gohugo.io/&#34;&gt;Hugo&lt;/a&gt;, which controls the theme of your website, and ways to deploy your website such as through &lt;a href=&#34;https://pages.github.com&#34;&gt;Github pages&lt;/a&gt;, which is what I am using to host my website.&lt;/p&gt;
+&lt;p&gt;Another resource that I recommend is this &lt;a href=&#34;https://amber.rbind.io/2016/12/19/website/&#34;&gt;blog post&lt;/a&gt; by Amber Thomas. I found the section on initializing github pages to work with Hugo and blogdown to be especially helpful.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;blogdown-package&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Blogdown Package&lt;/h1&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Install the blogdown package within RStudio:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;install.packages(&amp;quot;blogdown&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Use the helper function to install Hugo:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;blogdown::install_hugo()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Create a new project in RStudio by clicking &lt;code&gt;File -&amp;gt; New Project&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This will be the directory where all the files for your website are stored. You can easily navigate and view these files within RStudio under the Files tab.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/file_folders.PNG&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;hugo-theme&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Hugo Theme&lt;/h1&gt;
+&lt;p&gt;Pick a theme for your website from &lt;a href=&#34;https://themes.gohugo.io/&#34;&gt;Hugo&lt;/a&gt;. The theme I settled on was the &lt;a href=&#34;https://themes.gohugo.io/academic/&#34;&gt;Academic&lt;/a&gt; theme because I liked both the look and the functionality, but there are plenty of other options available as well.&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Once you have chosen a theme, you can download it using the following blogdown command:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Replace user/repo from the theme&amp;#39;s Github repository
+blogdown::new_site(theme = &amp;#39;user/repo&amp;#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The files that control the contents of the theme should be available in your working directory and now you can start editing within RStudio!&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;(Note: I will not go into detail on how to edit the configuration files as these differ for each theme. However, if you’re interested in the edits that I made within the Academic theme, you can view them on my &lt;a href=&#34;https://github.com/kcuilla/kcuilla.github.io/tree/master&#34;&gt;github&lt;/a&gt;).&lt;/i&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;To view your edits in real-time, run the command below and you will be able to see a preview of your website in the Viewer tab in RStudio and also have the option to view it in your browser by clicking the ‘Show in new window’ icon:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;blogdown::serve_site()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can also embed plots. See Figure &lt;a href=&#34;#fig:pie&#34;&gt;1&lt;/a&gt; for example:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mar = c(0, 1, 0, 1))
+pie(
+  c(280, 60, 20),
+  c(&amp;#39;Sky&amp;#39;, &amp;#39;Sunny side of pyramid&amp;#39;, &amp;#39;Shady side of pyramid&amp;#39;),
+  col = c(&amp;#39;#0292D8&amp;#39;, &amp;#39;#F7EA39&amp;#39;, &amp;#39;#C4B632&amp;#39;),
+  init.angle = -50, border = NA
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:pie&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2020-02-05-blogdown_files/figure-html/pie-1.png&#34; alt=&#34;A fancy pie chart.&#34; width=&#34;672&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figure 1: A fancy pie chart.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
+data(diamonds, mpg, package = &amp;quot;ggplot2&amp;quot;)
+
+hchart(mpg, &amp;quot;scatter&amp;quot;, hcaes(x = displ, y = hwy, group = class)) %&amp;gt;% 
+frameWidget(width=&amp;quot;100%&amp;quot;,height=&amp;quot;100%&amp;quot;)
+## Warning: `parse_quosure()` is deprecated as of rlang 0.2.0.
+## Please use `parse_quo()` instead.
+## This warning is displayed once per session.&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:pie&#34;&gt;&lt;/span&gt;
+&lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:100%;height:100%;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/2020-02-05-blogdown_files/figure-html//widgets/widget_pie.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figure 1: A fancy pie chart.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

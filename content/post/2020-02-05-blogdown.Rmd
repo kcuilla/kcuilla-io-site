@@ -1,0 +1,91 @@
+---
+title: "How to Create a Website in R Using the Blogdown Package"
+author: "Kyle Cuilla"
+date: 2020-02-03T21:13:14-05:00
+categories: ["R"]
+#tags: ["R Markdown", "plot", "regression"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+library(highcharter)
+library(widgetframe)
+```
+
+I am an avid R-user. It is my tool of choice when it comes to nearly any project that involves data analysis and visualization. The thing I enjoy most about R is the community. I've learned a ton of knowledge from people in the community who constantly share their work and help others. Lately, I've been trying to figure out the best way that I can share the things I've learned in order to give back to the community, and I stumbled upon the blogdown package. 
+
+In this post, I will give a brief walk-through of how I was able to create this website using blogdown and a few other tools, and also share some tips and resources that were beneficial to me during development.
+
+
+# Getting Started
+
+I highly recommend reading the first few chapters of [blogdown: Creating Websites with R Markdown](https://bookdown.org/yihui/blogdown/) by Yihui Xie, Amber Thomas, and Alison Presmanes Hill. Not only does the book teach you how to use the blogdown package in R, but it also provides a good tutorial on [Hugo](https://themes.gohugo.io/), which controls the theme of your website, and ways to deploy your website such as through [Github pages](https://pages.github.com), which is what I am using to host my website.
+
+Another resource that I recommend is this [blog post](https://amber.rbind.io/2016/12/19/website/) by Amber Thomas. I found the section on initializing github pages to work with Hugo and blogdown to be especially helpful.
+
+
+# Blogdown Package
+
+1. Install the blogdown package within RStudio:
+
+```{r blogdowninstall, eval=FALSE}
+install.packages("blogdown")
+
+```
+
+2. Use the helper function to install Hugo:
+
+```{r hugoinstall, eval=FALSE}
+blogdown::install_hugo()
+
+```
+
+3. Create a new project in RStudio by clicking `File -> New Project`
+
+This will be the directory where all the files for your website are stored. You can easily navigate and view these files within RStudio under the Files tab.
+
+![](/img/file_folders.PNG)
+
+
+# Hugo Theme
+
+Pick a theme for your website from [Hugo](https://themes.gohugo.io/). The theme I settled on was the [Academic](https://themes.gohugo.io/academic/) theme because I liked both the look and the functionality, but there are plenty of other options available as well.
+
+1. Once you have chosen a theme, you can download it using the following blogdown command:
+
+```{r themeinstall, eval=FALSE}
+# Replace user/repo from the theme's Github repository
+blogdown::new_site(theme = 'user/repo')
+
+```
+
+The files that control the contents of the theme should be available in your working directory and now you can start editing within RStudio!
+
+<i>(Note: I will not go into detail on how to edit the configuration files as these differ for each theme. However, if you're interested in the edits that I made within the Academic theme, you can view them on my [github](https://github.com/kcuilla/kcuilla.github.io/tree/master)).</i>
+
+2. To view your edits in real-time, run the command below and you will be able to see a preview of your website in the Viewer tab in RStudio and also have the option to view it in your browser by clicking the 'Show in new window' icon:  
+
+```{r servesite, eval=FALSE}
+blogdown::serve_site()
+
+```
+
+
+
+
+You can also embed plots. See Figure \@ref(fig:pie) for example:
+
+```{r pie, fig.cap='A fancy pie chart.', tidy=FALSE}
+par(mar = c(0, 1, 0, 1))
+pie(
+  c(280, 60, 20),
+  c('Sky', 'Sunny side of pyramid', 'Shady side of pyramid'),
+  col = c('#0292D8', '#F7EA39', '#C4B632'),
+  init.angle = -50, border = NA
+)
+
+data(diamonds, mpg, package = "ggplot2")
+
+hchart(mpg, "scatter", hcaes(x = displ, y = hwy, group = class)) %>% 
+frameWidget(width="100%",height="100%")
+```
