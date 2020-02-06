@@ -34,8 +34,8 @@
 &lt;p&gt;The next step is to create a new project in RStudio with Git version control by way of &lt;code&gt;File -&amp;gt; New Project -&amp;gt; Version Control -&amp;gt; Git&lt;/code&gt;. You will see the following for below:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/gitform.PNG&#34; /&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;b&gt;Repository URL:&lt;/b&gt; the URL of the GitHub repository you just made. For me, this is &lt;a href=&#34;https://github.com/kcuilla/kcuilla.github.io&#34; class=&#34;uri&#34;&gt;https://github.com/kcuilla/kcuilla.github.io&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;b&gt;Project directory name:&lt;/b&gt; the name of your GitHub repository. For me, this is kcuilla.github.io&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Repository URL:&lt;/b&gt; the URL of the GitHub repository you just made. For me, this is &lt;a href=&#34;https://github.com/kcuilla/kcuilla-io-site&#34; class=&#34;uri&#34;&gt;https://github.com/kcuilla/kcuilla-io-site&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Project directory name:&lt;/b&gt; the name of your GitHub repository. For me, this is kcuilla-io-site&lt;/li&gt;
 &lt;li&gt;&lt;b&gt;Create project as a subdirectory of:&lt;/b&gt; the folder location on your local computer where all your files for the site will be stored. It doesn’t need to be named anything specific, you may name it anything you like&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;After filling out the form and clicking &lt;code&gt;Create Project&lt;/code&gt;, your GitHub repository is now linked to your project in RStudio and you will soon be able to see any changes you make to the files within your working directory in the &lt;code&gt;Git&lt;/code&gt; tab as shown below:&lt;/p&gt;

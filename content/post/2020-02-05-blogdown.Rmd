@@ -34,8 +34,8 @@ The next step is to create a new project in RStudio with Git version control by 
 
 ![](/img/gitform.PNG)
 
-- <b>Repository URL:</b> the URL of the GitHub repository you just made. For me, this is https://github.com/kcuilla/kcuilla.github.io
-- <b>Project directory name:</b> the name of your GitHub repository. For me, this is kcuilla.github.io
+- <b>Repository URL:</b> the URL of the GitHub repository you just made. For me, this is https://github.com/kcuilla/kcuilla-io-site
+- <b>Project directory name:</b> the name of your GitHub repository. For me, this is kcuilla-io-site
 - <b>Create project as a subdirectory of:</b> the folder location on your local computer where all your files for the site will be stored. It doesn't need to be named anything specific, you may name it anything you like
 
 After filling out the form and clicking `Create Project`, your GitHub repository is now linked to your project in RStudio and you will soon be able to see any changes you make to the files within your working directory in the `Git` tab as shown below:
