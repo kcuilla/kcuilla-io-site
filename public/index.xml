@@ -81,50 +81,62 @@
     <item>
       <title>How to Create a Website in R Using the Blogdown Package</title>
       <link>/post/2020-02-05-blogdown/</link>
-      <pubDate>Mon, 03 Feb 2020 21:13:14 -0500</pubDate>
+      <pubDate>Thu, 06 Feb 2020 21:13:14 -0500</pubDate>
       <guid>/post/2020-02-05-blogdown/</guid>
       <description>
 
 
-&lt;p&gt;I am an avid R-user. It is my tool of choice when it comes to nearly any project that involves data analysis and visualization. The thing I enjoy most about R is the community. I’ve learned a ton of knowledge from people in the community who constantly share their work and help others. Lately, I’ve been trying to figure out the best way that I can share the things I’ve learned in order to give back to the community, and I stumbled upon the &lt;code&gt;blogdown&lt;/code&gt; package.&lt;/p&gt;
-&lt;p&gt;In this post, I will give a brief walk-through of how I was able to create this website using &lt;code&gt;blogdown&lt;/code&gt; and a few other tools, and also share some tips and resources that were beneficial to me during development.&lt;/p&gt;
+&lt;p&gt;The thing I enjoy most about R is the community. I’ve learned an incredible amount from people who are constantly helping others by sharing their knowledge and hard work.&lt;/p&gt;
+&lt;p&gt;Lately, I’ve been looking for ways to give back to the community and share some of the knowledge I’ve acquired over the years in hopes of helping others like myself. That’s when I then stumbled upon &lt;code&gt;blogdown&lt;/code&gt;, an R package designed to help you create your own website.&lt;/p&gt;
+&lt;p&gt;This post outlines how I was able to create my site using &lt;code&gt;blogdown&lt;/code&gt; and a couple other tools, as well as some resources that were beneficial to me during the process.&lt;/p&gt;
 &lt;div id=&#34;getting-started&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Getting Started&lt;/h1&gt;
-&lt;p&gt;I highly recommend reading the first few chapters of &lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34;&gt;blogdown: Creating Websites with R Markdown&lt;/a&gt; by Yihui Xie, Amber Thomas, and Alison Presmanes Hill. Not only does the book teach you how to use the &lt;code&gt;blogdown&lt;/code&gt; package in R, but it also provides a good tutorial on &lt;a href=&#34;https://themes.gohugo.io/&#34;&gt;Hugo&lt;/a&gt;, which controls the theme of your website, and ways to deploy your website such as through &lt;a href=&#34;https://www.netlify.com/&#34;&gt;Netlify&lt;/a&gt;, which is what I’m using to host my site.&lt;/p&gt;
+&lt;p&gt;I highly recommend reading the first few chapters of &lt;a href=&#34;https://bookdown.org/yihui/blogdown/&#34;&gt;blogdown: Creating Websites with R Markdown&lt;/a&gt; by Yihui Xie, Amber Thomas, and Alison Presmanes Hill. Not only does the book teach you how to use the &lt;code&gt;blogdown&lt;/code&gt; package in R, but it also provides a good tutorial on &lt;a href=&#34;https://themes.gohugo.io/&#34;&gt;Hugo&lt;/a&gt;, which controls the theme of your website, and &lt;a href=&#34;https://www.netlify.com/&#34;&gt;Netlify&lt;/a&gt;, which is what I’m using to host my site.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;github-and-rstudio&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Github and RStudio&lt;/h1&gt;
-&lt;p&gt;The first thing you will need to do is create a new repository on &lt;a href=&#34;https://github.com/&#34;&gt;Github&lt;/a&gt;. If you are new to Github and are not sure how to do this, I recommend reading this &lt;a href=&#34;https://help.github.com/en/github/getting-started-with-github/create-a-repo&#34;&gt;how-to article&lt;/a&gt; first.&lt;/p&gt;
-&lt;p&gt;Once you’ve created the repository in Github, open RStudio and create a new project with Git version control by &lt;code&gt;File -&amp;gt; New Project -&amp;gt; Version Control -&amp;gt; Git&lt;/code&gt;&lt;/p&gt;
+&lt;h1&gt;GitHub and RStudio&lt;/h1&gt;
+&lt;p&gt;The first thing you will need to do is create a new repository on &lt;a href=&#34;https://github.com/&#34;&gt;GitHub&lt;/a&gt;. If you are new to GitHub and are not sure how to do this, all you need to do is go to your GitHub account and click &lt;code&gt;New repository&lt;/code&gt; in the dropdown that looks like a plus (+) sign in the upper right-hand corner and give the repository a unique name.&lt;/p&gt;
+&lt;p&gt;Once you’ve created the repository, you will need to install Git and set it up within RStudio. If you already have Git setup in RStudio, then skip ahead to the next paragraph. If it isn’t setup, then follow the instructions outlined in this &lt;a href=&#34;http://www.geo.uzh.ch/microsite/reproducible_research/post/rr-rstudio-git/&#34;&gt;post&lt;/a&gt; before continuing.&lt;/p&gt;
+&lt;p&gt;The next step is to create a new project in RStudio with Git version control by way of &lt;code&gt;File -&amp;gt; New Project -&amp;gt; Version Control -&amp;gt; Git&lt;/code&gt;. You will see the following for below:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/gitform.PNG&#34; /&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;b&gt;Repository URL:&lt;/b&gt; copy and paste the URL of the Github repository you just made. For me, this is &lt;a href=&#34;https://github.com/kcuilla/kcuilla.github.io&#34; class=&#34;uri&#34;&gt;https://github.com/kcuilla/kcuilla.github.io&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;b&gt;Project directory name:&lt;/b&gt; copy and paste the name of your Github repository. For me, this is kcuilla.github.io&lt;/li&gt;
-&lt;li&gt;&lt;b&gt;Create project as a subdirectory of:&lt;/b&gt; this is the folder location on your local computer where all of your files will be stored. It doesn’t need to be named anything specific, you may name it anything you like.&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Repository URL:&lt;/b&gt; the URL of the GitHub repository you just made. For me, this is &lt;a href=&#34;https://github.com/kcuilla/kcuilla.github.io&#34; class=&#34;uri&#34;&gt;https://github.com/kcuilla/kcuilla.github.io&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Project directory name:&lt;/b&gt; the name of your GitHub repository. For me, this is kcuilla.github.io&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Create project as a subdirectory of:&lt;/b&gt; the folder location on your local computer where all your files for the site will be stored. It doesn’t need to be named anything specific, you may name it anything you like&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Your Github repository is now linked to your project in RStudio and soon you will be able to see any changes you make to files within your working directory appear in the Git tab as shown below:&lt;/p&gt;
+&lt;p&gt;After filling out the form and clicking &lt;code&gt;Create Project&lt;/code&gt;, your GitHub repository is now linked to your project in RStudio and you will soon be able to see any changes you make to the files within your working directory in the &lt;code&gt;Git&lt;/code&gt; tab as shown below:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/gitenvironment.PNG&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;blogdown-and-hugo&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Blogdown and Hugo&lt;/h1&gt;
-&lt;p&gt;Install the &lt;code&gt;blogdown&lt;/code&gt; package and Hugo in RStudio:&lt;/p&gt;
+&lt;p&gt;Install the &lt;code&gt;blogdown&lt;/code&gt; package and &lt;code&gt;Hugo&lt;/code&gt; in RStudio:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;install.packages(&amp;quot;blogdown&amp;quot;)
 library(blogdown)
 blogdown::install_hugo()
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Pick a theme for your website from &lt;a href=&#34;https://themes.gohugo.io/&#34;&gt;Hugo Themes&lt;/a&gt;. The theme I settled on was the &lt;a href=&#34;https://themes.gohugo.io/academic/&#34;&gt;Academic&lt;/a&gt; theme because I liked both the look and the functionality, but there are plenty of other options available as well.&lt;/p&gt;
 &lt;p&gt;Once you have chosen a theme, you can download it using the following &lt;code&gt;blogdown&lt;/code&gt; command:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Replace user/repo from the theme&amp;#39;s Github repository
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Replace user/repo from the theme&amp;#39;s GitHub repository
 blogdown::new_site(theme = &amp;#39;user/repo&amp;#39;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The files that control the contents of the theme should now be available in your working directory and you can view them by navigating through the Files tab in RStudio as shown below:&lt;/p&gt;
+&lt;p&gt;The files that control the contents of the theme should now be available in your working directory and you can view them by navigating through the &lt;code&gt;Files&lt;/code&gt; tab in RStudio as shown below:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/file_folders.PNG&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;i&gt;(Note: I will not go into detail on how to edit the configuration files as these differ for each theme. However, there are normally tutorials provided by the theme creators, and if you’re interested in the edits that I made for the Academic theme, you can view them on my &lt;a href=&#34;https://github.com/kcuilla/kcuilla.github.io&#34;&gt;github&lt;/a&gt;).&lt;/i&gt;&lt;/p&gt;
-&lt;p&gt;In order view your configuration edits to your site, run &lt;code&gt;blogdown::serve_site()&lt;/code&gt; and you will be able to see a preview of your website in the Viewer tab in RStudio (or you have the option to view it in your browser by clicking the ‘Show in new window’ icon):&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;(Note: I will not go into detail on how to edit the configuration files as these differ for each theme. However, normally there are tutorials provided by the theme creators, and if you’re interested in the edits that I made for the Academic theme, you can view them on my &lt;a href=&#34;https://github.com/kcuilla/kcuilla.github.io&#34;&gt;GitHub&lt;/a&gt;).&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;In order view your configuration edits to your site, run &lt;code&gt;blogdown::serve_site()&lt;/code&gt; and you will be able to see a preview of your website in the &lt;code&gt;Viewer&lt;/code&gt; tab in RStudio (or you have the option to view it in your browser by clicking the ‘Show in new window’ icon):&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;git-and-netlify&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Git and Netlify&lt;/h1&gt;
-&lt;p&gt;Before deploying your files to a website on Netlify, you’ll first need to push them to your Github repository using Git.&lt;/p&gt;
+&lt;p&gt;Before deploying your site on Netlify, you’ll first need to push them to your GitHub repository using Git in RStudio.&lt;/p&gt;
+&lt;p&gt;There are a couple of different ways to do this. If you are already comfortable using Git commands, then you can use &lt;code&gt;git commit&lt;/code&gt; and &lt;code&gt;git push&lt;/code&gt; in your Terminal to push the files to your GitHub repository.&lt;/p&gt;
+&lt;p&gt;However, if you’re unfamiliar with Git, RStudio has a Git interface that makes this step easier.&lt;/p&gt;
+&lt;p&gt;Within the &lt;code&gt;Git&lt;/code&gt; tab, click the &lt;code&gt;Commit&lt;/code&gt; button. This will pop open a window that looks like the image shown below. You can select the changes you wish to commit by clicking the check boxes in the ‘Staged’ column. Then, you will need to provide a commit message that describes the changes you made before clicking the &lt;code&gt;Commit&lt;/code&gt; button.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/gitcommit.PNG&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Once you click &lt;code&gt;Commit&lt;/code&gt;, the files you selected should disappear, and now all you need to do is click the &lt;code&gt;Push&lt;/code&gt; button with the green arrow next to it and the files will be pushed to your repository and you should be able to see them all in GitHub.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/githubpage.PNG&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Now that you have all of your files on GitHub, you can deploy your site using &lt;a href=&#34;https://www.netlify.com/&#34;&gt;Netlify&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;After signing up for an account, you just need to click the &lt;code&gt;New Site from Git&lt;/code&gt; button and follow the steps to link Netlify to your GitHub repository and Netlify will give you a randomly-generated domain name for you site. You then can change the domain name within the &lt;code&gt;Site Settings&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/website.PNG&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;And there you have it. Your site should now be up and running. If you want to make any edits to it in the future, all you’ll need to do is push the commits to your GitHub repository and Netlify will automatically update the content.&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
