@@ -20,7 +20,7 @@
       <description>
 
 
-&lt;p&gt;The thing I enjoy most about R is the community. I’ve learned an incredible amount from people who are constantly helping others by sharing their knowledge and hard work.&lt;/p&gt;
+&lt;p&gt;When comparing the different programming languages, what sets R apart from the rest is the community. I’ve learned an incredible amount from people who are constantly helping others by sharing their knowledge and hard work.&lt;/p&gt;
 &lt;p&gt;Lately, I’ve been looking for ways to give back to the community and share some of the knowledge I’ve acquired over the years in hopes of helping others like myself. That’s when I stumbled upon &lt;code&gt;blogdown&lt;/code&gt;, an R package designed to help you create your own website.&lt;/p&gt;
 &lt;p&gt;This post outlines how I was able to create my website using &lt;code&gt;blogdown&lt;/code&gt; and a couple other tools, as well as some resources that were beneficial to me during the process.&lt;/p&gt;
 &lt;div id=&#34;getting-started&#34; class=&#34;section level1&#34;&gt;
