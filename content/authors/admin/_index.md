@@ -43,7 +43,7 @@ user_groups:
 - Visitors
 ---
 
-I am a Senior Quantitative Analyst within the fintech industry. I love solving problems and extracting insights from data through analysis and visualization. 
+I am an Analytics professional with five years of experience leveraging data-driven technology to solve business problems and make processes more efficient. I currently work as a Senior Quantitative Analyst within the fintech industry and generate useful insights from data analysis and visualization. 
 
-I received my Master's Degree in Data Analytics from Penn State University. Before that, I attended the University of Maryland where I studied Environmental Science & Technology with a focus in the design of ecotechnology systems. 
+I received my Master's Degree in Data Analytics from Penn State University. Prior to my graduate studies, I received a BS degree in Environmental Science & Technology with a focus in the design of ecotechnology systems from the University of Maryland. 
 

@@ -14,9 +14,9 @@ library(widgetframe)
 
 The thing I enjoy most about R is the community. I've learned an incredible amount from people who are constantly helping others by sharing their knowledge and hard work. 
 
-Lately, I've been looking for ways to give back to the community and share some of the knowledge I've acquired over the years in hopes of helping others like myself. That's when I then stumbled upon `blogdown`, an R package designed to help you create your own website. 
+Lately, I've been looking for ways to give back to the community and share some of the knowledge I've acquired over the years in hopes of helping others like myself. That's when I stumbled upon `blogdown`, an R package designed to help you create your own website. 
 
-This post outlines how I was able to create my site using `blogdown` and a couple other tools, as well as some resources that were beneficial to me during the process.
+This post outlines how I was able to create my website using `blogdown` and a couple other tools, as well as some resources that were beneficial to me during the process.
 
 
 # Getting Started
@@ -30,15 +30,15 @@ The first thing you will need to do is create a new repository on [GitHub](https
 
 Once you've created the repository, you will need to install Git and set it up within RStudio. If you already have Git setup in RStudio, then skip ahead to the next paragraph. If it isn't setup, then follow the instructions outlined in this [post](http://www.geo.uzh.ch/microsite/reproducible_research/post/rr-rstudio-git/) before continuing.
 
-The next step is to create a new project in RStudio with Git version control by way of  `File -> New Project -> Version Control -> Git`. You will see the following for below:
+The next step is to create a new project in RStudio with Git version control by way of  `File -> New Project -> Version Control -> Git`. You will see the following form below:
 
 ![](/img/gitform.PNG)
 
-- <b>Repository URL:</b> the URL of the GitHub repository you just made. For me, this is https://github.com/kcuilla/kcuilla-io-site
-- <b>Project directory name:</b> the name of your GitHub repository. For me, this is kcuilla-io-site
-- <b>Create project as a subdirectory of:</b> the folder location on your local computer where all your files for the site will be stored. It doesn't need to be named anything specific, you may name it anything you like
+- <b>Repository URL:</b> the URL of the GitHub repository you just made. For my site, this is https://github.com/kcuilla/kcuilla-io-site
+- <b>Project directory name:</b> the name of your GitHub repository. For my site, this is kcuilla-io-site
+- <b>Create project as a subdirectory of:</b> the folder location on your local computer where all your files for the site will be stored
 
-After filling out the form and clicking `Create Project`, your GitHub repository is now linked to your project in RStudio and you will soon be able to see any changes you make to the files within your working directory in the `Git` tab as shown below:
+After filling out the form and clicking `Create Project`, your GitHub repository will be linked to your project in RStudio and you will be able to see any changes you make to the files within your working directory in the `Git` tab as shown below:
 
 ![](/img/gitenvironment.PNG)
 
@@ -68,16 +68,16 @@ The files that control the contents of the theme should now be available in your
 
 ![](/img/file_folders.PNG)
 
-<i>(Note: I will not go into detail on how to edit the configuration files as these differ for each theme. However, normally there are tutorials provided by the theme creators, and if you're interested in the edits that I made for the Academic theme, you can view them on my [GitHub](https://github.com/kcuilla/kcuilla.github.io)).</i>
+<i>(Note: I will not go into detail on how to edit the configuration files as these differ for each theme. However, normally there are tutorials provided by the theme creators, and if you're interested in the edits that I made for the Academic theme, you can view them on my [GitHub](https://github.com/kcuilla/kcuilla.github.io))</i>
 
-In order view your configuration edits to your site, run `blogdown::serve_site()` and you will be able to see a preview of your website in the `Viewer` tab in RStudio (or you have the option to view it in your browser by clicking the 'Show in new window' icon):  
+In order view your configuration edits to your site, run `blogdown::serve_site()` and you will be able to see a preview of your website in the `Viewer` tab in RStudio. You also have the option to view it in your browser by clicking the 'Show in new window' icon.  
 
 
 # Git and Netlify
 
 Before deploying your site on Netlify, you'll first need to push them to your GitHub repository using Git in RStudio. 
 
-There are a couple of different ways to do this. If you are already comfortable using Git commands, then you can use `git commit` and `git push` in your Terminal to push the files to your GitHub repository. 
+There are a couple ways to do this. If you are already comfortable using Git commands, then you can use `git commit` and `git push` in your Terminal. 
 
 However, if you're unfamiliar with Git, RStudio has a Git interface that makes this step easier. 
 
@@ -85,16 +85,18 @@ Within the `Git` tab, click the `Commit` button. This will pop open a window tha
 
 ![](/img/gitcommit.PNG)
 
-Once you click `Commit`, the files you selected should disappear, and now all you need to do is click the `Push` button with the green arrow next to it and the files will be pushed to your repository and you should be able to see them all in GitHub.
+Once you click `Commit`, the files you selected should disappear, and now all you need to do is click the `Push` button and the files will be pushed to your repository and you should be able to see them all in GitHub as shown below.
 
 ![](/img/githubpage.PNG)
 
 Now that you have all of your files on GitHub, you can deploy your site using [Netlify](https://www.netlify.com/). 
 
-After signing up for an account, you just need to click the `New Site from Git` button and follow the steps to link Netlify to your GitHub repository and Netlify will give you a randomly-generated domain name for you site. You then can change the domain name within the `Site Settings`. 
+After signing up for an account, click the `New Site from Git` button and follow the steps to link Netlify to your GitHub repository. Netlify will give you a randomly-generated domain name for you site, but you can change the name within the `Site Settings`. 
+
+Test out the site in your browser to make sure everything is up and running as expected:
 
 ![](/img/website.PNG)
 
-And there you have it. Your site should now be up and running. If you want to make any edits to it in the future, all you'll need to do is push the commits to your GitHub repository and Netlify will automatically update the content.
+If you want to make any edits to your site in the future, all you will need to do is edit the configuration files in RStudio, push the commits to your GitHub repository, and then Netlify will automatically update to display the new content.
 
 
