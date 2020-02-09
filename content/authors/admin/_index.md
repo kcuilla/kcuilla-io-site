@@ -23,7 +23,7 @@ name: Kyle Cuilla
 organizations:
 # - name: Stanford University
 #   url: ""
-role: Senior Quantitative Analyst
+role: Senior Quantitative Analyst <br> MPS Data Analytics
 social:
 - icon: envelope
   icon_pack: fas
