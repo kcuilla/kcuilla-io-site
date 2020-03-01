@@ -6,12 +6,6 @@ categories: ["R"]
 #tags: ["R Markdown", "plot", "regression"]
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
-library(highcharter)
-library(widgetframe)
-```
-
 When comparing the different programming languages, what sets R apart from the rest is the community. I've learned an incredible amount from people who are constantly helping others by sharing their knowledge and hard work. 
 
 Lately, I've been looking for ways to give back to the community and share some of the knowledge I've acquired over the years in hopes of helping others like myself. That's when I stumbled upon `blogdown`, an R package designed to help you create your own website. 
