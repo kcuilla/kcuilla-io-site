@@ -609,13 +609,11 @@ Lately, I’ve been looking for ways to give back to the community and share som
 <p>Install the <code>blogdown</code> package and <code>Hugo</code> in RStudio:</p>
 <pre class="r"><code>install.packages(&quot;blogdown&quot;)
 library(blogdown)
-blogdown::install_hugo()
-</code></pre>
+blogdown::install_hugo()</code></pre>
 <p>Pick a theme for your website from <a href="https://themes.gohugo.io/">Hugo Themes</a>. The theme I settled on was the <a href="https://themes.gohugo.io/academic/">Academic</a> theme because I liked both the look and the functionality, but there are plenty of other options available as well.</p>
 <p>Once you have chosen a theme, you can download it using the following <code>blogdown</code> command:</p>
 <pre class="r"><code># Replace user/repo from the theme&#39;s GitHub repository
-blogdown::new_site(theme = &#39;user/repo&#39;)
-</code></pre>
+blogdown::new_site(theme = &#39;user/repo&#39;)</code></pre>
 <p>The files that control the contents of the theme should now be available in your working directory and you can view them by navigating through the <code>Files</code> tab in RStudio as shown below:</p>
 <p><img src="/img/file_folders.PNG" /></p>
 <p><i>(Note: I will not go into detail on how to edit the configuration files as these differ for each theme. However, normally there are tutorials provided by the theme creators, and if you’re interested in the edits that I made for the Academic theme, you can view them on my <a href="https://github.com/kcuilla/kcuilla.github.io">GitHub</a>)</i></p>
@@ -764,7 +762,7 @@ blogdown::new_site(theme = &#39;user/repo&#39;)
 
     <div class="media-body">
       <h5 class="card-title"><a href="/">Kyle Cuilla</a></h5>
-      <h6 class="card-subtitle">Senior Quantitative Analyst <br> MPS Data Analytics</h6>
+      <h6 class="card-subtitle">Lead Quantitative Analyst <br> MPS Data Analytics</h6>
       
       <ul class="network-icon" aria-hidden="true">
   
