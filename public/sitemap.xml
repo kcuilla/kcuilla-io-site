@@ -33,12 +33,17 @@
   </url>
   
   <url>
-    <loc>/post/website-with-blogdown/</loc>
-    <lastmod>2020-02-06T21:13:14-05:00</lastmod>
+    <loc>/post/maps-in-r/</loc>
+    <lastmod>2020-04-05T21:13:14-05:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
+    <lastmod>2020-04-05T21:13:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/website-with-blogdown/</loc>
     <lastmod>2020-02-06T21:13:14-05:00</lastmod>
   </url>
   

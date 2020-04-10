@@ -79,6 +79,263 @@
     </item>
     
     <item>
+      <title>Interactive Maps in R</title>
+      <link>/post/maps-in-r/</link>
+      <pubDate>Sun, 05 Apr 2020 21:13:14 -0500</pubDate>
+      <guid>/post/maps-in-r/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/pymjs/pym.v1.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/widgetframe-binding/widgetframe.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;In this post, I will demonstrate how to create an interactive map and an animated interactive map in R using the &lt;a href=&#34;http://jkunst.com/highcharter/index.html&#34;&gt;Highcharter&lt;/a&gt; package. The dataset I will be using is from the USDA Economic Research Service and contains multiple population metrics for each U.S. county.&lt;/p&gt;
+&lt;div id=&#34;interactive-choropleth-map&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Interactive Choropleth Map&lt;/h2&gt;
+&lt;p&gt;The first interactive map that we will be creating will show the net migration rate by county from 2010 to 2018. The net migration rate is a measure of how the population of an area has changed as a result of migration from both domestic and internation migration. A positive net migration rate indicates that there are more people entering than leaving, and a negative net migration rate indicates more people are leaving than entering.&lt;/p&gt;
+&lt;div id=&#34;data-wrangling&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Data Wrangling&lt;/h3&gt;
+&lt;p&gt;First, you will need to download the data from the USDA ERS &lt;a href=&#34;https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/&#34;&gt;here&lt;/a&gt;. The data is available in both xlsx and csv format. I downloaded the data in csv format and loaded the People.csv file which contains the net migration rate data by county:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(data.table)
+library(highcharter)
+library(dplyr)
+library(tidyr)
+library(widgetframe)
+
+county_df &amp;lt;- fread(&amp;quot;C:/Users/Kyle/Downloads/People.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The dataset contains FIPS codes for each county. In order to map this data, we will ultimately need to join it to the map dataset from the &lt;code&gt;highcharter&lt;/code&gt; package. We can see that the map data also contains a FIPS column called ‘fips’ so this will be the column that we will eventually join on:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;us_counties &amp;lt;- get_data_from_map(download_map_data(&amp;quot;countries/us/us-all-all&amp;quot;))
+
+glimpse(us_counties)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Observations: 3,147
+## Variables: 7
+## $ `hc-group`    &amp;lt;chr&amp;gt; &amp;quot;admin2&amp;quot;, &amp;quot;admin2&amp;quot;, &amp;quot;admin2&amp;quot;, &amp;quot;admin2&amp;quot;, &amp;quot;admin2&amp;quot;, &amp;quot;ad...
+## $ `hc-middle-x` &amp;lt;dbl&amp;gt; 0.21, 0.34, 0.05, 0.68, 0.55, 0.44, 0.53, 0.30, 0.35,...
+## $ `hc-middle-y` &amp;lt;dbl&amp;gt; 0.41, 0.75, 0.08, 0.77, 0.54, 0.18, 0.30, 0.58, 0.95,...
+## $ `hc-key`      &amp;lt;chr&amp;gt; &amp;quot;us-ca-083&amp;quot;, &amp;quot;us-fl-087&amp;quot;, &amp;quot;us-mi-033&amp;quot;, &amp;quot;us-al-097&amp;quot;, &amp;quot;...
+## $ `hc-a2`       &amp;lt;chr&amp;gt; &amp;quot;SB&amp;quot;, &amp;quot;MO&amp;quot;, &amp;quot;CH&amp;quot;, &amp;quot;MO&amp;quot;, &amp;quot;BR&amp;quot;, &amp;quot;AS&amp;quot;, &amp;quot;DU&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;FR&amp;quot;,...
+## $ fips          &amp;lt;chr&amp;gt; &amp;quot;06083&amp;quot;, &amp;quot;12087&amp;quot;, &amp;quot;26033&amp;quot;, &amp;quot;01097&amp;quot;, &amp;quot;08014&amp;quot;, &amp;quot;55003&amp;quot;,...
+## $ name          &amp;lt;chr&amp;gt; &amp;quot;Santa Barbara&amp;quot;, &amp;quot;Monroe&amp;quot;, &amp;quot;Chippewa&amp;quot;, &amp;quot;Mobile&amp;quot;, &amp;quot;Bro...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There is just one small difference in the FIPS codes in each dataset that needs to be corrected. The FIPS codes in the &lt;code&gt;us_counties&lt;/code&gt; dataset are missing leading zero’s for a few states, but we can correct this using the code below &lt;i&gt;(note: the dataset contains a FIPS code for the United States and for each state, but these will be removed when we join to the &lt;code&gt;us_counties&lt;/code&gt; dataset):&lt;/i&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;migration_df &amp;lt;- county_df %&amp;gt;% 
+  select(c(FIPS,State,County,rate=NetMigrationRate1018)) %&amp;gt;%
+  mutate(fips = ifelse(nchar(FIPS)&amp;lt;5,paste0(&amp;quot;0&amp;quot;,FIPS),FIPS))
+
+head(migration_df)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   FIPS State        County  rate  fips
+## 1    0    US United States  2.28    00
+## 2 1000    AL       Alabama  0.84 01000
+## 3 1001    AL       Autauga  0.28 01001
+## 4 1003    AL       Baldwin 18.14 01003
+## 5 1005    AL       Barbour -8.27 01005
+## 6 1007    AL          Bibb -2.25 01007&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;creating-the-map&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Creating the Map&lt;/h3&gt;
+&lt;p&gt;Using the &lt;code&gt;hcmap&lt;/code&gt; function, we can create a basic interactive map like the one shown below:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;migration_map &amp;lt;- hcmap(map = &amp;quot;countries/us/us-all-all&amp;quot;, 
+      data = migration_df, 
+      value = &amp;quot;rate&amp;quot;, 
+      joinBy = c(&amp;quot;fips&amp;quot;),
+      borderColor = &amp;quot;transparent&amp;quot;, 
+      borderWidth = 0.1) 
+
+frameWidget(migration_map)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:100%;height:480px;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-4.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;/div&gt;
+&lt;div id=&#34;modifying-colors-and-adding-a-legend&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Modifying Colors and Adding a Legend&lt;/h3&gt;
+&lt;p&gt;Since net migration rate can be either a positive or negative value, we will want to use a diverging color scheme to properly display the rates by county. I chose to bucket the data into groups to make the color scheme more distinguishable using the &lt;code&gt;color_classes&lt;/code&gt; function. I also re-formatted the legend using &lt;code&gt;hc_legend&lt;/code&gt; and enabled users to zoom in and out on the map by setting the &lt;code&gt;hc_mapNavigation&lt;/code&gt; option to true.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;migration_map &amp;lt;- migration_map %&amp;gt;%
+  hc_colorAxis(dataClasses = color_classes(c(-100,-25,-10,0,10,25,100))) %&amp;gt;%
+  hc_legend(layout = &amp;quot;vertical&amp;quot;, 
+            align = &amp;quot;right&amp;quot;,
+            floating = TRUE, 
+            valueDecimals = 0, 
+            valueSuffix = &amp;quot;%&amp;quot;) %&amp;gt;%
+  hc_mapNavigation(enabled = TRUE)
+
+frameWidget(migration_map)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-2&#34; style=&#34;width:100%;height:480px;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-2&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-5.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;/div&gt;
+&lt;div id=&#34;editing-the-hover-display&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Editing the Hover Display&lt;/h3&gt;
+&lt;p&gt;When you hover over the counties in the map above, you’ll notice that the information displayed in the box is limited. In order to edit what is displayed when you hover over a county, we can use the &lt;code&gt;hc_tooltip&lt;/code&gt; option and create a JavaScript function that displays the state name, county name, and net migration rate percentage.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;migration_map &amp;lt;- migration_map %&amp;gt;%
+  hc_tooltip(formatter = JS(&amp;quot;function() {
+  return (&amp;#39;&amp;lt;b&amp;gt;State:&amp;lt;/b&amp;gt; &amp;#39; + this.point.State +
+          &amp;#39;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;County:&amp;lt;/b&amp;gt; &amp;#39; + this.point.County +
+          &amp;#39;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;Net Migration Rate:&amp;lt;/b&amp;gt; &amp;#39; + this.point.rate + &amp;#39;%&amp;#39;
+  )}&amp;quot;)) 
+
+frameWidget(migration_map)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-3&#34; style=&#34;width:100%;height:480px;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-3&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-6.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;/div&gt;
+&lt;div id=&#34;adding-a-title&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Adding a Title&lt;/h3&gt;
+&lt;p&gt;Lastly, we will add a title to our interactive map by using &lt;code&gt;hc_title&lt;/code&gt; and &lt;code&gt;hc_subtitle&lt;/code&gt; and add credits by enabling the &lt;code&gt;hc_credit&lt;/code&gt; option.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;migration_map &amp;lt;- migration_map %&amp;gt;%
+  hc_tooltip(formatter = JS(&amp;quot;function() {
+  return (&amp;#39;&amp;lt;b&amp;gt;State:&amp;lt;/b&amp;gt; &amp;#39; + this.point.State +
+          &amp;#39;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;County:&amp;lt;/b&amp;gt; &amp;#39; + this.point.County +
+          &amp;#39;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;Net Migration Rate:&amp;lt;/b&amp;gt; &amp;#39; + this.point.rate + &amp;#39;%&amp;#39;
+  )}&amp;quot;)) %&amp;gt;%
+  hc_title(text = &amp;quot;Net Migration Rate by County, 2010-18&amp;quot;) %&amp;gt;%
+  hc_subtitle(text = &amp;quot;Change in county population in 2018 due to net migration as a % of the initial population in 2010&amp;quot;) %&amp;gt;%
+  hc_credits(enabled = TRUE,
+             text = &amp;quot;Author: Kyle Cuilla, Data: USDA ERS&amp;quot;,
+             href = &amp;quot;https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;final-result&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Final Result&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;frameWidget(migration_map)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-4&#34; style=&#34;width:100%;height:480px;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-4&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-8.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;animated-choropleth-map&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Animated Choropleth Map&lt;/h2&gt;
+&lt;p&gt;Let’s say we wanted to see how a metric, such as population density, has changed within a particular state over time. Within the same &lt;code&gt;county_df&lt;/code&gt; dataset that we have been using, there is an estimated population column for each of the years between 2010 and 2018, as well the land area for each county. We can use this data to calculate an estimated population density for each year and map the data. However, instead of creating nine separate maps (one map for each year), we can combine these maps into one consolidated view in the form of an animated map using the following steps below.&lt;/p&gt;
+&lt;div id=&#34;data-wrangling-1&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Data Wrangling&lt;/h3&gt;
+&lt;p&gt;For this example, we will only be looking at population density in the state of Texas, so we have filtered the dataset to only include the counties in Texas using &lt;code&gt;filter&lt;/code&gt; in the code below.&lt;/p&gt;
+&lt;p&gt;We can calculate the population density for each year in the dataset by creating a function for the calculation, called ‘pop_density’ and then applying it across each yearly estimated population column by utilizing &lt;code&gt;mutate_at&lt;/code&gt; within the &lt;code&gt;dplyr&lt;/code&gt; package.&lt;/p&gt;
+&lt;p&gt;The dataset we’re using has the estimated populations for each year in individual columns, but we will need to later convert the population densities into a list, so we can use &lt;code&gt;gather&lt;/code&gt; from the &lt;code&gt;tidyr&lt;/code&gt; package to collapse the columns into one column called ‘density’ and use ‘years’ as the key column.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pop_density &amp;lt;- function(x){
+  round(x/county_df$LandAreaSQMiles2010,0)
+}
+
+population_df &amp;lt;- county_df %&amp;gt;% 
+  select(c(FIPS,State,County,
+           &amp;#39;2010&amp;#39;=TotalPopEst2010,
+           &amp;#39;2011&amp;#39;=TotalPopEst2011,
+           &amp;#39;2012&amp;#39;=TotalPopEst2012,
+           &amp;#39;2013&amp;#39;=TotalPopEst2013,
+           &amp;#39;2014&amp;#39;=TotalPopEst2014,
+           &amp;#39;2015&amp;#39;=TotalPopEst2015,
+           &amp;#39;2016&amp;#39;=TotalPopEst2016,
+           &amp;#39;2017&amp;#39;=TotalPopEst2017,
+           &amp;#39;2018&amp;#39;=TotalPopEst2018)) %&amp;gt;%
+  mutate_at(vars(matches(&amp;quot;201&amp;quot;)),pop_density) %&amp;gt;%
+  filter(State == &amp;#39;TX&amp;#39;) %&amp;gt;%
+  gather(year,density,-c(FIPS,State,County)) %&amp;gt;%
+  mutate(fips = ifelse(nchar(FIPS)&amp;lt;5,paste0(&amp;quot;0&amp;quot;,FIPS),FIPS)) %&amp;gt;%
+  filter(!grepl(&amp;#39;000&amp;#39;,FIPS),
+         !State == &amp;#39;US&amp;#39;)
+
+head(population_df)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    FIPS State    County year density  fips
+## 1 48001    TX  Anderson 2010      55 48001
+## 2 48003    TX   Andrews 2010      10 48003
+## 3 48005    TX  Angelina 2010     109 48005
+## 4 48007    TX   Aransas 2010      92 48007
+## 5 48009    TX    Archer 2010      10 48009
+## 6 48011    TX Armstrong 2010       2 48011&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next, we will create a list of the population densities for each county and store it in a column called ‘sequence’ by using the &lt;code&gt;list_parse&lt;/code&gt; function.&lt;/p&gt;
+&lt;p&gt;You can see in the output below that we have a column containing the FIPS codes for each county and a list of length 9 which contains one population density value for each year from 2010 to 2018:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;population_df_seq &amp;lt;- population_df %&amp;gt;%
+  group_by(fips) %&amp;gt;%
+  do(sequence = list_parse(select(., value = density)))
+
+head(population_df_seq)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Source: local data frame [6 x 2]
+## Groups: &amp;lt;by row&amp;gt;
+## 
+## # A tibble: 6 x 2
+##    fips sequence  
+##   &amp;lt;int&amp;gt; &amp;lt;list&amp;gt;    
+## 1 48001 &amp;lt;list [9]&amp;gt;
+## 2 48003 &amp;lt;list [9]&amp;gt;
+## 3 48005 &amp;lt;list [9]&amp;gt;
+## 4 48007 &amp;lt;list [9]&amp;gt;
+## 5 48009 &amp;lt;list [9]&amp;gt;
+## 6 48011 &amp;lt;list [9]&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And now we join this dataset back to the original dataset so that we have the state and county names as well as the years included:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;population_df &amp;lt;- left_join(population_df,population_df_seq)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;fips&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(population_df)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    FIPS State    County year density  fips
+## 1 48001    TX  Anderson 2010      55 48001
+## 2 48003    TX   Andrews 2010      10 48003
+## 3 48005    TX  Angelina 2010     109 48005
+## 4 48007    TX   Aransas 2010      92 48007
+## 5 48009    TX    Archer 2010      10 48009
+## 6 48011    TX Armstrong 2010       2 48011
+##                                      sequence
+## 1          55, 55, 55, 55, 54, 54, 54, 55, 55
+## 2          10, 10, 11, 11, 12, 12, 12, 12, 12
+## 3 109, 109, 110, 109, 110, 110, 110, 110, 109
+## 4        92, 92, 93, 95, 97, 98, 100, 101, 94
+## 5          10, 10, 10, 10, 10, 10, 10, 10, 10
+## 6                   2, 2, 2, 2, 2, 2, 2, 2, 2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;creating-the-map-1&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Creating the Map&lt;/h3&gt;
+&lt;p&gt;The steps for creating the animated map will be similar to what was outlined for the first map in this post with a few minor modifications/additions.&lt;/p&gt;
+&lt;p&gt;Since our &lt;code&gt;population_df&lt;/code&gt; dataset only contains counties within the state of Texas, we will need to change the map value from ‘countries/us/us-all-all’ to ‘countries/us/us-tx-all’.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pop_density_map &amp;lt;- hcmap(map = &amp;quot;countries/us/us-tx-all&amp;quot;, 
+      data = population_df, 
+      value = &amp;quot;density&amp;quot;, 
+      joinBy = c(&amp;quot;fips&amp;quot;),
+      borderColor = &amp;quot;transparent&amp;quot;, 
+      borderWidth = 0.1) %&amp;gt;%
+hc_colorAxis(dataClasses = color_classes(
+  breaks = c(0,10,25,50,100,250,500,1000,2500,max(population_df$density)),
+  colors = c(&amp;quot;#ffffcc&amp;quot;,&amp;quot;#ffeda0&amp;quot;,&amp;quot;#fed976&amp;quot;,&amp;quot;#feb24c&amp;quot;,&amp;quot;#fd8d3c&amp;quot;,&amp;quot;#fc4e2a&amp;quot;,&amp;quot;#e31a1c&amp;quot;,&amp;quot;#bd0026&amp;quot;,&amp;quot;#800026&amp;quot;)))
+
+frameWidget(pop_density_map)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-5&#34; style=&#34;width:100%;height:480px;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-5&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-12.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;/div&gt;
+&lt;div id=&#34;animating-the-map&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Animating the Map&lt;/h3&gt;
+&lt;p&gt;We created a standard interactive map that’s similar to the one we created in the previous example. In order to add an animation feature to the map, we need to enable the &lt;code&gt;hc_motion&lt;/code&gt; option which will use our sequence column and iterate through each value by year. You can use the play button to play/pause or use the slider to control the animation.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pop_density_map &amp;lt;- pop_density_map %&amp;gt;%
+hc_motion(enabled = TRUE, 
+          series = 0, 
+          startIndex = 0,
+          autoPlay = TRUE,
+          labels = unique(population_df$year))
+
+frameWidget(pop_density_map)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-6&#34; style=&#34;width:100%;height:480px;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-6&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-13.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;/div&gt;
+&lt;div id=&#34;adding-finishing-touches&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Adding Finishing Touches&lt;/h3&gt;
+&lt;p&gt;Now, we can format the hover points and add a legend and title like we did in the previous example.&lt;/p&gt;
+&lt;p&gt;One difference from our previous example is that now we are displaying numbers in the thousands in our legend, so if we want to add commas to the numbers, we need to include the first three lines in the code below:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hcoptslang &amp;lt;- getOption(&amp;quot;highcharter.lang&amp;quot;)
+hcoptslang$thousandsSep &amp;lt;- &amp;quot;,&amp;quot;
+options(highcharter.lang = hcoptslang)
+
+pop_density_map &amp;lt;- pop_density_map %&amp;gt;% 
+  hc_tooltip(formatter = JS(&amp;quot;function() {
+  return (&amp;#39;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;County:&amp;lt;/b&amp;gt; &amp;#39; + this.point.County +
+          &amp;#39;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;Population Density:&amp;lt;/b&amp;gt; &amp;#39; + this.point.density + &amp;#39; people per sq mi&amp;#39;
+  )}&amp;quot;)) %&amp;gt;%
+  hc_legend(layout = &amp;quot;vertical&amp;quot;, 
+            align = &amp;quot;right&amp;quot;,
+            floating = TRUE, 
+            valueDecimals = 0) %&amp;gt;%
+  hc_title(text = &amp;quot;Population Density by County in Texas&amp;quot;) %&amp;gt;%
+  hc_subtitle(text = &amp;quot;Population per square mile by county from 2010 to 2018&amp;quot;) %&amp;gt;%
+  hc_credits(enabled = TRUE,
+             text = &amp;quot;Author: Kyle Cuilla, Data: USDA ERS&amp;quot;,
+             href = &amp;quot;https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/&amp;quot;)
+
+frameWidget(pop_density_map)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-7&#34; style=&#34;width:100%;height:480px;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-7&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-14.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>How to Create a Website in R Using the Blogdown Package</title>
       <link>/post/website-with-blogdown/</link>
       <pubDate>Thu, 06 Feb 2020 21:13:14 -0500</pubDate>
