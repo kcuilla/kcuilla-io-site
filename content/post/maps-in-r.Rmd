@@ -3,7 +3,6 @@ title: "Interactive Maps in R"
 author: "Kyle Cuilla"
 date: 2020-04-05T21:13:14-05:00
 categories: ["R"]
-#tags: ["R Markdown", "plot", "regression"]
 ---
 
 In this post, I will demonstrate how to create an interactive map and an animated interactive map in R using the [Highcharter](http://jkunst.com/highcharter/index.html) package. The dataset I will be using is from the USDA Economic Research Service and contains multiple population metrics for each U.S. county. 
