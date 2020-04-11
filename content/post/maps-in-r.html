@@ -3,7 +3,6 @@ title: "Interactive Maps in R"
 author: "Kyle Cuilla"
 date: 2020-04-05T21:13:14-05:00
 categories: ["R"]
-#tags: ["R Markdown", "plot", "regression"]
 ---
 
 <script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
@@ -66,6 +65,9 @@ frameWidget(migration_map)</code></pre>
 <div id="htmlwidget-1" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
 <script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-4.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 </div>
+
+&lt;br&gt;
+
 <div id="modifying-colors-and-adding-a-legend" class="section level3">
 <h3>Modifying Colors and Adding a Legend</h3>
 <p>Since net migration rate can be either a positive or negative value, we will want to use a diverging color scheme to properly display the rates by county. I chose to bucket the data into groups to make the color scheme more distinguishable using the <code>color_classes</code> function. I also re-formatted the legend using <code>hc_legend</code> and enabled users to zoom in and out on the map by setting the <code>hc_mapNavigation</code> option to true.</p>
