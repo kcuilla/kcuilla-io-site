@@ -59,6 +59,8 @@ migration_map <- hcmap(map = "countries/us/us-all-all",
 frameWidget(migration_map)
 ```
 
+<br>
+
 ### Modifying Colors and Adding a Legend
 
 Since net migration rate can be either a positive or negative value, we will want to use a diverging color scheme to properly display the rates by county. I chose to bucket the data into groups to make the color scheme more distinguishable using the `color_classes` function. I also re-formatted the legend using `hc_legend` and enabled users to zoom in and out on the map by setting the `hc_mapNavigation` option to true.  
