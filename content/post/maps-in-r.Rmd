@@ -342,3 +342,5 @@ animated_map <- animated_map %>%
 ```{r echo=FALSE}
 frameWidget(animated_map)
 ```
+
+<br>
