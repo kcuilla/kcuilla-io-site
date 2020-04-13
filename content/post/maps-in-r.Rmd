@@ -126,13 +126,9 @@ frameWidget(density_map)
 
 <br>
 
-<<<<<<< HEAD
 #### Customizing the Map
 
 In the map above, the counties with the highest population densities clearly stand out. However, it is difficult to distinguish the differences between the counties with lower population densities.
-=======
-### Modifying Colors and Adding a Legend
->>>>>>> 3574c1f89f0629fd627dd891d9a5b6467c5dca79
 
 In order to correct this, we can assign color breaks to the data by utilizing the `hc_colorAxis` function and assigning a color palette from the `RColorBrewer` package:
 
@@ -242,7 +238,6 @@ final_animated_map <- hcmap(map = "countries/us/us-tx-all",
           series = 0, 
           autoPlay = TRUE,
           loop = TRUE,
-          magnet = list(step =  0.03),
           labels = unique(density_df_by_year$year)) 
 ```
 
@@ -341,7 +336,6 @@ animated_map <- animated_map %>%
           series = 0, 
           autoPlay = TRUE,
           loop = TRUE,
-          magnet = list(step =  0.03),
           labels = unique(density_df_by_year$year))
 ```
 
