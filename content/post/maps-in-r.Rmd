@@ -3,136 +3,265 @@ title: "Interactive Maps in R"
 author: "Kyle Cuilla"
 date: 2020-04-05T21:13:14-05:00
 categories: ["R"]
-#tags: ["R Markdown", "plot", "regression"]
 ---
 
-In this post, I will demonstrate how to create an interactive map and an animated interactive map in R using the [Highcharter](http://jkunst.com/highcharter/index.html) package. The dataset I will be using is from the USDA Economic Research Service and contains multiple population metrics for each U.S. county. 
+This post shows you how to create interactive maps in R using the [highcharter](http://jkunst.com/highcharter/index.html) package. 
+
+## Why Interactive Maps?
+
+Static maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.
+
+Adding interactivity to a map further improves data interpretability by allowing users to:
+
+- Explore the data by zooming in on areas of interest
+- Choose what data values to be displayed or excluded
+- Hover over an area of interest and get additional info/the exact value that's being displayed
 
 ## Interactive Choropleth Map
 
-The first interactive map that we will be creating will show the net migration rate by county from 2010 to 2018. The net migration rate is a measure of how the population of an area has changed as a result of migration from both domestic and internation migration. A positive net migration rate indicates that there are more people entering than leaving, and a negative net migration rate indicates more people are leaving than entering.
+The first interactive map I will show you how to create is a population density map by county for the state of Texas: 
 
-### Data Wrangling
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(data.table)
+library(highcharter)
+library(dplyr)
+library(tidyr)
+library(RColorBrewer)
+library(widgetframe)
 
-First, you will need to download the data from the USDA ERS [here](https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/). The data is available in both xlsx and csv format. I downloaded the data in csv format and loaded the People.csv file which contains the net migration rate data by county:
+county_df <- fread("C:/Users/Kyle/Downloads/People.csv")
+
+density_df <- county_df %>% 
+  filter(State == 'TX') %>% 
+  select(c(FIPS,State,County,TotalPopEst2018,LandAreaSQMiles2010)) %>%
+  mutate(fips = ifelse(nchar(FIPS)<5,paste0("0",FIPS),FIPS),
+         density = round(TotalPopEst2018/LandAreaSQMiles2010,0))
+
+final_density_map <- hcmap(map = "countries/us/us-tx-all", 
+      data = density_df, 
+      value = "density", 
+      joinBy = c("fips"),
+      borderWidth = 0.3)  %>%
+  hc_mapNavigation(enabled = TRUE) %>% 
+  hc_colorAxis(dataClasses = color_classes(breaks = c(0,10,25,50,100,250,500,1000,2500,max(density_df$density)),
+              colors = brewer.pal(name="YlOrRd",n=9))) %>%
+  hc_legend(layout = "vertical", 
+            align = "right",
+            floating = TRUE, 
+            valueDecimals = 0) %>% 
+    hc_tooltip(formatter = JS("function() {
+  return ('<br><b>County:</b> ' + this.point.County +
+          '<br><b>Population Density:</b> ' + this.point.density + ' people per sq mi'
+  )}")) %>%
+  hc_title(text = "Population Density by County, 2018") %>%
+  hc_credits(enabled = TRUE,
+             text = "Author: Kyle Cuilla, Data: USDA ERS",
+             href = "https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/")
+
+hcoptslang <- getOption("highcharter.lang")
+hcoptslang$thousandsSep <- ","
+options(highcharter.lang = hcoptslang)
+```
+
+```{r echo=FALSE}
+frameWidget(final_density_map)
+```
+
+<br>
+
+### Prerequisites
+
+Before we get started, you will need to load the following packages:
 
 ```{r warning=FALSE, message=FALSE}
 library(data.table)
 library(highcharter)
 library(dplyr)
 library(tidyr)
-library(widgetframe)
-
-county_df <- fread("C:/Users/Kyle/Downloads/People.csv")
+library(RColorBrewer)
 ```
 
-The dataset contains FIPS codes for each county. In order to map this data, we will ultimately need to join it to the map dataset from the `highcharter` package. We can see that the map data also contains a FIPS column called 'fips' so this will be the column that we will eventually join on:  
+### Data Prep
 
-```{r, message=FALSE}
-us_counties <- get_data_from_map(download_map_data("countries/us/us-all-all"))
-
-glimpse(us_counties)
-```
-
-There is just one small difference in the FIPS codes in each dataset that needs to be corrected. The FIPS codes in the `us_counties` dataset are missing leading zero's for a few states, but we can correct this using the code below <i>(note: the dataset contains a FIPS code for the United States and for each state, but these will be removed when we join to the `us_counties` dataset):</i>
+The dataset we'll be using is from the [USDA ERS](https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/). The data is available in both xlsx and csv format. I downloaded the data in csv format and loaded the People.csv file which contains the population estimates:
 
 ```{r}
-migration_df <- county_df %>% 
-  select(c(FIPS,State,County,rate=NetMigrationRate1018)) %>%
-  mutate(fips = ifelse(nchar(FIPS)<5,paste0("0",FIPS),FIPS))
+county_df <- fread("C:/Users/Kyle/Downloads/People.csv") %>% 
+  filter(State == 'TX')
+```
 
-head(migration_df)
+The dataset contains FIPS codes for each county. In order to map this data, we will need to join it to the dataset containing the geographic information for each county from the `highcharter` package.  
+
+```{r, message=FALSE}
+tx_counties <- get_data_from_map(download_map_data("countries/us/us-tx-all"))
+
+glimpse(tx_counties)
+```
+
+Before joining the datasets, we need to calculate the population density for 2018. We can do this by using `mutate` from the `dplyr` package to create a column called 'density' and divide the 'TotalPopEst2018' column by the 'LandAreaSQMiles2010' column as shown below: 
+
+```{r}
+density_df <- county_df %>% 
+  select(c(fips=FIPS,County,TotalPopEst2018,LandAreaSQMiles2010)) %>%
+  mutate(density = round(TotalPopEst2018/LandAreaSQMiles2010,0))
+
+head(density_df)
 ```
 
 ### Creating the Map
 
-Using the `hcmap` function, we can create a basic interactive map like the one shown below:
+Using the `hcmap` function from `highcharter`, we can create a basic interactive map like this one:
 
 ```{r}
-migration_map <- hcmap(map = "countries/us/us-all-all", 
-      data = migration_df, 
-      value = "rate", 
-      joinBy = c("fips"),
-      borderColor = "transparent", 
-      borderWidth = 0.1) 
-
-frameWidget(migration_map)
+density_map <- hcmap(map = "countries/us/us-tx-all", 
+      data = density_df, 
+      value = "density", 
+      joinBy = c("fips"))  %>%
+  hc_mapNavigation(enabled = TRUE)
 ```
 
-### Modifying Colors and Adding a Legend
+```{r echo=FALSE}
+frameWidget(density_map)
+```
 
-Since net migration rate can be either a positive or negative value, we will want to use a diverging color scheme to properly display the rates by county. I chose to bucket the data into groups to make the color scheme more distinguishable using the `color_classes` function. I also re-formatted the legend using `hc_legend` and enabled users to zoom in and out on the map by setting the `hc_mapNavigation` option to true.  
+<br>
+
+#### Customizing the Map
+
+In the map above, the counties with the highest population densities clearly stand out. However, it is difficult to distinguish the differences between the counties with lower population densities.
+
+In order to correct this, we can assign color breaks to the data by utilizing the `hc_colorAxis` function and assigning a color palette from the `RColorBrewer` package:
 
 ```{r}
-migration_map <- migration_map %>%
-  hc_colorAxis(dataClasses = color_classes(c(-100,-25,-10,0,10,25,100))) %>%
+density_map <- hcmap(map = "countries/us/us-tx-all", 
+      data = density_df, 
+      value = "density", 
+      joinBy = c("fips"),
+      borderWidth = 0.3)  %>%
+  hc_mapNavigation(enabled = TRUE) %>% 
   hc_legend(layout = "vertical", 
             align = "right",
             floating = TRUE, 
-            valueDecimals = 0, 
-            valueSuffix = "%") %>%
-  hc_mapNavigation(enabled = TRUE)
-
-frameWidget(migration_map)
+            valueDecimals = 0) %>% 
+  hc_colorAxis(dataClasses = color_classes(breaks = c(0,10,25,50,100,250,500,1000,2500,max(density_df$density)),
+              colors = brewer.pal(name="YlOrRd",n=9)))
 ```
 
-### Editing the Hover Display
+The next thing we will need to do is modify what is displayed when you hover (or click if you are viewing on a mobile device) on a particular county.
 
-When you hover over the counties in the map above, you'll notice that the information displayed in the box is limited. In order to edit what is displayed when you hover over a county, we can use the `hc_tooltip` option and create a JavaScript function that displays the state name, county name, and net migration rate percentage.
+By creating a JavaScript function within the `hc_tooltip` option, we can more clearly display the name and population density for each county.
 
 ```{r}
-migration_map <- migration_map %>%
-  hc_tooltip(formatter = JS("function() {
-  return ('<b>State:</b> ' + this.point.State +
-          '<br><b>County:</b> ' + this.point.County +
-          '<br><b>Net Migration Rate:</b> ' + this.point.rate + '%'
-  )}")) 
-
-frameWidget(migration_map)
+density_map <- density_map %>%
+    hc_tooltip(formatter = JS("function() {
+  return ('<br><b>County:</b> ' + this.point.County +
+          '<br><b>Population Density:</b> ' + this.point.density + ' people per sq mi'
+  )}"))
 ```
 
-### Adding a Title
-
-Lastly, we will add a title to our interactive map by using `hc_title` and `hc_subtitle` and add credits by enabling the `hc_credit` option.
+Now, the only thing left is to add a title and source to the map which we can do with the `hc_title` and `hc_credits` options:
 
 ```{r}
-migration_map <- migration_map %>%
-  hc_tooltip(formatter = JS("function() {
-  return ('<b>State:</b> ' + this.point.State +
-          '<br><b>County:</b> ' + this.point.County +
-          '<br><b>Net Migration Rate:</b> ' + this.point.rate + '%'
-  )}")) %>%
-  hc_title(text = "Net Migration Rate by County, 2010-18") %>%
-  hc_subtitle(text = "Change in county population in 2018 due to net migration as a % of the initial population in 2010") %>%
+density_map <- density_map %>% 
+  hc_title(text = "Population Density by County, 2018") %>%
   hc_credits(enabled = TRUE,
              text = "Author: Kyle Cuilla, Data: USDA ERS",
              href = "https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/")
 ```
 
-### Final Result
+And here is our final result!
 
-```{r}
-frameWidget(migration_map)
+```{r echo=FALSE}
+frameWidget(density_map)
 ```
+
+<br>
 
 ## Animated Choropleth Map
 
-Let's say we wanted to see how a metric, such as population density, has changed within a particular state over time. Within the same `county_df` dataset that we have been using, there is an estimated population column for each of the years between 2010 and 2018, as well the land area for each county. We can use this data to calculate an estimated population density for each year and map the data. However, instead of creating nine separate maps (one map for each year), we can combine these maps into one consolidated view in the form of an animated map using the following steps below.
+So now we have our map that displays the population density by county in 2018. 
 
-### Data Wrangling
+Let's say that we want to see how the population density has changed over time. How would we go about doing this?
 
-For this example, we will only be looking at population density in the state of Texas, so we have filtered the dataset to only include the  counties in Texas using `filter` in the code below.
+Well, we could create nine separate maps (one for each year from 2010 to 2018), but this would take up a lot of space and because the maps would each be separate, and because each map would be separate, it may be difficult to detect subtle difference between each year. 
 
-We can calculate the population density for each year in the dataset by creating a function for the calculation, called 'pop_density' and then applying it across each yearly estimated population column by utilizing `mutate_at` within the `dplyr` package.
+To solve these issues, we can create an animated map instead:
 
-The dataset we're using has the estimated populations for each year in individual columns, but we will need to later convert the population densities into a list, so we can use `gather` from the `tidyr` package to collapse the columns into one column called 'density' and use 'years' as the key column.
+```{r echo=FALSE, message=FALSE}
+pop_density <- function(x){
+  round(x/county_df$LandAreaSQMiles2010,0)
+}
+
+density_df_by_year <- county_df %>% 
+  select(c(FIPS,State,County,
+           '2010'=TotalPopEst2010,
+           '2011'=TotalPopEst2011,
+           '2012'=TotalPopEst2012,
+           '2013'=TotalPopEst2013,
+           '2014'=TotalPopEst2014,
+           '2015'=TotalPopEst2015,
+           '2016'=TotalPopEst2016,
+           '2017'=TotalPopEst2017,
+           '2018'=TotalPopEst2018)) %>%
+  mutate_at(vars(matches("201")),pop_density) %>%
+  filter(State == 'TX') %>%
+  gather(year,density,-c(FIPS,State,County)) %>%
+  mutate(fips = ifelse(nchar(FIPS)<5,paste0("0",FIPS),FIPS))
+
+density_df_seq <- density_df_by_year %>%
+  group_by(fips) %>%
+  do(sequence = list_parse(select(., value = density)))
+
+density_df_by_year <- left_join(density_df_by_year,density_df_seq)
+
+final_animated_map <- hcmap(map = "countries/us/us-tx-all", 
+      data = density_df_by_year, 
+      value = "density", 
+      joinBy = c("fips"),
+      borderWidth = 0.3)  %>%
+  hc_mapNavigation(enabled = TRUE) %>% 
+  hc_colorAxis(dataClasses = color_classes(breaks = c(0,10,25,50,100,250,500,1000,2500,max(density_df_by_year$density)),
+              colors = brewer.pal(name="YlOrRd",n=9))) %>%
+  hc_legend(layout = "vertical", 
+            align = "right",
+            floating = TRUE, 
+            valueDecimals = 0) %>% 
+    hc_tooltip(formatter = JS("function() {
+  return ('<br><b>County:</b> ' + this.point.County +
+          '<br><b>Population Density:</b> ' + this.point.density + ' people per sq mi'
+  )}")) %>%
+  hc_title(text = "Population Density by County, 2010 to 2018") %>%
+  hc_credits(enabled = TRUE,
+             text = "Author: Kyle Cuilla, Data: USDA ERS",
+             href = "https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/") %>%  
+    hc_motion(enabled = TRUE, 
+          series = 0, 
+          autoPlay = TRUE,
+          loop = TRUE,
+          magnet = list(step =  0.03),
+          labels = unique(density_df_by_year$year)) 
+```
+
+```{r echo=FALSE}
+frameWidget(final_animated_map)
+```
+
+<br>
+
+### Data Prep
+
+The `county_df` dataset we've been using contains estimated populations for each year.
+
+We can calculate the population densities for each of these years by creating a function called 'pop_density' and applying it to each population estimate. 
+
+We can then use the `gather` function from the `tidyr` package to put all of the population densities into a single column called 'density' and all of the years into a single column called 'years'.
 
 ```{r}
 pop_density <- function(x){
   round(x/county_df$LandAreaSQMiles2010,0)
 }
 
-population_df <- county_df %>% 
+density_df_by_year <- county_df %>% 
   select(c(FIPS,State,County,
            '2010'=TotalPopEst2010,
            '2011'=TotalPopEst2011,
@@ -150,89 +279,68 @@ population_df <- county_df %>%
   filter(!grepl('000',FIPS),
          !State == 'US')
 
-head(population_df)
+head(density_df_by_year)
 ```
 
-Next, we will create a list of the population densities for each county and store it in a column called 'sequence' by using the `list_parse` function.
-
-You can see in the output below that we have a column containing the FIPS codes for each county and a list of length 9 which contains one population density value for each year from 2010 to 2018:
+The animated `highcarter` map needs the population densities in a single list called 'sequence' in order to work properly. We can create the list of densities by using the `list_parse` function:
 
 ```{r}
-population_df_seq <- population_df %>%
+density_df_seq <- density_df_by_year %>%
   group_by(fips) %>%
   do(sequence = list_parse(select(., value = density)))
 
-head(population_df_seq)
+head(density_df_seq)
 ```
 
-And now we join this dataset back to the original dataset so that we have the state and county names as well as the years included:
+You can see in the output we have a column containing the FIPS codes for each county and a list of length 9 which contains one population density value for each year from 2010 to 2018.
+
+Next, we need to join this dataset back to the original dataset so that we have the county names, years, and population densities all in one dataset:
 
 ```{r}
-population_df <- left_join(population_df,population_df_seq)
+density_df_by_year <- left_join(density_df_by_year,density_df_seq)
 
-head(population_df)
+head(density_df_by_year)
 ```
 
 ### Creating the Map
 
-The steps for creating the animated map will be similar to what was outlined for the first map in this post with a few minor modifications/additions. 
-
-Since our `population_df` dataset only contains counties within the state of Texas, we will need to change the map value from 'countries/us/us-all-all' to 'countries/us/us-tx-all'.
+To create the animated map, all we need to do is take the existing `density_map` that we created and update the dataset from `density_df` to `density_df_by_year`
 
 ```{r}
-pop_density_map <- hcmap(map = "countries/us/us-tx-all", 
-      data = population_df, 
+animated_map <- hcmap(map = "countries/us/us-tx-all", 
+      data = density_df_by_year, 
       value = "density", 
       joinBy = c("fips"),
-      borderColor = "transparent", 
-      borderWidth = 0.1) %>%
-hc_colorAxis(dataClasses = color_classes(
-  breaks = c(0,10,25,50,100,250,500,1000,2500,max(population_df$density)),
-  colors = c("#ffffcc","#ffeda0","#fed976","#feb24c","#fd8d3c","#fc4e2a","#e31a1c","#bd0026","#800026")))
-
-frameWidget(pop_density_map)
-```
-
-### Animating the Map
-
-We created a standard interactive map that's similar to the one we created in the previous example. In order to add an animation feature to the map, we need to enable the `hc_motion` option which will use our sequence column and iterate through each value by year. You can use the play button to play/pause or use the slider to control the animation.
-
-```{r}
-pop_density_map <- pop_density_map %>%
-hc_motion(enabled = TRUE, 
-          series = 0, 
-          startIndex = 0,
-          autoPlay = TRUE,
-          labels = unique(population_df$year))
-
-frameWidget(pop_density_map)
-```
-
-### Adding Finishing Touches
-
-Now, we can format the hover points and add a legend and title like we did in the previous example.
-
-One difference from our previous example is that now we are displaying numbers in the thousands in our legend, so if we want to add commas to the numbers, we need to include the first three lines in the code below:
-
-```{r}
-hcoptslang <- getOption("highcharter.lang")
-hcoptslang$thousandsSep <- ","
-options(highcharter.lang = hcoptslang)
-
-pop_density_map <- pop_density_map %>% 
-  hc_tooltip(formatter = JS("function() {
-  return ('<br><b>County:</b> ' + this.point.County +
-          '<br><b>Population Density:</b> ' + this.point.density + ' people per sq mi'
-  )}")) %>%
+      borderWidth = 0.3)  %>%
+  hc_mapNavigation(enabled = TRUE) %>% 
+   hc_colorAxis(dataClasses = color_classes(breaks = c(0,10,25,50,100,250,500,1000,2500,max(density_df_by_year$density)),
+              colors = brewer.pal(name="YlOrRd",n=9))) %>%
   hc_legend(layout = "vertical", 
             align = "right",
             floating = TRUE, 
-            valueDecimals = 0) %>%
-  hc_title(text = "Population Density by County in Texas") %>%
-  hc_subtitle(text = "Population per square mile by county from 2010 to 2018") %>%
+            valueDecimals = 0) %>% 
+    hc_tooltip(formatter = JS("function() {
+  return ('<br><b>County:</b> ' + this.point.County +
+          '<br><b>Population Density:</b> ' + this.point.density + ' people per sq mi'
+  )}")) %>%
+  hc_title(text = "Population Density by County, 2010 to 2018") %>%
   hc_credits(enabled = TRUE,
              text = "Author: Kyle Cuilla, Data: USDA ERS",
-             href = "https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/")
+             href = "https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/")  
+```
 
-frameWidget(pop_density_map)
+And then add the `hc_motion` option to the map: 
+
+```{r}
+animated_map <- animated_map %>% 
+      hc_motion(enabled = TRUE, 
+          series = 0, 
+          autoPlay = TRUE,
+          loop = TRUE,
+          magnet = list(step =  0.03),
+          labels = unique(density_df_by_year$year))
+```
+
+```{r echo=FALSE}
+frameWidget(animated_map)
 ```
