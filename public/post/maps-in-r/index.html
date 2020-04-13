@@ -29,9 +29,17 @@
     
   
   <meta name="description" content="This post shows you how to create interactive maps in R using the highcharter package.
-Why Interactive Maps?Static maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.
+Why Interactive Maps?
+Static maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.
 Adding interactivity to a map further improves data interpretability by allowing users to:
-Explore the data by zooming in on areas of interestChoose what data values to be displayed or excludedHover over an area of interest and get additional info/the exact value that’s being displayedInteractive Choropleth MapThe first interactive map I will show you how to create is a population density map by county for the state of Texas:">
+
+Explore the data by zooming in on areas of interest
+Choose what data values to be displayed or excluded
+Hover over an area of interest and get additional info/the exact value that’s being displayed
+
+
+Interactive Choropleth Map
+The first interactive map I will show you how to create is a population density map by county for the state of Texas:">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/maps-in-r/">
@@ -233,9 +241,17 @@ Adding interactivity to a map further improves data interpretability by allowing
   <meta property="og:url" content="/post/maps-in-r/">
   <meta property="og:title" content="Interactive Maps in R | Kyle Cuilla">
   <meta property="og:description" content="This post shows you how to create interactive maps in R using the highcharter package.
-Why Interactive Maps?Static maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.
+Why Interactive Maps?
+Static maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.
 Adding interactivity to a map further improves data interpretability by allowing users to:
-Explore the data by zooming in on areas of interestChoose what data values to be displayed or excludedHover over an area of interest and get additional info/the exact value that’s being displayedInteractive Choropleth MapThe first interactive map I will show you how to create is a population density map by county for the state of Texas:"><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:circle]">
+
+Explore the data by zooming in on areas of interest
+Choose what data values to be displayed or excluded
+Hover over an area of interest and get additional info/the exact value that’s being displayed
+
+
+Interactive Choropleth Map
+The first interactive map I will show you how to create is a population density map by county for the state of Texas:"><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:circle]">
   <meta property="twitter:image" content="img/map[gravatar:%!s(bool=false) shape:circle]"><meta property="og:locale" content="en-us">
   
     
@@ -806,7 +822,6 @@ head(density_df_seq)</code></pre>
           series = 0, 
           autoPlay = TRUE,
           loop = TRUE,
-          magnet = list(step =  0.03),
           labels = unique(density_df_by_year$year))</code></pre>
 <div id="htmlwidget-5" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
 <script type="application/json" data-for="htmlwidget-5">{"x":{"url":"/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-20.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
