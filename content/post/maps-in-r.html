@@ -87,8 +87,26 @@ head(density_df)</code></pre>
       data = density_df, 
       value = &quot;density&quot;, 
       joinBy = c(&quot;fips&quot;),
+<<<<<<< HEAD
       borderWidth = 0.3)  %&gt;%
   hc_mapNavigation(enabled = TRUE) %&gt;% 
+=======
+      borderColor = &quot;transparent&quot;, 
+      borderWidth = 0.1) 
+
+frameWidget(migration_map)</code></pre>
+<div id="htmlwidget-1" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-4.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+
+&lt;br&gt;
+
+<div id="modifying-colors-and-adding-a-legend" class="section level3">
+<h3>Modifying Colors and Adding a Legend</h3>
+<p>Since net migration rate can be either a positive or negative value, we will want to use a diverging color scheme to properly display the rates by county. I chose to bucket the data into groups to make the color scheme more distinguishable using the <code>color_classes</code> function. I also re-formatted the legend using <code>hc_legend</code> and enabled users to zoom in and out on the map by setting the <code>hc_mapNavigation</code> option to true.</p>
+<pre class="r"><code>migration_map &lt;- migration_map %&gt;%
+  hc_colorAxis(dataClasses = color_classes(c(-100,-25,-10,0,10,25,100))) %&gt;%
+>>>>>>> 3574c1f89f0629fd627dd891d9a5b6467c5dca79
   hc_legend(layout = &quot;vertical&quot;, 
             align = &quot;right&quot;,
             floating = TRUE, 
