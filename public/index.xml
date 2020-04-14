@@ -118,10 +118,12 @@ library(RColorBrewer)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;data-prep&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Data Prep&lt;/h3&gt;
 &lt;p&gt;The dataset we’ll be using is from the &lt;a href=&#34;https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/&#34;&gt;USDA ERS&lt;/a&gt;. The data is available in both xlsx and csv format. I downloaded the data in csv format and loaded the People.csv file which contains the population estimates:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;county_df &amp;lt;- fread(&amp;quot;C:/Users/Kyle/Downloads/People.csv&amp;quot;) %&amp;gt;% 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load USDA ERS dataset
+county_df &amp;lt;- fread(&amp;quot;C:/Users/Kyle/Downloads/People.csv&amp;quot;) %&amp;gt;% 
   filter(State == &amp;#39;TX&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The dataset contains FIPS codes for each county. In order to map this data, we will need to join it to the dataset containing the geographic information for each county from the &lt;code&gt;highcharter&lt;/code&gt; package.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tx_counties &amp;lt;- get_data_from_map(download_map_data(&amp;quot;countries/us/us-tx-all&amp;quot;))
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Load Texas county map
+tx_counties &amp;lt;- get_data_from_map(download_map_data(&amp;quot;countries/us/us-tx-all&amp;quot;))
 
 glimpse(tx_counties)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Observations: 254
@@ -134,7 +136,8 @@ glimpse(tx_counties)&lt;/code&gt;&lt;/pre&gt;
 ## $ fips          &amp;lt;chr&amp;gt; &amp;quot;48179&amp;quot;, &amp;quot;48393&amp;quot;, &amp;quot;48311&amp;quot;, &amp;quot;48131&amp;quot;, &amp;quot;48297&amp;quot;, &amp;quot;48289&amp;quot;,...
 ## $ name          &amp;lt;chr&amp;gt; &amp;quot;Gray&amp;quot;, &amp;quot;Roberts&amp;quot;, &amp;quot;McMullen&amp;quot;, &amp;quot;Duval&amp;quot;, &amp;quot;Live Oak&amp;quot;, &amp;quot;...&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Before joining the datasets, we need to calculate the population density for 2018. We can do this by using &lt;code&gt;mutate&lt;/code&gt; from the &lt;code&gt;dplyr&lt;/code&gt; package to create a column called ‘density’ and divide the ‘TotalPopEst2018’ column by the ‘LandAreaSQMiles2010’ column as shown below:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;density_df &amp;lt;- county_df %&amp;gt;% 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Calculate population density
+density_df &amp;lt;- county_df %&amp;gt;% 
   select(c(fips=FIPS,County,TotalPopEst2018,LandAreaSQMiles2010)) %&amp;gt;%
   mutate(density = round(TotalPopEst2018/LandAreaSQMiles2010,0))
 
@@ -150,7 +153,8 @@ head(density_df)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;creating-the-map&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Creating the Map&lt;/h3&gt;
 &lt;p&gt;Using the &lt;code&gt;hcmap&lt;/code&gt; function from &lt;code&gt;highcharter&lt;/code&gt;, we can create a basic interactive map like this one:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;density_map &amp;lt;- hcmap(map = &amp;quot;countries/us/us-tx-all&amp;quot;, 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Create interactive map of Texas counties
+density_map &amp;lt;- hcmap(map = &amp;quot;countries/us/us-tx-all&amp;quot;, 
       data = density_df, 
       value = &amp;quot;density&amp;quot;, 
       joinBy = c(&amp;quot;fips&amp;quot;))  %&amp;gt;%
@@ -162,7 +166,8 @@ head(density_df)&lt;/code&gt;&lt;/pre&gt;
 &lt;h4&gt;Customizing the Map&lt;/h4&gt;
 &lt;p&gt;In the map above, the counties with the highest population densities clearly stand out. However, it is difficult to distinguish the differences between the counties with lower population densities.&lt;/p&gt;
 &lt;p&gt;In order to correct this, we can assign color breaks to the data by utilizing the &lt;code&gt;hc_colorAxis&lt;/code&gt; function and assigning a color palette from the &lt;code&gt;RColorBrewer&lt;/code&gt; package:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;density_map &amp;lt;- hcmap(map = &amp;quot;countries/us/us-tx-all&amp;quot;, 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Add color classes and legend to map
+density_map &amp;lt;- hcmap(map = &amp;quot;countries/us/us-tx-all&amp;quot;, 
       data = density_df, 
       value = &amp;quot;density&amp;quot;, 
       joinBy = c(&amp;quot;fips&amp;quot;),
@@ -170,19 +175,20 @@ head(density_df)&lt;/code&gt;&lt;/pre&gt;
   hc_mapNavigation(enabled = TRUE) %&amp;gt;% 
   hc_legend(layout = &amp;quot;vertical&amp;quot;, 
             align = &amp;quot;right&amp;quot;,
-            floating = TRUE, 
             valueDecimals = 0) %&amp;gt;% 
   hc_colorAxis(dataClasses = color_classes(breaks = c(0,10,25,50,100,250,500,1000,2500,max(density_df$density)),
               colors = brewer.pal(name=&amp;quot;YlOrRd&amp;quot;,n=9)))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The next thing we will need to do is modify what is displayed when you hover (or click if you are viewing on a mobile device) on a particular county.&lt;/p&gt;
 &lt;p&gt;By creating a JavaScript function within the &lt;code&gt;hc_tooltip&lt;/code&gt; option, we can more clearly display the name and population density for each county.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;density_map &amp;lt;- density_map %&amp;gt;%
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Add custom tooltip to map
+density_map &amp;lt;- density_map %&amp;gt;%
     hc_tooltip(formatter = JS(&amp;quot;function() {
   return (&amp;#39;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;County:&amp;lt;/b&amp;gt; &amp;#39; + this.point.County +
           &amp;#39;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;Population Density:&amp;lt;/b&amp;gt; &amp;#39; + this.point.density + &amp;#39; people per sq mi&amp;#39;
   )}&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now, the only thing left is to add a title and source to the map which we can do with the &lt;code&gt;hc_title&lt;/code&gt; and &lt;code&gt;hc_credits&lt;/code&gt; options:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;density_map &amp;lt;- density_map %&amp;gt;% 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Add title and credits to map
+density_map &amp;lt;- density_map %&amp;gt;% 
   hc_title(text = &amp;quot;Population Density by County, 2018&amp;quot;) %&amp;gt;%
   hc_credits(enabled = TRUE,
              text = &amp;quot;Author: Kyle Cuilla, Data: USDA ERS&amp;quot;,
@@ -208,7 +214,8 @@ head(density_df)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The &lt;code&gt;county_df&lt;/code&gt; dataset we’ve been using contains estimated populations for each year.&lt;/p&gt;
 &lt;p&gt;We can calculate the population densities for each of these years by creating a function called ‘pop_density’ and applying it to each population estimate.&lt;/p&gt;
 &lt;p&gt;We can then use the &lt;code&gt;gather&lt;/code&gt; function from the &lt;code&gt;tidyr&lt;/code&gt; package to put all of the population densities into a single column called ‘density’ and all of the years into a single column called ‘years’.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pop_density &amp;lt;- function(x){
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Calculate population density for each year in dataset
+pop_density &amp;lt;- function(x){
   round(x/county_df$LandAreaSQMiles2010,0)
 }
 
@@ -239,7 +246,8 @@ head(density_df_by_year)&lt;/code&gt;&lt;/pre&gt;
 ## 5 48009    TX    Archer 2010      10 48009
 ## 6 48011    TX Armstrong 2010       2 48011&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The animated &lt;code&gt;highcarter&lt;/code&gt; map needs the population densities in a single list called ‘sequence’ in order to work properly. We can create the list of densities by using the &lt;code&gt;list_parse&lt;/code&gt; function:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;density_df_seq &amp;lt;- density_df_by_year %&amp;gt;%
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Create list column containing population densities by year 
+density_df_seq &amp;lt;- density_df_by_year %&amp;gt;%
   group_by(fips) %&amp;gt;%
   do(sequence = list_parse(select(., value = density)))
 
@@ -258,7 +266,8 @@ head(density_df_seq)&lt;/code&gt;&lt;/pre&gt;
 ## 6 48011 &amp;lt;list [9]&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;You can see in the output we have a column containing the FIPS codes for each county and a list of length 9 which contains one population density value for each year from 2010 to 2018.&lt;/p&gt;
 &lt;p&gt;Next, we need to join this dataset back to the original dataset so that we have the county names, years, and population densities all in one dataset:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;density_df_by_year &amp;lt;- left_join(density_df_by_year,density_df_seq)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Join with original dataset
+density_df_by_year &amp;lt;- left_join(density_df_by_year,density_df_seq)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Joining, by = &amp;quot;fips&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(density_df_by_year)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    FIPS State    County year density  fips
@@ -279,7 +288,8 @@ head(density_df_seq)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;creating-the-map-1&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Creating the Map&lt;/h3&gt;
 &lt;p&gt;To create the animated map, all we need to do is take the existing &lt;code&gt;density_map&lt;/code&gt; that we created and update the dataset from &lt;code&gt;density_df&lt;/code&gt; to &lt;code&gt;density_df_by_year&lt;/code&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;animated_map &amp;lt;- hcmap(map = &amp;quot;countries/us/us-tx-all&amp;quot;, 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Create interactive map of Texas counties
+animated_map &amp;lt;- hcmap(map = &amp;quot;countries/us/us-tx-all&amp;quot;, 
       data = density_df_by_year, 
       value = &amp;quot;density&amp;quot;, 
       joinBy = c(&amp;quot;fips&amp;quot;),
@@ -289,7 +299,6 @@ head(density_df_seq)&lt;/code&gt;&lt;/pre&gt;
               colors = brewer.pal(name=&amp;quot;YlOrRd&amp;quot;,n=9))) %&amp;gt;%
   hc_legend(layout = &amp;quot;vertical&amp;quot;, 
             align = &amp;quot;right&amp;quot;,
-            floating = TRUE, 
             valueDecimals = 0) %&amp;gt;% 
     hc_tooltip(formatter = JS(&amp;quot;function() {
   return (&amp;#39;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;County:&amp;lt;/b&amp;gt; &amp;#39; + this.point.County +
@@ -300,7 +309,8 @@ head(density_df_seq)&lt;/code&gt;&lt;/pre&gt;
              text = &amp;quot;Author: Kyle Cuilla, Data: USDA ERS&amp;quot;,
              href = &amp;quot;https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/&amp;quot;)  &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And then add the &lt;code&gt;hc_motion&lt;/code&gt; option to the map:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;animated_map &amp;lt;- animated_map %&amp;gt;% 
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Add animation to map
+animated_map &amp;lt;- animated_map %&amp;gt;% 
       hc_motion(enabled = TRUE, 
           series = 0, 
           autoPlay = TRUE,

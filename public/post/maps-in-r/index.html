@@ -29,17 +29,9 @@
     
   
   <meta name="description" content="This post shows you how to create interactive maps in R using the highcharter package.
-Why Interactive Maps?
-Static maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.
+Why Interactive Maps?Static maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.
 Adding interactivity to a map further improves data interpretability by allowing users to:
-
-Explore the data by zooming in on areas of interest
-Choose what data values to be displayed or excluded
-Hover over an area of interest and get additional info/the exact value that’s being displayed
-
-
-Interactive Choropleth Map
-The first interactive map I will show you how to create is a population density map by county for the state of Texas:">
+Explore the data by zooming in on areas of interestChoose what data values to be displayed or excludedHover over an area of interest and get additional info/the exact value that’s being displayedInteractive Choropleth MapThe first interactive map I will show you how to create is a population density map by county for the state of Texas:">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/maps-in-r/">
@@ -241,17 +233,9 @@ The first interactive map I will show you how to create is a population density 
   <meta property="og:url" content="/post/maps-in-r/">
   <meta property="og:title" content="Interactive Maps in R | Kyle Cuilla">
   <meta property="og:description" content="This post shows you how to create interactive maps in R using the highcharter package.
-Why Interactive Maps?
-Static maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.
+Why Interactive Maps?Static maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.
 Adding interactivity to a map further improves data interpretability by allowing users to:
-
-Explore the data by zooming in on areas of interest
-Choose what data values to be displayed or excluded
-Hover over an area of interest and get additional info/the exact value that’s being displayed
-
-
-Interactive Choropleth Map
-The first interactive map I will show you how to create is a population density map by county for the state of Texas:"><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:circle]">
+Explore the data by zooming in on areas of interestChoose what data values to be displayed or excludedHover over an area of interest and get additional info/the exact value that’s being displayedInteractive Choropleth MapThe first interactive map I will show you how to create is a population density map by county for the state of Texas:"><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:circle]">
   <meta property="twitter:image" content="img/map[gravatar:%!s(bool=false) shape:circle]"><meta property="og:locale" content="en-us">
   
     
@@ -303,7 +287,7 @@ The first interactive map I will show you how to create is a population density 
       "url": "img//"
     }
   },
-  "description": "This post shows you how to create interactive maps in R using the highcharter package.\nWhy interactive maps?\rStatic maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.\nAdding interactivity to a map further improves data interpretability by allowing users to:\n\rExplore the data by zooming in on areas of interest\rChoose what data values to be displayed or excluded\rHover over an area of interest and get additional info/the exact value that’s being displayed\r\r\rInteractive Choropleth Map\rThe first interactive map I will show you how to create is a population density map by county for the state of Texas:"
+  "description": "This post shows you how to create interactive maps in R using the highcharter package.\nWhy Interactive Maps?\rStatic maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.\nAdding interactivity to a map further improves data interpretability by allowing users to:\n\rExplore the data by zooming in on areas of interest\rChoose what data values to be displayed or excluded\rHover over an area of interest and get additional info/the exact value that’s being displayed\r\r\rInteractive Choropleth Map\rThe first interactive map I will show you how to create is a population density map by county for the state of Texas:"
 }
 </script>
 
@@ -692,7 +676,6 @@ density_map &lt;- hcmap(map = &quot;countries/us/us-tx-all&quot;,
   hc_mapNavigation(enabled = TRUE) %&gt;% 
   hc_legend(layout = &quot;vertical&quot;, 
             align = &quot;right&quot;,
-            floating = TRUE, 
             valueDecimals = 0) %&gt;% 
   hc_colorAxis(dataClasses = color_classes(breaks = c(0,10,25,50,100,250,500,1000,2500,max(density_df$density)),
               colors = brewer.pal(name=&quot;YlOrRd&quot;,n=9)))</code></pre>
@@ -817,7 +800,6 @@ animated_map &lt;- hcmap(map = &quot;countries/us/us-tx-all&quot;,
               colors = brewer.pal(name=&quot;YlOrRd&quot;,n=9))) %&gt;%
   hc_legend(layout = &quot;vertical&quot;, 
             align = &quot;right&quot;,
-            floating = TRUE, 
             valueDecimals = 0) %&gt;% 
     hc_tooltip(formatter = JS(&quot;function() {
   return (&#39;&lt;br&gt;&lt;b&gt;County:&lt;/b&gt; &#39; + this.point.County +
