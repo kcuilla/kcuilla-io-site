@@ -29,6 +29,10 @@ library(tidyr)
 library(RColorBrewer)
 library(widgetframe)
 
+hcoptslang <- getOption("highcharter.lang")
+hcoptslang$thousandsSep <- ","
+options(highcharter.lang = hcoptslang)
+
 county_df <- fread("C:/Users/Kyle/Downloads/People.csv")
 
 density_df <- county_df %>% 
@@ -57,10 +61,6 @@ final_density_map <- hcmap(map = "countries/us/us-tx-all",
   hc_credits(enabled = TRUE,
              text = "Author: Kyle Cuilla, Data: USDA ERS",
              href = "https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/")
-
-hcoptslang <- getOption("highcharter.lang")
-hcoptslang$thousandsSep <- ","
-options(highcharter.lang = hcoptslang)
 ```
 
 ```{r echo=FALSE}
