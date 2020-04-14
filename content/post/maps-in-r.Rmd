@@ -93,7 +93,7 @@ county_df <- fread("C:/Users/Kyle/Downloads/People.csv") %>%
 The dataset contains FIPS codes for each county. In order to map this data, we will need to join it to the dataset containing the geographic information for each county from the `highcharter` package.  
 
 ```{r, message=FALSE}
-# Load Texas map dataset 
+# Load Texas county map
 tx_counties <- get_data_from_map(download_map_data("countries/us/us-tx-all"))
 
 glimpse(tx_counties)

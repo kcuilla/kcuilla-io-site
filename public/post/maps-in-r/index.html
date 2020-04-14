@@ -29,9 +29,17 @@
     
   
   <meta name="description" content="This post shows you how to create interactive maps in R using the highcharter package.
-Why Interactive Maps?Static maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.
+Why Interactive Maps?
+Static maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.
 Adding interactivity to a map further improves data interpretability by allowing users to:
-Explore the data by zooming in on areas of interestChoose what data values to be displayed or excludedHover over an area of interest and get additional info/the exact value that’s being displayedInteractive Choropleth MapThe first interactive map I will show you how to create is a population density map by county for the state of Texas:">
+
+Explore the data by zooming in on areas of interest
+Choose what data values to be displayed or excluded
+Hover over an area of interest and get additional info/the exact value that’s being displayed
+
+
+Interactive Choropleth Map
+The first interactive map I will show you how to create is a population density map by county for the state of Texas:">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/maps-in-r/">
@@ -233,9 +241,17 @@ Adding interactivity to a map further improves data interpretability by allowing
   <meta property="og:url" content="/post/maps-in-r/">
   <meta property="og:title" content="Interactive Maps in R | Kyle Cuilla">
   <meta property="og:description" content="This post shows you how to create interactive maps in R using the highcharter package.
-Why Interactive Maps?Static maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.
+Why Interactive Maps?
+Static maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.
 Adding interactivity to a map further improves data interpretability by allowing users to:
-Explore the data by zooming in on areas of interestChoose what data values to be displayed or excludedHover over an area of interest and get additional info/the exact value that’s being displayedInteractive Choropleth MapThe first interactive map I will show you how to create is a population density map by county for the state of Texas:"><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:circle]">
+
+Explore the data by zooming in on areas of interest
+Choose what data values to be displayed or excluded
+Hover over an area of interest and get additional info/the exact value that’s being displayed
+
+
+Interactive Choropleth Map
+The first interactive map I will show you how to create is a population density map by county for the state of Texas:"><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:circle]">
   <meta property="twitter:image" content="img/map[gravatar:%!s(bool=false) shape:circle]"><meta property="og:locale" content="en-us">
   
     
@@ -287,7 +303,7 @@ Adding interactivity to a map further improves data interpretability by allowing
       "url": "img//"
     }
   },
-  "description": "This post shows you how to create interactive maps in R using the highcharter package.\nWhy Interactive Maps?\rStatic maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.\nAdding interactivity to a map further improves data interpretability by allowing users to:\n\rExplore the data by zooming in on areas of interest\rChoose what data values to be displayed or excluded\rHover over an area of interest and get additional info/the exact value that’s being displayed\r\r\rInteractive Choropleth Map\rThe first interactive map I will show you how to create is a population density map by county for the state of Texas:"
+  "description": "This post shows you how to create interactive maps in R using the highcharter package.\nWhy interactive maps?\rStatic maps are an effective visual tool that communicate geographic data in an interpretive way that is generally lost if that data is only viewed in a spreadsheet.\nAdding interactivity to a map further improves data interpretability by allowing users to:\n\rExplore the data by zooming in on areas of interest\rChoose what data values to be displayed or excluded\rHover over an area of interest and get additional info/the exact value that’s being displayed\r\r\rInteractive Choropleth Map\rThe first interactive map I will show you how to create is a population density map by county for the state of Texas:"
 }
 </script>
 
@@ -619,10 +635,12 @@ library(RColorBrewer)</code></pre>
 <div id="data-prep" class="section level3">
 <h3>Data Prep</h3>
 <p>The dataset we’ll be using is from the <a href="https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/">USDA ERS</a>. The data is available in both xlsx and csv format. I downloaded the data in csv format and loaded the People.csv file which contains the population estimates:</p>
-<pre class="r"><code>county_df &lt;- fread(&quot;C:/Users/Kyle/Downloads/People.csv&quot;) %&gt;% 
+<pre class="r"><code># Load USDA ERS dataset
+county_df &lt;- fread(&quot;C:/Users/Kyle/Downloads/People.csv&quot;) %&gt;% 
   filter(State == &#39;TX&#39;)</code></pre>
 <p>The dataset contains FIPS codes for each county. In order to map this data, we will need to join it to the dataset containing the geographic information for each county from the <code>highcharter</code> package.</p>
-<pre class="r"><code>tx_counties &lt;- get_data_from_map(download_map_data(&quot;countries/us/us-tx-all&quot;))
+<pre class="r"><code># Load Texas county map
+tx_counties &lt;- get_data_from_map(download_map_data(&quot;countries/us/us-tx-all&quot;))
 
 glimpse(tx_counties)</code></pre>
 <pre><code>## Observations: 254
@@ -635,7 +653,8 @@ glimpse(tx_counties)</code></pre>
 ## $ fips          &lt;chr&gt; &quot;48179&quot;, &quot;48393&quot;, &quot;48311&quot;, &quot;48131&quot;, &quot;48297&quot;, &quot;48289&quot;,...
 ## $ name          &lt;chr&gt; &quot;Gray&quot;, &quot;Roberts&quot;, &quot;McMullen&quot;, &quot;Duval&quot;, &quot;Live Oak&quot;, &quot;...</code></pre>
 <p>Before joining the datasets, we need to calculate the population density for 2018. We can do this by using <code>mutate</code> from the <code>dplyr</code> package to create a column called ‘density’ and divide the ‘TotalPopEst2018’ column by the ‘LandAreaSQMiles2010’ column as shown below:</p>
-<pre class="r"><code>density_df &lt;- county_df %&gt;% 
+<pre class="r"><code># Calculate population density
+density_df &lt;- county_df %&gt;% 
   select(c(fips=FIPS,County,TotalPopEst2018,LandAreaSQMiles2010)) %&gt;%
   mutate(density = round(TotalPopEst2018/LandAreaSQMiles2010,0))
 
@@ -651,7 +670,8 @@ head(density_df)</code></pre>
 <div id="creating-the-map" class="section level3">
 <h3>Creating the Map</h3>
 <p>Using the <code>hcmap</code> function from <code>highcharter</code>, we can create a basic interactive map like this one:</p>
-<pre class="r"><code>density_map &lt;- hcmap(map = &quot;countries/us/us-tx-all&quot;, 
+<pre class="r"><code># Create interactive map of Texas counties
+density_map &lt;- hcmap(map = &quot;countries/us/us-tx-all&quot;, 
       data = density_df, 
       value = &quot;density&quot;, 
       joinBy = c(&quot;fips&quot;))  %&gt;%
@@ -663,7 +683,8 @@ head(density_df)</code></pre>
 <h4>Customizing the Map</h4>
 <p>In the map above, the counties with the highest population densities clearly stand out. However, it is difficult to distinguish the differences between the counties with lower population densities.</p>
 <p>In order to correct this, we can assign color breaks to the data by utilizing the <code>hc_colorAxis</code> function and assigning a color palette from the <code>RColorBrewer</code> package:</p>
-<pre class="r"><code>density_map &lt;- hcmap(map = &quot;countries/us/us-tx-all&quot;, 
+<pre class="r"><code># Add color classes and legend to map
+density_map &lt;- hcmap(map = &quot;countries/us/us-tx-all&quot;, 
       data = density_df, 
       value = &quot;density&quot;, 
       joinBy = c(&quot;fips&quot;),
@@ -677,13 +698,15 @@ head(density_df)</code></pre>
               colors = brewer.pal(name=&quot;YlOrRd&quot;,n=9)))</code></pre>
 <p>The next thing we will need to do is modify what is displayed when you hover (or click if you are viewing on a mobile device) on a particular county.</p>
 <p>By creating a JavaScript function within the <code>hc_tooltip</code> option, we can more clearly display the name and population density for each county.</p>
-<pre class="r"><code>density_map &lt;- density_map %&gt;%
+<pre class="r"><code># Add custom tooltip to map
+density_map &lt;- density_map %&gt;%
     hc_tooltip(formatter = JS(&quot;function() {
   return (&#39;&lt;br&gt;&lt;b&gt;County:&lt;/b&gt; &#39; + this.point.County +
           &#39;&lt;br&gt;&lt;b&gt;Population Density:&lt;/b&gt; &#39; + this.point.density + &#39; people per sq mi&#39;
   )}&quot;))</code></pre>
 <p>Now, the only thing left is to add a title and source to the map which we can do with the <code>hc_title</code> and <code>hc_credits</code> options:</p>
-<pre class="r"><code>density_map &lt;- density_map %&gt;% 
+<pre class="r"><code># Add title and credits to map
+density_map &lt;- density_map %&gt;% 
   hc_title(text = &quot;Population Density by County, 2018&quot;) %&gt;%
   hc_credits(enabled = TRUE,
              text = &quot;Author: Kyle Cuilla, Data: USDA ERS&quot;,
@@ -709,7 +732,8 @@ head(density_df)</code></pre>
 <p>The <code>county_df</code> dataset we’ve been using contains estimated populations for each year.</p>
 <p>We can calculate the population densities for each of these years by creating a function called ‘pop_density’ and applying it to each population estimate.</p>
 <p>We can then use the <code>gather</code> function from the <code>tidyr</code> package to put all of the population densities into a single column called ‘density’ and all of the years into a single column called ‘years’.</p>
-<pre class="r"><code>pop_density &lt;- function(x){
+<pre class="r"><code># Calculate population density for each year in dataset
+pop_density &lt;- function(x){
   round(x/county_df$LandAreaSQMiles2010,0)
 }
 
@@ -740,7 +764,8 @@ head(density_df_by_year)</code></pre>
 ## 5 48009    TX    Archer 2010      10 48009
 ## 6 48011    TX Armstrong 2010       2 48011</code></pre>
 <p>The animated <code>highcarter</code> map needs the population densities in a single list called ‘sequence’ in order to work properly. We can create the list of densities by using the <code>list_parse</code> function:</p>
-<pre class="r"><code>density_df_seq &lt;- density_df_by_year %&gt;%
+<pre class="r"><code># Create list column containing population densities by year 
+density_df_seq &lt;- density_df_by_year %&gt;%
   group_by(fips) %&gt;%
   do(sequence = list_parse(select(., value = density)))
 
@@ -759,7 +784,8 @@ head(density_df_seq)</code></pre>
 ## 6 48011 &lt;list [9]&gt;</code></pre>
 <p>You can see in the output we have a column containing the FIPS codes for each county and a list of length 9 which contains one population density value for each year from 2010 to 2018.</p>
 <p>Next, we need to join this dataset back to the original dataset so that we have the county names, years, and population densities all in one dataset:</p>
-<pre class="r"><code>density_df_by_year &lt;- left_join(density_df_by_year,density_df_seq)</code></pre>
+<pre class="r"><code># Join with original dataset
+density_df_by_year &lt;- left_join(density_df_by_year,density_df_seq)</code></pre>
 <pre><code>## Joining, by = &quot;fips&quot;</code></pre>
 <pre class="r"><code>head(density_df_by_year)</code></pre>
 <pre><code>##    FIPS State    County year density  fips
@@ -780,7 +806,8 @@ head(density_df_seq)</code></pre>
 <div id="creating-the-map-1" class="section level3">
 <h3>Creating the Map</h3>
 <p>To create the animated map, all we need to do is take the existing <code>density_map</code> that we created and update the dataset from <code>density_df</code> to <code>density_df_by_year</code></p>
-<pre class="r"><code>animated_map &lt;- hcmap(map = &quot;countries/us/us-tx-all&quot;, 
+<pre class="r"><code># Create interactive map of Texas counties
+animated_map &lt;- hcmap(map = &quot;countries/us/us-tx-all&quot;, 
       data = density_df_by_year, 
       value = &quot;density&quot;, 
       joinBy = c(&quot;fips&quot;),
@@ -801,7 +828,8 @@ head(density_df_seq)</code></pre>
              text = &quot;Author: Kyle Cuilla, Data: USDA ERS&quot;,
              href = &quot;https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/&quot;)  </code></pre>
 <p>And then add the <code>hc_motion</code> option to the map:</p>
-<pre class="r"><code>animated_map &lt;- animated_map %&gt;% 
+<pre class="r"><code># Add animation to map
+animated_map &lt;- animated_map %&gt;% 
       hc_motion(enabled = TRUE, 
           series = 0, 
           autoPlay = TRUE,
