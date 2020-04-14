@@ -51,7 +51,6 @@ final_density_map <- hcmap(map = "countries/us/us-tx-all",
               colors = brewer.pal(name="YlOrRd",n=9))) %>%
   hc_legend(layout = "vertical", 
             align = "right",
-            floating = TRUE, 
             valueDecimals = 0) %>% 
     hc_tooltip(formatter = JS("function() {
   return ('<br><b>County:</b> ' + this.point.County +
@@ -146,7 +145,6 @@ density_map <- hcmap(map = "countries/us/us-tx-all",
   hc_mapNavigation(enabled = TRUE) %>% 
   hc_legend(layout = "vertical", 
             align = "right",
-            floating = TRUE, 
             valueDecimals = 0) %>% 
   hc_colorAxis(dataClasses = color_classes(breaks = c(0,10,25,50,100,250,500,1000,2500,max(density_df$density)),
               colors = brewer.pal(name="YlOrRd",n=9)))
@@ -231,7 +229,6 @@ final_animated_map <- hcmap(map = "countries/us/us-tx-all",
               colors = brewer.pal(name="YlOrRd",n=9))) %>%
   hc_legend(layout = "vertical", 
             align = "right",
-            floating = TRUE, 
             valueDecimals = 0) %>% 
     hc_tooltip(formatter = JS("function() {
   return ('<br><b>County:</b> ' + this.point.County +
@@ -327,7 +324,6 @@ animated_map <- hcmap(map = "countries/us/us-tx-all",
               colors = brewer.pal(name="YlOrRd",n=9))) %>%
   hc_legend(layout = "vertical", 
             align = "right",
-            floating = TRUE, 
             valueDecimals = 0) %>% 
     hc_tooltip(formatter = JS("function() {
   return ('<br><b>County:</b> ' + this.point.County +
