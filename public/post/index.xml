@@ -26,15 +26,13 @@
 &lt;p&gt;The chart does an excellent job of relaying how historic the drop in payroll was by highlighting the periods of economic recession and adding text labels so that the reader can easily put the drop into historical perspective.&lt;/p&gt;
 &lt;p&gt;For comparison, the chart below is from the Bureau of Labor Statistics where the data was sourced. I think everyone would agree that the chart from NPR does a much better job at relaying the information.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/bls_plot.PNG&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
-&lt;div id=&#34;idea-for-blog-series&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Idea for Blog Series&lt;/h1&gt;
+&lt;div id=&#34;idea-for-blog-series&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Idea for Blog Series&lt;/h2&gt;
 &lt;p&gt;The chart from NPR inspired me to start a blog series where I try to re-create data visualizations I come across on the internet and share my process with others.&lt;/p&gt;
 &lt;p&gt;This is part one in the series with more to come later.&lt;/p&gt;
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;acquiring-the-data&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Acquiring the Data&lt;/h1&gt;
+&lt;div id=&#34;acquiring-the-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Acquiring the Data&lt;/h2&gt;
 &lt;p&gt;The Total Nonfarm Payroll data is available from the Federal Reserve Bank of St. Louis through it’s Federal Reserve Economic Data (FRED) database.&lt;/p&gt;
 &lt;p&gt;Loading the data in R is easy thanks to the &lt;code&gt;fredr&lt;/code&gt; package which allows you to fetch data from the FRED API.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(fredr)&lt;/code&gt;&lt;/pre&gt;
@@ -67,9 +65,10 @@ dataset &amp;lt;- fredr(series_id = &amp;quot;PAYEMS&amp;quot;, units = &amp;quo
            mutate(value = value/1000,
                   color_assign = ifelse(value &amp;gt; 0, &amp;quot;black&amp;quot;, 
                                  ifelse(value == 0, &amp;quot;grey&amp;quot;, &amp;quot;red&amp;quot;)))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;creating-the-chart&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Creating the Chart&lt;/h1&gt;
+&lt;div id=&#34;creating-the-chart&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Creating the Chart&lt;/h2&gt;
 &lt;p&gt;The package we will use to create the chart is the &lt;code&gt;ggplot2&lt;/code&gt; package.&lt;/p&gt;
 &lt;p&gt;Let’s start by making a basic plot of the dataset:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = dataset, 
@@ -170,6 +169,9 @@ custom_breaks &amp;lt;- c(min(dataset$date),
   # Remove &amp;#39;date&amp;#39; and &amp;#39;value&amp;#39; axis labels
   labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/recreating-data-viz-pt1_files/figure-html/unnamed-chunk-10-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;adding-text-labels&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Adding Text Labels&lt;/h3&gt;
 &lt;p&gt;The only thing left to do is add the text labels to the plot.&lt;/p&gt;
 &lt;p&gt;Each label on the NPR chart has a small dot to show exactly where the text label is pointing out. We can add these dots by using &lt;code&gt;geom_point&lt;/code&gt; and then add the text to each dot using &lt;code&gt;geom_point&lt;/code&gt; and filtering for each date NPR called out.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data = dataset, 
@@ -208,6 +210,9 @@ custom_breaks &amp;lt;- c(min(dataset$date),
         panel.grid.minor = element_blank(),
         panel.grid.major.x = element_blank()) +
   labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;final-result&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Final Result&lt;/h3&gt;
 &lt;p&gt;&lt;img src=&#34;/img/payroll_plot.PNG&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;And there’s our final result. Here’s the plot from NPR again for reference. May not be an exact match but it’s pretty close!&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/img/source_payroll_plot.PNG&#34; /&gt;&lt;/p&gt;

@@ -13,15 +13,13 @@ categories: ["R"]
 <p>The chart does an excellent job of relaying how historic the drop in payroll was by highlighting the periods of economic recession and adding text labels so that the reader can easily put the drop into historical perspective.</p>
 <p>For comparison, the chart below is from the Bureau of Labor Statistics where the data was sourced. I think everyone would agree that the chart from NPR does a much better job at relaying the information.</p>
 <p><img src="/img/bls_plot.PNG" /></p>
-<p><br></p>
-<div id="idea-for-blog-series" class="section level1">
-<h1>Idea for Blog Series</h1>
+<div id="idea-for-blog-series" class="section level2">
+<h2>Idea for Blog Series</h2>
 <p>The chart from NPR inspired me to start a blog series where I try to re-create data visualizations I come across on the internet and share my process with others.</p>
 <p>This is part one in the series with more to come later.</p>
-<p><br></p>
 </div>
-<div id="acquiring-the-data" class="section level1">
-<h1>Acquiring the Data</h1>
+<div id="acquiring-the-data" class="section level2">
+<h2>Acquiring the Data</h2>
 <p>The Total Nonfarm Payroll data is available from the Federal Reserve Bank of St. Louis through it’s Federal Reserve Economic Data (FRED) database.</p>
 <p>Loading the data in R is easy thanks to the <code>fredr</code> package which allows you to fetch data from the FRED API.</p>
 <pre class="r"><code>library(fredr)</code></pre>
@@ -54,9 +52,10 @@ dataset &lt;- fredr(series_id = &quot;PAYEMS&quot;, units = &quot;chg&quot;) %&g
            mutate(value = value/1000,
                   color_assign = ifelse(value &gt; 0, &quot;black&quot;, 
                                  ifelse(value == 0, &quot;grey&quot;, &quot;red&quot;)))</code></pre>
+<p><br></p>
 </div>
-<div id="creating-the-chart" class="section level1">
-<h1>Creating the Chart</h1>
+<div id="creating-the-chart" class="section level2">
+<h2>Creating the Chart</h2>
 <p>The package we will use to create the chart is the <code>ggplot2</code> package.</p>
 <p>Let’s start by making a basic plot of the dataset:</p>
 <pre class="r"><code>ggplot(data = dataset, 
@@ -157,6 +156,9 @@ custom_breaks &lt;- c(min(dataset$date),
   # Remove &#39;date&#39; and &#39;value&#39; axis labels
   labs(x = &quot;&quot;, y = &quot;&quot;)</code></pre>
 <p><img src="/post/recreating-data-viz-pt1_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="adding-text-labels" class="section level3">
+<h3>Adding Text Labels</h3>
 <p>The only thing left to do is add the text labels to the plot.</p>
 <p>Each label on the NPR chart has a small dot to show exactly where the text label is pointing out. We can add these dots by using <code>geom_point</code> and then add the text to each dot using <code>geom_point</code> and filtering for each date NPR called out.</p>
 <pre class="r"><code>ggplot(data = dataset, 
@@ -195,6 +197,9 @@ custom_breaks &lt;- c(min(dataset$date),
         panel.grid.minor = element_blank(),
         panel.grid.major.x = element_blank()) +
   labs(x = &quot;&quot;, y = &quot;&quot;)</code></pre>
+</div>
+<div id="final-result" class="section level3">
+<h3>Final Result</h3>
 <p><img src="/img/payroll_plot.PNG" /></p>
 <p>And there’s our final result. Here’s the plot from NPR again for reference. May not be an exact match but it’s pretty close!</p>
 <p><img src="/img/source_payroll_plot.PNG" /></p>

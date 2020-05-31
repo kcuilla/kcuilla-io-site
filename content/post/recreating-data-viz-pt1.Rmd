@@ -61,6 +61,8 @@ dataset <- fredr(series_id = "PAYEMS", units = "chg") %>%
                                  ifelse(value == 0, "grey", "red")))
 ```
 
+<br>
+
 ## Creating the Chart
 
 The package we will use to create the chart is the `ggplot2` package.
