@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<script src="highchart_libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="highchart_libs/jquery/jquery.min.js"></script>
+<script src="highchart_libs/proj4js/proj4.js"></script>
+<link href="highchart_libs/highcharts/css/motion.css" rel="stylesheet" />
+<link href="highchart_libs/highcharts/css/htmlwdgtgrid.css" rel="stylesheet" />
+<script src="highchart_libs/highcharts/highcharts.js"></script>
+<script src="highchart_libs/highcharts/highcharts-3d.js"></script>
+<script src="highchart_libs/highcharts/highcharts-more.js"></script>
+<script src="highchart_libs/highcharts/modules/stock.js"></script>
+<script src="highchart_libs/highcharts/modules/map.js"></script>
+<script src="highchart_libs/highcharts/modules/annotations.js"></script>
+<script src="highchart_libs/highcharts/modules/boost.js"></script>
+<script src="highchart_libs/highcharts/modules/data.js"></script>
+<script src="highchart_libs/highcharts/modules/drag-panes.js"></script>
+<script src="highchart_libs/highcharts/modules/drilldown.js"></script>
+<script src="highchart_libs/highcharts/modules/item-series.js"></script>
+<script src="highchart_libs/highcharts/modules/offline-exporting.js"></script>
+<script src="highchart_libs/highcharts/modules/overlapping-datalabels.js"></script>
+<script src="highchart_libs/highcharts/modules/exporting.js"></script>
+<script src="highchart_libs/highcharts/modules/export-data.js"></script>
+<script src="highchart_libs/highcharts/modules/funnel.js"></script>
+<script src="highchart_libs/highcharts/modules/heatmap.js"></script>
+<script src="highchart_libs/highcharts/modules/treemap.js"></script>
+<script src="highchart_libs/highcharts/modules/sankey.js"></script>
+<script src="highchart_libs/highcharts/modules/solid-gauge.js"></script>
+<script src="highchart_libs/highcharts/modules/streamgraph.js"></script>
+<script src="highchart_libs/highcharts/modules/sunburst.js"></script>
+<script src="highchart_libs/highcharts/modules/vector.js"></script>
+<script src="highchart_libs/highcharts/modules/wordcloud.js"></script>
+<script src="highchart_libs/highcharts/modules/xrange.js"></script>
+<script src="highchart_libs/highcharts/modules/tilemap.js"></script>
+<script src="highchart_libs/highcharts/modules/venn.js"></script>
+<script src="highchart_libs/highcharts/modules/gantt.js"></script>
+<script src="highchart_libs/highcharts/modules/timeline.js"></script>
+<script src="highchart_libs/highcharts/modules/parallel-coordinates.js"></script>
+<script src="highchart_libs/highcharts/plugins/grouped-categories.js"></script>
+<script src="highchart_libs/highcharts/plugins/motion.js"></script>
+<script src="highchart_libs/highcharts/plugins/multicolor_series.js"></script>
+<script src="highchart_libs/highcharts/custom/reset.js"></script>
+<script src="highchart_libs/highcharts/custom/symbols-extra.js"></script>
+<script src="highchart_libs/highcharts/custom/text-symbols.js"></script>
+<script src="highchart_libs/highchart-binding/highchart.js"></script>
+<script src="highchart_libs/pymjs/pym.v1.min.js"></script>
+  <title>highchart</title>
+</head>
+<body style="background-color:white;">
+<div id="htmlwidget_container">
+  <div id="htmlwidget-16424e4fbbc8d05c3c15" style="width:100%;height:500px;" class="highchart html-widget"></div>
+  <script>HTMLWidgets.pymChild = new pym.Child();HTMLWidgets.addPostRenderHandler(function(){
+                                setTimeout(function(){HTMLWidgets.pymChild.sendHeight();},100);
+                            });</script>
+</div>
+<script type="application/json" data-for="htmlwidget-16424e4fbbc8d05c3c15">{"x":{"hc_opts":{"title":{"text":null},"yAxis":{"title":{"text":"mpg"},"type":"linear"},"credits":{"enabled":false},"exporting":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":true},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"name":"City","data":[{"manufacturer":"honda","road":"City","mpg":24,"y":24,"name":"honda"},{"manufacturer":"volkswagen","road":"City","mpg":20.4545454545455,"y":20.4545454545455,"name":"volkswagen"},{"manufacturer":"subaru","road":"City","mpg":19.5,"y":19.5,"name":"subaru"},{"manufacturer":"toyota","road":"City","mpg":19.0714285714286,"y":19.0714285714286,"name":"toyota"},{"manufacturer":"hyundai","road":"City","mpg":18.875,"y":18.875,"name":"hyundai"},{"manufacturer":"nissan","road":"City","mpg":18.4285714285714,"y":18.4285714285714,"name":"nissan"},{"manufacturer":"audi","road":"City","mpg":18.1111111111111,"y":18.1111111111111,"name":"audi"},{"manufacturer":"pontiac","road":"City","mpg":17,"y":17,"name":"pontiac"},{"manufacturer":"chevrolet","road":"City","mpg":14.9166666666667,"y":14.9166666666667,"name":"chevrolet"},{"manufacturer":"ford","road":"City","mpg":14.1,"y":14.1,"name":"ford"}],"type":"column"},{"name":"Highway","data":[{"manufacturer":"honda","road":"Highway","mpg":33.75,"y":33.75,"name":"honda"},{"manufacturer":"volkswagen","road":"Highway","mpg":28.5454545454545,"y":28.5454545454545,"name":"volkswagen"},{"manufacturer":"hyundai","road":"Highway","mpg":27,"y":27,"name":"hyundai"},{"manufacturer":"audi","road":"Highway","mpg":26.7777777777778,"y":26.7777777777778,"name":"audi"},{"manufacturer":"pontiac","road":"Highway","mpg":26.5,"y":26.5,"name":"pontiac"},{"manufacturer":"toyota","road":"Highway","mpg":26.1428571428571,"y":26.1428571428571,"name":"toyota"},{"manufacturer":"subaru","road":"Highway","mpg":25.625,"y":25.625,"name":"subaru"},{"manufacturer":"nissan","road":"Highway","mpg":25.5714285714286,"y":25.5714285714286,"name":"nissan"},{"manufacturer":"chevrolet","road":"Highway","mpg":22.0833333333333,"y":22.0833333333333,"name":"chevrolet"},{"manufacturer":"ford","road":"Highway","mpg":20.5,"y":20.5,"name":"ford"}],"type":"column"}],"xAxis":{"type":"category","title":{"text":"manufacturer"},"categories":null}},"theme":{"chart":{"backgroundColor":"transparent"}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<script type="application/htmlwidget-sizing" data-for="htmlwidget-16424e4fbbc8d05c3c15">{"viewer":{"width":"100%","height":350,"padding":0,"fill":false},"browser":{"width":"100%","height":500,"padding":0,"fill":false}}</script>
+</body>
+</html>

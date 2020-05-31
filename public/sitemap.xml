@@ -33,12 +33,17 @@
   </url>
   
   <url>
-    <loc>/post/maps-in-r/</loc>
-    <lastmod>2020-04-05T21:13:14-05:00</lastmod>
+    <loc>/post/</loc>
+    <lastmod>2020-05-24T21:13:14-05:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/</loc>
+    <loc>/post/recreating-data-viz-pt1/</loc>
+    <lastmod>2020-05-24T21:13:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/maps-in-r/</loc>
     <lastmod>2020-04-05T21:13:14-05:00</lastmod>
   </url>
   

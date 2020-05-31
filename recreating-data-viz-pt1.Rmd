@@ -1,0 +1,102 @@
+---
+title: "Recreating Data Visualizations Seen on the Internet, Pt 1"
+author: "Kyle Cuilla"
+date: 2020-05-24T21:13:14-05:00
+categories: ["R"]
+---
+
+### Acquiring the Data
+
+Load the `fredr` package which allows you to fetch data from the Federal Reserve Economic Data (FRED) API.
+
+```{r warning=FALSE, message=FALSE}
+library(fredr)
+```
+
+In order to connect to the FRED API, you need to first obtain a [FRED API key](https://research.stlouisfed.org/docs/api/api_key.html). Once you have a key, replace the "FRED_API_KEY" below with your key number and you will be granted access to the FRED database.
+
+```{r warning=FALSE, message=FALSE}
+fredr_set_key("FRED_API_KEY")
+```
+
+Pull the Total Nonfarm Payroll data from the API (include units = "chg" to get the month-to-month change):
+
+```{r warning=FALSE, message=FALSE}
+fredr(series_id = "PAYEMS", units = "chg")
+```
+
+
+```{r warning=FALSE, message=FALSE}
+library(tidyverse)
+
+dataset <- fredr(series_id = "PAYEMS") %>% 
+           replace(is.na(.), 0) %>% 
+           mutate(color_assign = ifelse(change > 0, "black", 
+                                 ifelse(change == 0, "grey", "red")))
+```
+
+
+```{r warning=FALSE, message=FALSE}
+recession_periods = read.table(textConnection(
+  "Start, End
+  1945-02-01, 1945-10-01
+  1948-11-01, 1949-10-01
+  1953-07-01, 1954-05-01
+  1957-08-01, 1958-04-01
+  1960-04-01, 1961-02-01
+  1969-12-01, 1970-11-01
+  1973-11-01, 1975-03-01
+  1980-01-01, 1980-07-01
+  1981-07-01, 1982-11-01
+  1990-07-01, 1991-03-01
+  2001-03-01, 2001-11-01
+  2007-12-01, 2009-06-01"), sep=',',
+  colClasses=c('Date','Date'), header=TRUE)
+```
+
+
+
+```{r warning=FALSE, message=FALSE}
+ylab <- c(-20,-15,-10,-5,0)
+
+custom_breaks <- c(min(dataset$date),
+                   seq(from = as.Date("1940-01-01"), 
+                       to = as.Date("2020-01-01"),
+                       by = "10 years"),
+                   max(dataset$date)
+                   )
+```
+
+
+
+```{r warning=FALSE, message=FALSE}
+ggplot(data = dataset, 
+       aes(x = date, y = change, colour = color_assign, fill = color_assign)) +
+  geom_rect(data = recession_periods, inherit.aes = FALSE, aes(xmin = Start, xmax = End, ymin = -Inf, ymax = +Inf), fill = '#EBEBEB') +
+  geom_col(width = 1) +
+  geom_point(data = .%>% filter(date %in% as.Date(c("1945-09-01","1956-07-01","1974-12-01","2009-03-01","2020-04-01"))), shape = 21, colour = "white", fill = "#D8472B", size = 2) +
+  geom_point(data = .%>% filter(date %in% as.Date("1983-09-01")), shape = 21, colour = "white", fill = "#333333", size = 2) +
+  geom_text(data = .%>% filter(date == max(date)), aes(label = paste0("April 2020\n ", round(change,1),"M"), fontface = 2), vjust = -0.01, hjust = -0.15,  size = 3.2, color = "#D8472B", family = "Arial") +
+  geom_text(data = .%>% filter(date == "1945-09-01"), aes(label = paste0("Sept. 1945\n", round(change,1),"M")), vjust = 1.2, hjust = 0.05, size = 3, color = "#363636", family = "Arial") +
+  geom_text(data = .%>% filter(date == "1956-07-01"), aes(label = paste0("July 1956\n", round(change*1000,1),"K")), vjust = 1.2, hjust = -0.1, size = 3, color = "#363636", family = "Arial") +
+  geom_text(data = .%>% filter(date == "1974-12-01"), aes(label = paste0("Dec. 1974\n", round(change*1000,1),"K")), vjust = 1.2, hjust = -0.05, size = 3, color = "#363636", family = "Arial") +
+  geom_text(data = .%>% filter(date == "1983-09-01"), aes(label = paste0("Sept. 1983\n+", round(change,1),"M")), vjust = -0.15, hjust = 0.1, size = 3, color = "#363636", family = "Arial") +
+  geom_text(data = .%>% filter(date == "2009-03-01"), aes(label = paste0("March 2009\n", round(change*1000,1),"K")), vjust = 1.2, hjust = -0.05, size = 3, color = "#363636", family = "Arial") +
+  geom_text(data = .%>% filter(date == "2008-10-01"), aes(label = "Great\nRecession", fontface = 3), vjust = -1.5, size = 3.2, color = "#363636", family = "Arial") +
+  scale_colour_manual(values = c("#333333","#EBEBEB","#D8472B")) +
+  scale_fill_manual(values = c("#333333","#EBEBEB","#D8472B")) +
+  scale_y_continuous(labels = ifelse(ylab == 0, ylab, paste0(ylab, ' million'))) +
+  scale_x_date(breaks = custom_breaks, labels = c("", seq("1940","2020", by=10), ""), expand = c(0,0,0.08,0)) +
+  theme_minimal() +
+  theme(legend.position = "none",
+        axis.line.x = element_line(size = 0.5, colour = "grey"),
+        axis.ticks.x = element_line(colour = "grey"),
+        axis.ticks.length.x = unit(0.15, "cm"),
+        axis.text.x = element_text(size = 8),
+        axis.text.y = element_text(size = 8),
+        panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank(),
+        plot.margin = unit(c(0,1,0,1), "cm")) +
+  labs(x = "", y = "")
+```
+
