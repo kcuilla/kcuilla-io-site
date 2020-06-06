@@ -10,11 +10,7 @@ Earlier this month, I came across a striking chart from NPR that showed the hist
 ![](/img/source_payroll_plot.PNG)
 <i>Source: [NPR](https://www.npr.org/sections/coronavirus-live-updates/2020/05/08/852430930/one-for-the-history-books-14-7-unemployment-20-5-million-jobs-wiped-away)</i>
 
-The chart does an excellent job of relaying how historic the drop in payroll was by highlighting the periods of economic recession and adding text labels so that the reader can easily put the drop into historical perspective. 
-
-For comparison, the chart below is from the Bureau of Labor Statistics where the data was sourced. I think everyone would agree that the chart from NPR does a much better job at relaying the information.
-
-![](/img/bls_plot.PNG)
+The chart does an excellent job of relaying how historic the drop in payroll was by highlighting the periods of economic recession and adding text labels so that the reader can easily put the drop into historical perspective.
 
 ## Idea for Blog Series
 
