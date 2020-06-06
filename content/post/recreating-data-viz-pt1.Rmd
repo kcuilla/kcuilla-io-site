@@ -51,6 +51,7 @@ In the code below, we can replace the NA with 0 by using `replace(is.na(.), 0)` 
 library(tidyverse)
 
 dataset <- fredr(series_id = "PAYEMS", units = "chg") %>% 
+           filter(date <= "2020-04-01") %>% 
            replace(is.na(.), 0) %>% 
            mutate(value = value/1000,
                   color_assign = ifelse(value > 0, "black", 

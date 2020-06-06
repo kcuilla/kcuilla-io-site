@@ -31,7 +31,7 @@
   <meta name="description" content="Earlier this month, I came across a striking chart from NPR that showed the historic in employment in April 2020 due to COVID-19:
 Source: NPR
 The chart does an excellent job of relaying how historic the drop in payroll was by highlighting the periods of economic recession and adding text labels so that the reader can easily put the drop into historical perspective.
-For comparison, the chart below is from the Bureau of Labor Statistics where the data was sourced.">
+Idea for Blog SeriesThe chart from NPR inspired me to start a blog series where I try to re-create data visualizations I come across on the internet and share my process with others.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/recreating-data-viz-pt1/">
@@ -235,7 +235,7 @@ For comparison, the chart below is from the Bureau of Labor Statistics where the
   <meta property="og:description" content="Earlier this month, I came across a striking chart from NPR that showed the historic in employment in April 2020 due to COVID-19:
 Source: NPR
 The chart does an excellent job of relaying how historic the drop in payroll was by highlighting the periods of economic recession and adding text labels so that the reader can easily put the drop into historical perspective.
-For comparison, the chart below is from the Bureau of Labor Statistics where the data was sourced."><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:circle]">
+Idea for Blog SeriesThe chart from NPR inspired me to start a blog series where I try to re-create data visualizations I come across on the internet and share my process with others."><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:circle]">
   <meta property="twitter:image" content="img/map[gravatar:%!s(bool=false) shape:circle]"><meta property="og:locale" content="en-us">
   
     
@@ -287,7 +287,7 @@ For comparison, the chart below is from the Bureau of Labor Statistics where the
       "url": "img//"
     }
   },
-  "description": "Earlier this month, I came across a striking chart from NPR that showed the historic in employment in April 2020 due to COVID-19:\nSource: NPR\nThe chart does an excellent job of relaying how historic the drop in payroll was by highlighting the periods of economic recession and adding text labels so that the reader can easily put the drop into historical perspective.\nFor comparison, the chart below is from the Bureau of Labor Statistics where the data was sourced."
+  "description": "Earlier this month, I came across a striking chart from NPR that showed the historic in employment in April 2020 due to COVID-19:\nSource: NPR\nThe chart does an excellent job of relaying how historic the drop in payroll was by highlighting the periods of economic recession and adding text labels so that the reader can easily put the drop into historical perspective.\nIdea for Blog Series\rThe chart from NPR inspired me to start a blog series where I try to re-create data visualizations I come across on the internet and share my process with others."
 }
 </script>
 
@@ -544,7 +544,7 @@ For comparison, the chart below is from the Bureau of Labor Statistics where the
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    9 min read
+    8 min read
   </span>
   
 
@@ -591,8 +591,6 @@ For comparison, the chart below is from the Bureau of Labor Statistics where the
 <p><img src="/img/source_payroll_plot.PNG" />
 <i>Source: <a href="https://www.npr.org/sections/coronavirus-live-updates/2020/05/08/852430930/one-for-the-history-books-14-7-unemployment-20-5-million-jobs-wiped-away">NPR</a></i></p>
 <p>The chart does an excellent job of relaying how historic the drop in payroll was by highlighting the periods of economic recession and adding text labels so that the reader can easily put the drop into historical perspective.</p>
-<p>For comparison, the chart below is from the Bureau of Labor Statistics where the data was sourced. I think everyone would agree that the chart from NPR does a much better job at relaying the information.</p>
-<p><img src="/img/bls_plot.PNG" /></p>
 <div id="idea-for-blog-series" class="section level2">
 <h2>Idea for Blog Series</h2>
 <p>The chart from NPR inspired me to start a blog series where I try to re-create data visualizations I come across on the internet and share my process with others.</p>
@@ -608,7 +606,7 @@ For comparison, the chart below is from the Bureau of Labor Statistics where the
 <p>The Total Nonfarm Payroll series we want to load is called <a href="https://fred.stlouisfed.org/series/PAYEMS">PAYEMS</a>.</p>
 <p>In the code below, we just need to specify the series name and include <code>units = "chg"</code> in order to get the month-to-month change:</p>
 <pre class="r"><code>fredr(series_id = &quot;PAYEMS&quot;, units = &quot;chg&quot;)</code></pre>
-<pre><code>## # A tibble: 976 x 3
+<pre><code>## # A tibble: 977 x 3
 ##    date       series_id value
 ##    &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt;
 ##  1 1939-01-01 PAYEMS       NA
@@ -621,13 +619,14 @@ For comparison, the chart below is from the Bureau of Labor Statistics where the
 ##  8 1939-08-01 PAYEMS      244
 ##  9 1939-09-01 PAYEMS      368
 ## 10 1939-10-01 PAYEMS      380
-## # ... with 966 more rows</code></pre>
+## # ... with 967 more rows</code></pre>
 <p>The first observation in dataset above, January 1939, contains a missing value since we pulled the month-to-month change and this was the first month in the series.</p>
 <p>In the code below, we can replace the NA with 0 by using <code>replace(is.na(.), 0)</code> and create a new column called <code>color_assign</code> that assigns the color black to values with a positive change and red to values with a negative change in order to match the colors used within the NPR chart.</p>
 <pre class="r"><code># Load the tidyverse package which contains dplyr (used below) and ggplot2 (used for creating the chart later)
 library(tidyverse)
 
 dataset &lt;- fredr(series_id = &quot;PAYEMS&quot;, units = &quot;chg&quot;) %&gt;% 
+           filter(date &lt;= &quot;2020-04-01&quot;) %&gt;% 
            replace(is.na(.), 0) %&gt;% 
            mutate(value = value/1000,
                   color_assign = ifelse(value &gt; 0, &quot;black&quot;, 
