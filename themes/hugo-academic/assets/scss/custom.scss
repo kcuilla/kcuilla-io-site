@@ -1,1 +1,31 @@
 // Override this file to add your own SCSS styling.
+@keyframes slide-from-right {
+  0% {transform: translateX(150%)}
+  100% { transform: translateX(0%); }
+}
+
+.biography-title {
+  animation: slide-from-right 1s forwards;
+}
+
+.main-content {
+  animation: slide-from-right 1s cubic-bezier(0.87, 0, 0.13, 1) forwards;
+  animation-delay: 100ms;
+}
+
+@keyframes fade-in {
+  0% {opacity: 0}
+  100% {opacity: 1}
+}
+
+.interests-div {
+  opacity: 0;
+  animation: fade-in 1s forwards;
+  animation-delay: 1s;
+}
+
+.education-div {
+  opacity: 0;
+  animation: fade-in 1s forwards;
+  animation-delay: 1.5s;
+}
