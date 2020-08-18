@@ -1,0 +1,681 @@
+---
+title: "2019 NFL Team Ratings"
+author: "Kyle Cuilla"
+date: 2020-08-15
+categories: ["R"]
+output: html_document
+---
+
+```{r setup, warnings = FALSE, message = FALSE, include = FALSE}
+library(rvest)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(htmltools)
+library(htmlwidgets)
+library(reactable)
+library(plotly)
+library(crosstalk)
+```
+
+```{r data, echo = FALSE}
+url <- "https://www.pro-football-reference.com/years/2019/"
+
+AFC_table <- url %>%
+  xml2::read_html() %>%
+  html_nodes(xpath = '//*[@id="AFC"]') %>%
+  html_table()
+
+AFC_table <- AFC_table[[1]]
+
+NFC_table <- url %>%
+  xml2::read_html() %>%
+  html_nodes(xpath = '//*[@id="NFC"]') %>%
+  html_table()
+
+NFC_table <- NFC_table[[1]]
+
+NFL_table <- rbind(AFC_table, NFC_table)
+
+NFL_table_clean <- NFL_table %>%
+  ### Create NFL divisions column
+  mutate(Division = ifelse(str_detect(Tm, "FC"), Tm, NA)) %>%
+  fill(Division, .direction = "down") %>%
+  ### Create NFL conferences column
+  mutate(Conference = ifelse(str_detect(Division, "NFC"), "NFC", "AFC")) %>%
+  ### Remove team division names from Tm column
+  filter(str_detect(Tm, "FC", negate = TRUE)) %>%
+  ### Add column to say if team made playoffs based off of pre-existing asterisks
+  mutate(Playoffs = ifelse(str_detect(Tm, "[*+]"), "Yes", "No")) %>%
+  ### Remove asterisks and plus signs next to team names
+  mutate(Tm = gsub("[*+]", "", Tm)) %>%
+  rename(Record = `W-L%`) %>%
+  ### Convert W, L, T into one column named "Record"
+  unite(Record, W, L, T, sep = "-") %>%
+  ### Convert W, L, T into one column named "Record"
+  mutate(
+    Team = case_when(
+      Tm == "Oakland Raiders" ~ "Las Vegas Raiders",
+      Tm == "Washington Redskins" ~ "Washington Football Team",
+      T ~ Tm
+    )
+  ) %>%
+  ### Convert columns containing numbers from character to numeric
+  mutate_at(c("SRS", "OSRS", "DSRS", "PF", "PA", "PD", "MoV", "SoS"),
+            as.numeric) %>%
+  ### Bucket SoS column into four groups, add Rank column by SRS
+  mutate(SoS_rating = ntile(SoS, 4),
+         Rank = rank(-SRS, ties.method = "last")) %>%
+  mutate(
+    SoS_rating = case_when(
+      SoS_rating == 1 ~ "Easy",
+      SoS_rating == 2 ~ "Moderate",
+      SoS_rating == 3 ~ "Difficult",
+      SoS_rating == 4 ~ "Most Difficult"
+    )
+  ) %>%
+  mutate(SoS_rating = factor(
+    SoS_rating,
+    levels = c("Easy", "Moderate", "Difficult", "Most Difficult")
+  )) %>%
+  select(
+    Division,
+    Conference,
+    Rank,
+    Team,
+    Record,
+    Playoffs,
+    SoS_rating,
+    PF,
+    PA,
+    MoV,
+    OSRS,
+    DSRS,
+    SRS
+  )
+
+NFL_table_clean_shared <- SharedData$new(NFL_table_clean)
+```
+
+```{r plot, echo = FALSE, message = FALSE, warnings = FALSE}
+interactive_plot <-
+  plot_ly(
+    NFL_table_clean_shared,
+    x = ~ OSRS,
+    y = ~ DSRS,
+    text = ~ Team,
+    hoverinfo = "text",
+    hovertemplate = paste(
+      "<b>%{text}</b><br>",
+      "%{xaxis.title.text}: %{x:+.1f}<br>",
+      "%{yaxis.title.text}: %{y:+.1f}<br>",
+      "<extra></extra>"
+    ),
+    type = "scatter",
+    mode = "markers",
+    marker = list(
+      size = 18,
+      color = "white",
+      line = list(color = "black",
+                  width = 1.5)
+    ),
+    width = 680,
+    height = 420
+  ) %>%
+  ### Top right (+Offense +Defense)
+  add_annotations(
+    x = 10,
+    y = 10.75,
+    xref = "x",
+    yref = "y",
+    text = "+ Offense",
+    bgcolor = "#ef8a62",
+    showarrow = F
+  ) %>%
+  add_annotations(
+    x = 10,
+    y = 9.25,
+    xref = "x",
+    yref = "y",
+    text = "+ Defense",
+    bgcolor = "#ef8a62",
+    showarrow = F
+  ) %>%
+  ### Bottom left (-Offense -Defense)
+  add_annotations(
+    x = -10,
+    y = -9.25,
+    xref = "x",
+    yref = "y",
+    text = "- Offense",
+    bgcolor = "#67a9cf",
+    showarrow = F
+  ) %>%
+  add_annotations(
+    x = -10,
+    y = -10.75,
+    xref = "x",
+    yref = "y",
+    text = "- Defense",
+    bgcolor = "#67a9cf",
+    showarrow = F
+  ) %>%
+  ### Bottom right (+Offense -Defense)
+  add_annotations(
+    x = 10,
+    y = -9.25,
+    xref = "x",
+    yref = "y",
+    text = "+ Offense",
+    bgcolor = "#ef8a62",
+    showarrow = F
+  ) %>%
+  add_annotations(
+    x = 10,
+    y = -10.75,
+    xref = "x",
+    yref = "y",
+    text = "- Defense",
+    bgcolor = "#67a9cf",
+    showarrow = F
+  ) %>%
+  ### Top left (-Offense +Defense)
+  add_annotations(
+    x = -10,
+    y = 10.75,
+    xref = "x",
+    yref = "y",
+    text = "- Offense",
+    bgcolor = "#67a9cf",
+    showarrow = F
+  ) %>%
+  add_annotations(
+    x = -10,
+    y = 9.25,
+    xref = "x",
+    yref = "y",
+    text = "+ Defense",
+    bgcolor = "#ef8a62",
+    showarrow = F
+  ) %>%
+  layout(
+    autosize = FALSE,
+    xaxis = list(
+      range = c(-12.5, 12.5),
+      fixedrange = TRUE,
+      zeroline = FALSE,
+      ticks = "outside",
+      tickcolor = "#fff",
+      tickformat = "+",
+      tickfont = list(size = 14),
+      titlefont = list(family = "Open Sans",
+                       size = 18),
+      title = "Offensive SRS"
+    ),
+    yaxis = list(
+      range = c(-12.5, 12.5),
+      fixedrange = TRUE,
+      zeroline = FALSE,
+      ticks = "outside",
+      tickcolor = "#fff",
+      tickformat = "+",
+      tickfont = list(size = 14),
+      titlefont = list(family = "Open Sans",
+                       size = 18),
+      title = "Defensive SRS"
+    ),
+    hoverlabel = list(font = list(family = "Open Sans",
+                                  size = 16)),
+    shapes = list(
+      list(
+        type = rect,
+        x0 = 0,
+        x1 = 15,
+        y0 = 0,
+        y1 = 15,
+        fillcolor = 'rgba(239, 138, 98, 0.5)',
+        layer = 'below'
+      ),
+      list(
+        type = rect,
+        x0 = 0,
+        x1 = -15,
+        y0 = 0,
+        y1 = -15,
+        fillcolor = 'rgba(103, 169, 207, 0.5)',
+        layer = 'below'
+      )
+    )
+  ) %>%
+  highlight(on = "plotly_selected",
+            off = "plotly_deselect") %>%
+  config(displayModeBar = FALSE)
+```
+
+```{r table, echo = FALSE}
+bar_chart <-
+  function(label,
+           width = "100%",
+           height = "13px",
+           fill = "#00bfc4",
+           background = NULL) {
+    bar <-
+      div(style = list(
+        background = fill,
+        width = width,
+        height = height
+      ))
+    chart <-
+      div(style = list(
+        flexGrow = 1,
+        marginLeft = "8px",
+        background = background
+      ),
+      bar)
+    div(style = list(display = "flex", alignItems = "center"), label, chart)
+  }
+
+make_color_pal <- function(colors, bias = 1) {
+  get_color <- colorRamp(colors, bias = bias)
+  function(x)
+    rgb(get_color(x), maxColorValue = 255)
+}
+
+off_rating_color <-
+  make_color_pal(c("#67a9cf", "#f8fcf8", "#ef8a62"), bias = 1.3)
+def_rating_color <-
+  make_color_pal(c("#67a9cf", "#f8fcf8", "#ef8a62"), bias = 0.8)
+
+team_rating_column <- function(maxWidth = 60, ...) {
+  colDef(
+    maxWidth = maxWidth,
+    align = "right",
+    class = "cell number",
+    headerStyle = list(fontWeight = "500"),
+    ...
+  )
+}
+
+conf_filter <- filter_checkbox(
+  id = "conf",
+  label = "Conference",
+  inline = TRUE,
+  sharedData = NFL_table_clean_shared,
+  group = ~ Conference
+)
+
+div_filter <- filter_select(
+  id = "divi",
+  label = "Division",
+  sharedData = NFL_table_clean_shared,
+  group = ~ Division
+)
+
+sos_filter <- filter_checkbox(
+  id = "sos",
+  label = "Strength of Schedule (SoS)",
+  sharedData = NFL_table_clean_shared,
+  group = ~ SoS_rating
+)
+
+playoff_filter <- filter_checkbox(
+  id = "play",
+  label = "Playoffs",
+  inline = TRUE,
+  sharedData = NFL_table_clean_shared,
+  group = ~ Playoffs
+)
+
+srs_filter <- filter_slider(
+  id = "srs",
+  label = "Team Rating (SRS): Total",
+  sharedData = NFL_table_clean_shared,
+  column = ~ SRS,
+  ticks = FALSE,
+  step = 1
+)
+
+table <-
+  reactable(
+    NFL_table_clean_shared,
+    pagination = FALSE,
+    showSortIcon = FALSE,
+    highlight = TRUE,
+    compact = TRUE,
+    defaultSorted = "SRS",
+    defaultSortOrder = "desc",
+    defaultColDef = colDef(headerClass = "header colheader"),
+    columnGroups = list(
+      colGroup(
+        name = "Team Rating (SRS)",
+        columns = c("SRS", "OSRS", "DSRS"),
+        headerClass = "groupheader"
+      ),
+      colGroup(
+        name = "Team Scoring & Margin of Victory",
+        columns = c("PF", "PA", "MoV"),
+        headerClass = "groupheader"
+      )
+    ),
+    columns = list(
+      Division = colDef(show = FALSE),
+      Conference = colDef(show = FALSE),
+      Rank = colDef(
+        name = "#",
+        maxWidth = 30,
+        class = "cell number"
+      ),
+      Team = colDef(
+        minWidth = 150,
+        class = "cell",
+        cell = function(value, index) {
+          div(div(class = "team-name", value),
+              div(class = "record", sprintf("(%s)", NFL_table_clean[index, "Record"])))
+        }
+      ),
+      Record = colDef(show = FALSE),
+      SRS = team_rating_column(
+        name = "Total",
+        cell = function(value) {
+          normalized <-
+            (value - min(NFL_table_clean$SRS)) / (max(NFL_table_clean$SRS) - min(NFL_table_clean$SRS))
+          color <- off_rating_color(normalized)
+          value <- format(value, nsmall = 1, digits = 1)
+          div(class = "roundcorners",
+              style = list(background = color),
+              value)
+        }
+      ),
+      OSRS = team_rating_column(
+        name = "Off.",
+        cell = function(value) {
+          normalized <-
+            (value - min(NFL_table_clean$SRS)) / (max(NFL_table_clean$SRS) - min(NFL_table_clean$SRS))
+          color <- off_rating_color(normalized)
+          value <- format(value, nsmall = 1, digits = 1)
+          div(class = "roundcorners",
+              style = list(background = color),
+              value)
+        }
+      ),
+      DSRS = team_rating_column(
+        name = "Def.",
+        cell = function(value) {
+          normalized <-
+            (value - min(NFL_table_clean$SRS)) / (max(NFL_table_clean$SRS) - min(NFL_table_clean$SRS))
+          color <- off_rating_color(normalized)
+          value <- format(value, nsmall = 1, digits = 1)
+          div(class = "roundcorners",
+              style = list(background = color),
+              value)
+        }
+      ),
+      PF = colDef(
+        name = "Points Scored",
+        align = "left",
+        class = "border-left cell number",
+        headerStyle = list(fontWeight = "500"),
+        cell = function(value) {
+          width <- paste0(value / max(NFL_table_clean$PF) * 100, "%")
+          bar_chart(value,
+                    width = width,
+                    fill = "#ef8a62",
+                    background = "#e1e1e1")
+        }
+      ),
+      PA = colDef(
+        name = "Points Against",
+        align = "left",
+        class = "cell number",
+        headerStyle = list(fontWeight = "500"),
+        cell = function(value) {
+          width <- paste0(value / max(NFL_table_clean$PA) * 100, "%")
+          bar_chart(value,
+                    width = width,
+                    fill = "#ef8a62",
+                    background = "#e1e1e1")
+        }
+      ),
+      PD = colDef(show = FALSE),
+      MoV = colDef(
+        maxWidth = 60,
+        class = "border-right cell number",
+        headerStyle = list(fontWeight = "500"),
+        cell = function(value) {
+          if (value > 0)
+            paste0("+", value)
+          else
+            value
+        },
+        style = function(value) {
+          if (value > 0) {
+            color <- "#008000"
+          } else if (value < 0) {
+            color <- "#e00000"
+          } else {
+            color <- "#777"
+          }
+          list(color = color)
+        }
+      ),
+      SoS_rating = colDef(
+        name = "SoS",
+        align = "center",
+        maxWidth = 55,
+        class = "border-left cell number",
+        cell = function(value) {
+          if (value == "Most Difficult") {
+            list(tagAppendAttributes(shiny::icon("square", class = "rotate")),
+                 tagAppendAttributes(shiny::icon("square", class = "rotate")))
+          } else if (value == "Difficult") {
+            tagAppendAttributes(shiny::icon("square", class = "rotate"))
+          } else if (value == "Moderate") {
+            tagAppendAttributes(shiny::icon("square"))
+          } else {
+            tagAppendAttributes(shiny::icon("circle"))
+          }
+        },
+        style = function(value) {
+          if (value %in% c("Difficult", "Most Difficult")) {
+            color <- "black"
+          } else if (value == "Moderate") {
+            color <- "blue"
+          } else {
+            color <- "green"
+          }
+          list(color = color)
+        }
+      ),
+      Playoffs = colDef(
+        maxWidth = 75,
+        align = "center",
+        class = "cell number border-left",
+        cell = function(value) {
+          if (value == "Yes")
+            tagAppendAttributes(shiny::icon("check"))
+          else
+            tagAppendAttributes(shiny::icon("times"))
+        },
+        style = function(value) {
+          if (value == "Yes") {
+            color <- "green"
+          } else {
+            color <- "red"
+          }
+          list(color = color)
+        }
+      )
+    )
+  )
+
+div(
+  div(class = "title",
+      h2("2019 NFL Team Stats & Ratings")),
+  class = "filtertext",
+  bscols(
+    widths = c(3, NA),
+    list(
+      srs_filter,
+      sos_filter,
+      playoff_filter,
+      conf_filter,
+      div_filter
+    ),
+    interactive_plot
+  ),
+  div(class = "linebreak")
+)
+
+div(class = "table-font",
+    table)
+```
+
+Created by: @kc_analytics
+
+Source: [Pro-Football-Reference](https://www.pro-football-reference.com/years/2019/)
+<hr>
+
+# Process
+
+The main inspiration for this post came from [538's NBA Player Ratings](https://projects.fivethirtyeight.com/2020-nba-player-ratings/?ex_cid=irpromo) which shows the player ratings in an interactive chart and table that are linked together. My goal was to build a similar-styled data visualization for NFL team ratings from the 2019 season and make it reproducible so that it could be easily updated for the upcoming 2020 season.
+
+A couple great tutorials that I used to create the interactive table from the `reactable` package were from Greg Lin, who [wrote](https://glin.github.io/reactable/index.html) one of the most comprehensive tutorials I've seen out there for an R package, and also Tom Mock, who wrote a [fantastic tutorial](https://themockup.blog/posts/2020-05-13-reactable-tables-the-rest-of-the-owl/) that really helped me understand how to use CSS and Google fonts to enhance the visual appeal of the table. 
+
+For creating the interactive plot, I frequently referenced this [Plotly guide](https://plotly.com/r/) from the makers of the `plotly` package.
+
+And for linking the `reactable` table and `plotly` plot together, I used the `crosstalk` package which can be found [here](https://rstudio.github.io/crosstalk/index.html).
+
+# Data
+
+The data I used comes from the 2019 NFL Standings & Team Stats page on the [Pro Football Reference website](https://www.pro-football-reference.com/years/2019/). I utilized the `rvest` package to scrape the data from the AFC and NFC Standings table and combined them into a single table.
+
+I then used packages such as `dplyr`, `tidyr`, and `stringr` to clean and tidy the data so that it could be easily used for visualization. 
+
+# Visualization
+
+For the Strength-of-Schedule (SoS) metric from Pro-Football-Reference, I thought it would be more easily understood if I bucketed the metric into groups and assigned an easy-to-difficult scale. I based my scale off of the ski trail difficulty scale below:
+
+<img src="/img/ski-trail-difficulty.png" width=400 height=300 />
+
+I also decided to remove the asterisks that are present in the original Pro-Football-Reference table that signify if the team made the playoffs or not and converted this into a new column with a green checkmark for teams that made the playoffs and a red x for teams that didn't so that we could filter this column for playoff teams vs non-playoff teams if desired.
+
+I also made the plot above the table interactive so that when you hover over a point you can see the team name and the OSRS and DSRS rating of that team. You can also click-and-drag over a group of data points to display just those data points in the table and double-click on the plot to de-select.
+
+Both the plot and the table are controlled by the filters that are located on the left-hand side of the plot.
+
+# Code
+
+```{r ref.label = "plot", eval = FALSE}
+
+```
+
+
+```{r ref.label = "table", eval = FALSE}
+
+```
+
+
+```{r}
+tags$link(href = "https://fonts.googleapis.com/css?family=Karla:400,700|Fira+Mono&display=fallback", rel = "stylesheet")
+```
+
+
+```{css}
+.border-left {
+  border-left: 0.3px solid #999;
+}
+
+.border-right {
+  border-right: 0.3px solid #999;
+}
+
+.cell {
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.roundcorners {
+  border-radius: 8px;
+  color: #000;
+  padding: 2px;
+  width: 48px;
+  height: 28px;
+}
+
+.rotate{
+  transform: rotate(45deg);
+}
+
+.header:hover,
+.header[aria-sort="ascending"],
+.header[aria-sort="descending"] {
+  background-color: #b3b3b3;
+  color: #fff;
+}
+
+.header:active,
+.header[aria-sort="ascending"],
+.header[aria-sort="descending"] {
+  background-color: #555;
+  color: #fff;
+}
+
+.linebreak {
+  border-bottom: 1px solid #EEE;
+  margin-bottom: 12px;
+}
+
+.filtertext {
+  font-family: Karla, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+.colheader {
+  font-family: Karla, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  border-bottom: 2px solid #555;
+}
+
+.groupheader {
+  font-family: Karla, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+}
+
+.title {
+  font-family: Karla, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+}
+
+.number {
+  font-family: "Fira Mono", Consolas, Monaco, monospace;
+  font-size: 14px;
+  line-height: 30px;
+  white-space: pre;
+}
+
+.record {
+  margin-left: 2px;
+  color: #999;
+  font-size: 13px;
+}
+
+.team-name {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.table-font {
+  font-family: Karla, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+```
+
+
+```{css echo = FALSE}
+.article-container {
+  max-width: 940px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+```
+
+

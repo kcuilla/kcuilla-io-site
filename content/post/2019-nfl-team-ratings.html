@@ -1,0 +1,799 @@
+---
+title: "2019 NFL Team Ratings"
+author: "Kyle Cuilla"
+date: 2020-08-15
+categories: ["R"]
+output: html_document
+---
+
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/ionrangeslider/css/ion.rangeSlider.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/ionrangeslider/css/ion.rangeSlider.skinShiny.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/ionrangeslider/js/ion.rangeSlider.min.js"></script>
+<script src="/rmarkdown-libs/strftime/strftime-min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="/rmarkdown-libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/bootstrap/js/bootstrap.min.js"></script>
+<link href="/rmarkdown-libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/selectize/js/selectize.min.js"></script>
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/plotly-binding/plotly.js"></script>
+<script src="/rmarkdown-libs/typedarray/typedarray.min.js"></script>
+<link href="/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/plotly-main/plotly-latest.min.js"></script>
+<script src="/rmarkdown-libs/core-js/shim.min.js"></script>
+<script src="/rmarkdown-libs/react/react.min.js"></script>
+<script src="/rmarkdown-libs/react/react-dom.min.js"></script>
+<script src="/rmarkdown-libs/reactwidget/react-tools.js"></script>
+<script src="/rmarkdown-libs/reactable-binding/reactable.js"></script>
+<link href="/rmarkdown-libs/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+
+
+<p><div class="filtertext">
+<div class="title">
+<h2>2019 NFL Team Stats &amp; Ratings</h2>
+</div>
+<div class="container-fluid crosstalk-bscols">
+<div class="fluid-row">
+<div class="col-xs-3">
+<div class="form-group crosstalk-input crosstalk-input-slider js-range-slider" id="srs">
+<label class="control-label" for="srs">Team Rating (SRS): Total</label>
+<input data-type="double" data-min="-11.6" data-max="15.6" data-from="-11.6" data-to="15.6" data-step="1" data-grid="false" data-grid-snap="false" data-prettify-separator="," data-keyboard="true" data-keyboard-step="3.67647058823529" data-drag-interval="true" data-data-type="number"/>
+<script type="application/json" data-for="srs">{
+  "values": [-11.6, -10.8, -7.9, -7.3, -7, -6.9, -6.7, -6.3, -5.2, -3.2, -2.1, -1.9, -1.8, -1.3, -0.9, -0.1, 0.3, 0.3, 0.4, 0.5, 2.2, 2.7, 3.2, 3.4, 3.9, 5.3, 5.4, 7.4, 9.1, 10.4, 11, 15.6],
+  "keys": ["4", "20", "19", "8", "28", "15", "12", "3", "24", "32", "14", "7", "11", "16", "23", "26", "6", "17", "27", "9", "2", "30", "21", "10", "31", "18", "22", "25", "13", "1", "29", "5"],
+  "group": ["SharedData9e4f2e5d"]
+}</script>
+</div>
+<div id="sos" class="form-group crosstalk-input-checkboxgroup crosstalk-input">
+<label class="control-label" for="sos">Strength of Schedule (SoS)</label>
+<div class="crosstalk-options-group">
+<div class="checkbox">
+<label>
+<input type="checkbox" name="sos" value="Easy"/>
+<span>Easy</span>
+</label>
+</div>
+<div class="checkbox">
+<label>
+<input type="checkbox" name="sos" value="Moderate"/>
+<span>Moderate</span>
+</label>
+</div>
+<div class="checkbox">
+<label>
+<input type="checkbox" name="sos" value="Difficult"/>
+<span>Difficult</span>
+</label>
+</div>
+<div class="checkbox">
+<label>
+<input type="checkbox" name="sos" value="Most Difficult"/>
+<span>Most Difficult</span>
+</label>
+</div>
+</div>
+<script type="application/json" data-for="sos">{
+  "map": {
+    "Easy": ["1", "2", "3", "10", "11", "17", "18", "22"],
+    "Moderate": ["12", "15", "16", "19", "20", "21", "24", "27"],
+    "Difficult": ["4", "5", "9", "13", "14", "23", "25", "29"],
+    "Most Difficult": ["6", "7", "8", "26", "28", "30", "31", "32"]
+  },
+  "group": ["SharedData9e4f2e5d"]
+}</script>
+</div>
+<div id="play" class="form-group crosstalk-input-checkboxgroup crosstalk-input">
+<label class="control-label" for="play">Playoffs</label>
+<div class="crosstalk-options-group">
+<label class="checkbox-inline">
+<input type="checkbox" name="play" value="No"/>
+<span>No</span>
+</label>
+<label class="checkbox-inline">
+<input type="checkbox" name="play" value="Yes"/>
+<span>Yes</span>
+</label>
+</div>
+<script type="application/json" data-for="play">{
+  "map": {
+    "No": ["3", "4", "6", "7", "8", "11", "12", "14", "15", "16", "18", "19", "20", "23", "24", "26", "27", "28", "31", "32"],
+    "Yes": ["1", "2", "5", "9", "10", "13", "17", "21", "22", "25", "29", "30"]
+  },
+  "group": ["SharedData9e4f2e5d"]
+}</script>
+</div>
+<div id="conf" class="form-group crosstalk-input-checkboxgroup crosstalk-input">
+<label class="control-label" for="conf">Conference</label>
+<div class="crosstalk-options-group">
+<label class="checkbox-inline">
+<input type="checkbox" name="conf" value="AFC"/>
+<span>AFC</span>
+</label>
+<label class="checkbox-inline">
+<input type="checkbox" name="conf" value="NFC"/>
+<span>NFC</span>
+</label>
+</div>
+<script type="application/json" data-for="conf">{
+  "map": {
+    "AFC": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"],
+    "NFC": ["17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32"]
+  },
+  "group": ["SharedData9e4f2e5d"]
+}</script>
+</div>
+<div id="divi" class="form-group crosstalk-input-select crosstalk-input">
+<label class="control-label" for="divi">Division</label>
+<div>
+<select multiple></select>
+<script type="application/json" data-for="divi">{
+  "items": {
+    "value": ["AFC East", "AFC North", "AFC South", "AFC West", "NFC East", "NFC North", "NFC South", "NFC West"],
+    "label": ["AFC East", "AFC North", "AFC South", "AFC West", "NFC East", "NFC North", "NFC South", "NFC West"]
+  },
+  "map": {
+    "AFC East": ["1", "2", "3", "4"],
+    "AFC North": ["5", "6", "7", "8"],
+    "AFC South": ["9", "10", "11", "12"],
+    "AFC West": ["13", "14", "15", "16"],
+    "NFC East": ["17", "18", "19", "20"],
+    "NFC North": ["21", "22", "23", "24"],
+    "NFC South": ["25", "26", "27", "28"],
+    "NFC West": ["29", "30", "31", "32"]
+  },
+  "group": ["SharedData9e4f2e5d"]
+}</script>
+</div>
+</div>
+</div>
+<div class="col-xs-9">
+<div id="htmlwidget-1" style="width:680px;height:420px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"visdat":{"19416c616c5":["function () ","plotlyVisDat"]},"cur_data":"19416c616c5","attrs":{"19416c616c5":{"x":{},"y":{},"text":{},"hoverinfo":"text","hovertemplate":"<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","mode":"markers","marker":{"size":18,"color":"white","line":{"color":"black","width":1.5}},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"width":680,"height":420,"margin":{"b":40,"l":60,"t":25,"r":10},"annotations":[{"text":"+ Offense","x":10,"y":10.75,"xref":"x","yref":"y","bgcolor":"#ef8a62","showarrow":false},{"text":"+ Defense","x":10,"y":9.25,"xref":"x","yref":"y","bgcolor":"#ef8a62","showarrow":false},{"text":"- Offense","x":-10,"y":-9.25,"xref":"x","yref":"y","bgcolor":"#67a9cf","showarrow":false},{"text":"- Defense","x":-10,"y":-10.75,"xref":"x","yref":"y","bgcolor":"#67a9cf","showarrow":false},{"text":"+ Offense","x":10,"y":-9.25,"xref":"x","yref":"y","bgcolor":"#ef8a62","showarrow":false},{"text":"- Defense","x":10,"y":-10.75,"xref":"x","yref":"y","bgcolor":"#67a9cf","showarrow":false},{"text":"- Offense","x":-10,"y":10.75,"xref":"x","yref":"y","bgcolor":"#67a9cf","showarrow":false},{"text":"+ Defense","x":-10,"y":9.25,"xref":"x","yref":"y","bgcolor":"#ef8a62","showarrow":false}],"autosize":false,"xaxis":{"domain":[0,1],"automargin":true,"range":[-12.5,12.5],"fixedrange":true,"zeroline":false,"ticks":"outside","tickcolor":"#fff","tickformat":"+","tickfont":{"size":14},"titlefont":{"family":"Open Sans","size":18},"title":"Offensive SRS"},"yaxis":{"domain":[0,1],"automargin":true,"range":[-12.5,12.5],"fixedrange":true,"zeroline":false,"ticks":"outside","tickcolor":"#fff","tickformat":"+","tickfont":{"size":14},"titlefont":{"family":"Open Sans","size":18},"title":"Defensive SRS"},"hoverlabel":{"font":{"family":"Open Sans","size":16}},"shapes":[{"type":["function (xleft, ybottom, xright, ytop, density = NULL, angle = 45, ","    col = NA, border = NULL, lty = par(\"lty\"), lwd = par(\"lwd\"), ","    ...) ","{","    if (is.numeric(density) && all(is.na(density) | density < ","        0)) ","        density <- NULL","    if (!is.null(density) && !is.null(angle)) {","        if (is.logical(border) && !is.na(border)) {","            if (border) ","                border <- col","            else border <- NA","        }","        n <- range(length(xleft), length(xright), length(ybottom), ","            length(ytop))","        if (n[1L] == 0) ","            stop(\"invalid rectangle specification\")","        n <- n[2L]","        x <- rbind(rep.int(NA, n), xleft, xright, xright, xleft)[-1L]","        y <- rbind(rep.int(NA, n), ybottom, ybottom, ytop, ytop)[-1L]","        polygon(x, y, col = col, border = border, lty = lty, ","            lwd = lwd, density = density, angle = angle, ...)","    }","    else .External.graphics(C_rect, as.double(xleft), as.double(ybottom), ","        as.double(xright), as.double(ytop), col = col, border = border, ","        lty = lty, lwd = lwd, ...)","    invisible()","}"],"x0":0,"x1":15,"y0":0,"y1":15,"fillcolor":"rgba(239, 138, 98, 0.5)","layer":"below"},{"type":["function (xleft, ybottom, xright, ytop, density = NULL, angle = 45, ","    col = NA, border = NULL, lty = par(\"lty\"), lwd = par(\"lwd\"), ","    ...) ","{","    if (is.numeric(density) && all(is.na(density) | density < ","        0)) ","        density <- NULL","    if (!is.null(density) && !is.null(angle)) {","        if (is.logical(border) && !is.na(border)) {","            if (border) ","                border <- col","            else border <- NA","        }","        n <- range(length(xleft), length(xright), length(ybottom), ","            length(ytop))","        if (n[1L] == 0) ","            stop(\"invalid rectangle specification\")","        n <- n[2L]","        x <- rbind(rep.int(NA, n), xleft, xright, xright, xleft)[-1L]","        y <- rbind(rep.int(NA, n), ybottom, ybottom, ytop, ytop)[-1L]","        polygon(x, y, col = col, border = border, lty = lty, ","            lwd = lwd, density = density, angle = angle, ...)","    }","    else .External.graphics(C_rect, as.double(xleft), as.double(ybottom), ","        as.double(xright), as.double(ytop), col = col, border = border, ","        lty = lty, lwd = lwd, ...)","    invisible()","}"],"x0":0,"x1":-15,"y0":0,"y1":-15,"fillcolor":"rgba(103, 169, 207, 0.5)","layer":"below"}],"dragmode":"select","hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false,"displayModeBar":false},"highlight":{"on":"plotly_selected","off":"plotly_deselect","persistent":false,"dynamic":false,"color":null,"selectize":false,"defaultValues":null,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0,"ctGroups":["SharedData9e4f2e5d"]},"data":[{"x":[2.8,-3.5,-5.7,-2.4,11,-4.3,-0.4,-4.4,1,1.8,-1,-4.6,6.2,-4.8,-2.5,-1.6,0.7,3.8,-1.8,-6.3,0.6,2.5,-5.4,-1.2,5,0.3,4.9,-1.9,6.7,2.9,2.2,-0.3],"y":[7.6,5.7,-0.6,-9.1,4.7,4.6,-1.5,-2.9,-0.5,1.7,-0.8,-2.1,2.9,2.7,-4.4,0.3,-0.4,1.5,-6.1,-4.5,2.6,2.9,4.5,-4,2.3,-0.4,-4.5,-5.1,4.3,-0.2,1.7,-2.9],"text":["New England Patriots","Buffalo Bills","New York Jets","Miami Dolphins","Baltimore Ravens","Pittsburgh Steelers","Cleveland Browns","Cincinnati Bengals","Houston Texans","Tennessee Titans","Indianapolis Colts","Jacksonville Jaguars","Kansas City Chiefs","Denver Broncos","Las Vegas Raiders","Los Angeles Chargers","Philadelphia Eagles","Dallas Cowboys","New York Giants","Washington Football Team","Green Bay Packers","Minnesota Vikings","Chicago Bears","Detroit Lions","New Orleans Saints","Atlanta Falcons","Tampa Bay Buccaneers","Carolina Panthers","San Francisco 49ers","Seattle Seahawks","Los Angeles Rams","Arizona Cardinals"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"hovertemplate":["<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>","<b>%{text}<\/b><br> %{xaxis.title.text}: %{x:+.1f}<br> %{yaxis.title.text}: %{y:+.1f}<br> <extra><\/extra>"],"mode":"markers","marker":{"color":"white","size":18,"line":{"color":"black","width":1.5}},"type":"scatter","key":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32"],"set":"SharedData9e4f2e5d","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","_isNestedKey":false,"frame":null}],"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div class="linebreak"></div>
+</div><div class="table-font">
+<div id="htmlwidget-2" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Division":["AFC East","AFC East","AFC East","AFC East","AFC North","AFC North","AFC North","AFC North","AFC South","AFC South","AFC South","AFC South","AFC West","AFC West","AFC West","AFC West","NFC East","NFC East","NFC East","NFC East","NFC North","NFC North","NFC North","NFC North","NFC South","NFC South","NFC South","NFC South","NFC West","NFC West","NFC West","NFC West"],"Conference":["AFC","AFC","AFC","AFC","AFC","AFC","AFC","AFC","AFC","AFC","AFC","AFC","AFC","AFC","AFC","AFC","NFC","NFC","NFC","NFC","NFC","NFC","NFC","NFC","NFC","NFC","NFC","NFC","NFC","NFC","NFC","NFC"],"Rank":[3,12,25,32,1,16,21,29,13,9,20,26,4,22,27,19,15,7,30,31,10,6,18,24,5,17,14,28,2,11,8,23],"Team":["New England Patriots","Buffalo Bills","New York Jets","Miami Dolphins","Baltimore Ravens","Pittsburgh Steelers","Cleveland Browns","Cincinnati Bengals","Houston Texans","Tennessee Titans","Indianapolis Colts","Jacksonville Jaguars","Kansas City Chiefs","Denver Broncos","Las Vegas Raiders","Los Angeles Chargers","Philadelphia Eagles","Dallas Cowboys","New York Giants","Washington Football Team","Green Bay Packers","Minnesota Vikings","Chicago Bears","Detroit Lions","New Orleans Saints","Atlanta Falcons","Tampa Bay Buccaneers","Carolina Panthers","San Francisco 49ers","Seattle Seahawks","Los Angeles Rams","Arizona Cardinals"],"Record":["12-4-0","10-6-0","7-9-0","5-11-0","14-2-0","8-8-0","6-10-0","2-14-0","10-6-0","9-7-0","7-9-0","6-10-0","12-4-0","7-9-0","7-9-0","5-11-0","9-7-0","8-8-0","4-12-0","3-13-0","13-3-0","10-6-0","8-8-0","3-12-1","13-3-0","7-9-0","7-9-0","5-11-0","13-3-0","11-5-0","9-7-0","5-10-1"],"Playoffs":["Yes","Yes","No","No","Yes","No","No","No","Yes","Yes","No","No","Yes","No","No","No","Yes","No","No","No","Yes","Yes","No","No","Yes","No","No","No","Yes","Yes","No","No"],"SoS_rating":["Easy","Easy","Easy","Difficult","Difficult","Most Difficult","Most Difficult","Most Difficult","Difficult","Easy","Easy","Moderate","Difficult","Difficult","Moderate","Moderate","Easy","Easy","Moderate","Moderate","Moderate","Easy","Difficult","Moderate","Difficult","Most Difficult","Moderate","Most Difficult","Difficult","Most Difficult","Most Difficult","Most Difficult"],"PF":[420,314,276,306,531,289,335,279,378,402,361,300,451,282,313,337,385,434,341,266,376,407,280,341,458,381,458,340,479,405,394,361],"PA":[225,259,359,494,282,303,393,420,385,331,373,397,308,316,419,345,354,321,451,435,313,303,298,423,341,399,449,470,310,398,364,442],"MoV":[12.2,3.4,-5.2,-11.8,15.6,-0.9,-3.6,-8.8,-0.4,4.4,-0.8,-6.1,8.9,-2.1,-6.6,-0.5,1.9,7.1,-6.9,-10.6,3.9,6.5,-1.1,-5.1,7.3,-1.1,0.6,-8.1,10.6,0.4,1.9,-5.1],"OSRS":[2.8,-3.5,-5.7,-2.4,11,-4.3,-0.4,-4.4,1,1.8,-1,-4.6,6.2,-4.8,-2.5,-1.6,0.7,3.8,-1.8,-6.3,0.6,2.5,-5.4,-1.2,5,0.3,4.9,-1.9,6.7,2.9,2.2,-0.3],"DSRS":[7.6,5.7,-0.6,-9.1,4.7,4.6,-1.5,-2.9,-0.5,1.7,-0.8,-2.1,2.9,2.7,-4.4,0.3,-0.4,1.5,-6.1,-4.5,2.6,2.9,4.5,-4,2.3,-0.4,-4.5,-5.1,4.3,-0.2,1.7,-2.9],"SRS":[10.4,2.2,-6.3,-11.6,15.6,0.3,-1.9,-7.3,0.5,3.4,-1.8,-6.7,9.1,-2.1,-6.9,-1.3,0.3,5.3,-7.9,-10.8,3.2,5.4,-0.9,-5.2,7.4,-0.1,0.4,-7,11,2.7,3.9,-3.2]},"columns":[{"accessor":"Division","name":"Division","type":"character","headerClassName":"header colheader","show":false},{"accessor":"Conference","name":"Conference","type":"character","headerClassName":"header colheader","show":false},{"accessor":"Rank","name":"#","type":"numeric","headerClassName":"header colheader","maxWidth":30,"className":"cell number"},{"accessor":"Team","name":"Team","type":"character","headerClassName":"header colheader","cell":[{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["New England Patriots"]},{"name":"div","attribs":{"className":"record"},"children":["(12-4-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Buffalo Bills"]},{"name":"div","attribs":{"className":"record"},"children":["(10-6-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["New York Jets"]},{"name":"div","attribs":{"className":"record"},"children":["(7-9-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Miami Dolphins"]},{"name":"div","attribs":{"className":"record"},"children":["(5-11-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Baltimore Ravens"]},{"name":"div","attribs":{"className":"record"},"children":["(14-2-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Pittsburgh Steelers"]},{"name":"div","attribs":{"className":"record"},"children":["(8-8-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Cleveland Browns"]},{"name":"div","attribs":{"className":"record"},"children":["(6-10-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Cincinnati Bengals"]},{"name":"div","attribs":{"className":"record"},"children":["(2-14-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Houston Texans"]},{"name":"div","attribs":{"className":"record"},"children":["(10-6-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Tennessee Titans"]},{"name":"div","attribs":{"className":"record"},"children":["(9-7-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Indianapolis Colts"]},{"name":"div","attribs":{"className":"record"},"children":["(7-9-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Jacksonville Jaguars"]},{"name":"div","attribs":{"className":"record"},"children":["(6-10-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Kansas City Chiefs"]},{"name":"div","attribs":{"className":"record"},"children":["(12-4-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Denver Broncos"]},{"name":"div","attribs":{"className":"record"},"children":["(7-9-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Las Vegas Raiders"]},{"name":"div","attribs":{"className":"record"},"children":["(7-9-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Los Angeles Chargers"]},{"name":"div","attribs":{"className":"record"},"children":["(5-11-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Philadelphia Eagles"]},{"name":"div","attribs":{"className":"record"},"children":["(9-7-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Dallas Cowboys"]},{"name":"div","attribs":{"className":"record"},"children":["(8-8-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["New York Giants"]},{"name":"div","attribs":{"className":"record"},"children":["(4-12-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Washington Football Team"]},{"name":"div","attribs":{"className":"record"},"children":["(3-13-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Green Bay Packers"]},{"name":"div","attribs":{"className":"record"},"children":["(13-3-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Minnesota Vikings"]},{"name":"div","attribs":{"className":"record"},"children":["(10-6-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Chicago Bears"]},{"name":"div","attribs":{"className":"record"},"children":["(8-8-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Detroit Lions"]},{"name":"div","attribs":{"className":"record"},"children":["(3-12-1)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["New Orleans Saints"]},{"name":"div","attribs":{"className":"record"},"children":["(13-3-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Atlanta Falcons"]},{"name":"div","attribs":{"className":"record"},"children":["(7-9-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Tampa Bay Buccaneers"]},{"name":"div","attribs":{"className":"record"},"children":["(7-9-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Carolina Panthers"]},{"name":"div","attribs":{"className":"record"},"children":["(5-11-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["San Francisco 49ers"]},{"name":"div","attribs":{"className":"record"},"children":["(13-3-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Seattle Seahawks"]},{"name":"div","attribs":{"className":"record"},"children":["(11-5-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Los Angeles Rams"]},{"name":"div","attribs":{"className":"record"},"children":["(9-7-0)"]}]},{"name":"div","attribs":{},"children":[{"name":"div","attribs":{"className":"team-name"},"children":["Arizona Cardinals"]},{"name":"div","attribs":{"className":"record"},"children":["(5-10-1)"]}]}],"minWidth":150,"className":"cell"},{"accessor":"Record","name":"Record","type":"character","headerClassName":"header colheader","show":false},{"accessor":"Playoffs","name":"Playoffs","type":"character","headerClassName":"header colheader","cell":[{"name":"i","attribs":{"className":"fa fa-check"},"children":[]},{"name":"i","attribs":{"className":"fa fa-check"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-check"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-check"},"children":[]},{"name":"i","attribs":{"className":"fa fa-check"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-check"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-check"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-check"},"children":[]},{"name":"i","attribs":{"className":"fa fa-check"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-check"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-check"},"children":[]},{"name":"i","attribs":{"className":"fa fa-check"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]},{"name":"i","attribs":{"className":"fa fa-times"},"children":[]}],"maxWidth":75,"align":"center","className":"cell number border-left","style":[{"color":"green"},{"color":"green"},{"color":"red"},{"color":"red"},{"color":"green"},{"color":"red"},{"color":"red"},{"color":"red"},{"color":"green"},{"color":"green"},{"color":"red"},{"color":"red"},{"color":"green"},{"color":"red"},{"color":"red"},{"color":"red"},{"color":"green"},{"color":"red"},{"color":"red"},{"color":"red"},{"color":"green"},{"color":"green"},{"color":"red"},{"color":"red"},{"color":"green"},{"color":"red"},{"color":"red"},{"color":"red"},{"color":"green"},{"color":"green"},{"color":"red"},{"color":"red"}]},{"accessor":"SoS_rating","name":"SoS","type":"factor","headerClassName":"header colheader","cell":[{"name":"i","attribs":{"className":"fa fa-circle"},"children":[]},{"name":"i","attribs":{"className":"fa fa-circle"},"children":[]},{"name":"i","attribs":{"className":"fa fa-circle"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"Fragment","attribs":[],"children":[{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]}]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"i","attribs":{"className":"fa fa-circle"},"children":[]},{"name":"i","attribs":{"className":"fa fa-circle"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square"},"children":[]},{"name":"i","attribs":{"className":"fa fa-circle"},"children":[]},{"name":"i","attribs":{"className":"fa fa-circle"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square"},"children":[]},{"name":"i","attribs":{"className":"fa fa-circle"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"Fragment","attribs":[],"children":[{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]}]},{"name":"i","attribs":{"className":"fa fa-square"},"children":[]},{"name":"Fragment","attribs":[],"children":[{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]}]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"Fragment","attribs":[],"children":[{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]}]},{"name":"Fragment","attribs":[],"children":[{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]},{"name":"i","attribs":{"className":"fa fa-square rotate"},"children":[]}]}],"maxWidth":55,"align":"center","className":"border-left cell number","style":[{"color":"green"},{"color":"green"},{"color":"green"},{"color":"black"},{"color":"black"},{"color":"black"},{"color":"black"},{"color":"black"},{"color":"black"},{"color":"green"},{"color":"green"},{"color":"blue"},{"color":"black"},{"color":"black"},{"color":"blue"},{"color":"blue"},{"color":"green"},{"color":"green"},{"color":"blue"},{"color":"blue"},{"color":"blue"},{"color":"green"},{"color":"black"},{"color":"blue"},{"color":"black"},{"color":"black"},{"color":"blue"},{"color":"black"},{"color":"black"},{"color":"black"},{"color":"black"},{"color":"black"}]},{"accessor":"PF","name":"Points Scored","type":"numeric","headerClassName":"header colheader","cell":[{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["420",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"79.0960451977401%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["314",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"59.1337099811676%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["276",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"51.9774011299435%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["306",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"57.6271186440678%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["531",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"100%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["289",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"54.4256120527307%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["335",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"63.0885122410546%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["279",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"52.5423728813559%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["378",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"71.1864406779661%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["402",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"75.7062146892655%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["361",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"67.984934086629%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["300",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"56.4971751412429%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["451",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"84.9340866290019%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["282",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"53.1073446327684%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["313",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"58.9453860640301%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["337",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"63.4651600753296%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["385",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"72.5047080979284%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["434",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"81.7325800376648%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["341",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"64.2184557438795%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["266",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"50.0941619585687%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["376",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"70.8097928436911%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["407",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"76.6478342749529%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["280",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"52.7306967984934%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["341",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"64.2184557438795%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["458",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"86.2523540489642%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["381",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"71.7514124293785%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["458",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"86.2523540489642%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["340",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"64.030131826742%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["479",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"90.2071563088512%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["405",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"76.271186440678%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["394",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"74.1996233521657%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["361",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"67.984934086629%","height":"13px"}},"children":[]}]}]}],"align":"left","className":"border-left cell number","headerStyle":{"fontWeight":"500"}},{"accessor":"PA","name":"Points Against","type":"numeric","headerClassName":"header colheader","cell":[{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["225",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"45.5465587044534%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["259",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"52.4291497975709%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["359",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"72.6720647773279%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["494",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"100%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["282",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"57.085020242915%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["303",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"61.336032388664%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["393",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"79.5546558704453%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["420",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"85.0202429149798%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["385",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"77.9352226720648%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["331",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"67.0040485829959%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["373",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"75.5060728744939%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["397",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"80.3643724696356%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["308",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"62.3481781376518%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["316",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"63.9676113360324%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["419",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"84.8178137651822%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["345",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"69.8380566801619%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["354",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"71.6599190283401%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["321",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"64.9797570850202%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["451",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"91.2955465587045%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["435",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"88.0566801619433%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["313",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"63.3603238866397%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["303",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"61.336032388664%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["298",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"60.3238866396761%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["423",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"85.6275303643725%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["341",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"69.0283400809717%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["399",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"80.7692307692308%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["449",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"90.8906882591093%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["470",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"95.1417004048583%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["310",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"62.753036437247%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["398",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"80.5668016194332%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["364",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"73.6842105263158%","height":"13px"}},"children":[]}]}]},{"name":"div","attribs":{"style":{"display":"flex","alignItems":"center"}},"children":["442",{"name":"div","attribs":{"style":{"flexGrow":1,"marginLeft":"8px","background":"#e1e1e1"}},"children":[{"name":"div","attribs":{"style":{"background":"#ef8a62","width":"89.4736842105263%","height":"13px"}},"children":[]}]}]}],"align":"left","className":"cell number","headerStyle":{"fontWeight":"500"}},{"accessor":"MoV","name":"MoV","type":"numeric","headerClassName":"header colheader","cell":["+12.2","+3.4","-5.2","-11.8","+15.6","-0.9","-3.6","-8.8","-0.4","+4.4","-0.8","-6.1","+8.9","-2.1","-6.6","-0.5","+1.9","+7.1","-6.9","-10.6","+3.9","+6.5","-1.1","-5.1","+7.3","-1.1","+0.6","-8.1","+10.6","+0.4","+1.9","-5.1"],"maxWidth":60,"className":"border-right cell number","style":[{"color":"#008000"},{"color":"#008000"},{"color":"#e00000"},{"color":"#e00000"},{"color":"#008000"},{"color":"#e00000"},{"color":"#e00000"},{"color":"#e00000"},{"color":"#e00000"},{"color":"#008000"},{"color":"#e00000"},{"color":"#e00000"},{"color":"#008000"},{"color":"#e00000"},{"color":"#e00000"},{"color":"#e00000"},{"color":"#008000"},{"color":"#008000"},{"color":"#e00000"},{"color":"#e00000"},{"color":"#008000"},{"color":"#008000"},{"color":"#e00000"},{"color":"#e00000"},{"color":"#008000"},{"color":"#e00000"},{"color":"#008000"},{"color":"#e00000"},{"color":"#008000"},{"color":"#008000"},{"color":"#008000"},{"color":"#e00000"}],"headerStyle":{"fontWeight":"500"}},{"accessor":"OSRS","name":"Off.","type":"numeric","headerClassName":"header colheader","cell":[{"name":"div","attribs":{"style":{"background":"#F6E4D8"},"className":"roundcorners"},"children":["2.8"]},{"name":"div","attribs":{"style":{"background":"#D1E5ED"},"className":"roundcorners"},"children":["-3.5"]},{"name":"div","attribs":{"style":{"background":"#B4D5E4"},"className":"roundcorners"},"children":["-5.7"]},{"name":"div","attribs":{"style":{"background":"#DFEEF1"},"className":"roundcorners"},"children":["-2.4"]},{"name":"div","attribs":{"style":{"background":"#F1AA8C"},"className":"roundcorners"},"children":["11.0"]},{"name":"div","attribs":{"style":{"background":"#C6DFEA"},"className":"roundcorners"},"children":["-4.3"]},{"name":"div","attribs":{"style":{"background":"#F7FAF6"},"className":"roundcorners"},"children":["-0.4"]},{"name":"div","attribs":{"style":{"background":"#C5DFE9"},"className":"roundcorners"},"children":["-4.4"]},{"name":"div","attribs":{"style":{"background":"#F7F1E9"},"className":"roundcorners"},"children":["1.0"]},{"name":"div","attribs":{"style":{"background":"#F6EBE2"},"className":"roundcorners"},"children":["1.8"]},{"name":"div","attribs":{"style":{"background":"#F2F8F6"},"className":"roundcorners"},"children":["-1.0"]},{"name":"div","attribs":{"style":{"background":"#C2DDE8"},"className":"roundcorners"},"children":["-4.6"]},{"name":"div","attribs":{"style":{"background":"#F4CCB9"},"className":"roundcorners"},"children":["6.2"]},{"name":"div","attribs":{"style":{"background":"#C0DCE8"},"className":"roundcorners"},"children":["-4.8"]},{"name":"div","attribs":{"style":{"background":"#DEEDF0"},"className":"roundcorners"},"children":["-2.5"]},{"name":"div","attribs":{"style":{"background":"#EAF4F4"},"className":"roundcorners"},"children":["-1.6"]},{"name":"div","attribs":{"style":{"background":"#F7F3EC"},"className":"roundcorners"},"children":["0.7"]},{"name":"div","attribs":{"style":{"background":"#F5DDCF"},"className":"roundcorners"},"children":["3.8"]},{"name":"div","attribs":{"style":{"background":"#E7F2F3"},"className":"roundcorners"},"children":["-1.8"]},{"name":"div","attribs":{"style":{"background":"#ACD0E2"},"className":"roundcorners"},"children":["-6.3"]},{"name":"div","attribs":{"style":{"background":"#F7F3ED"},"className":"roundcorners"},"children":["0.6"]},{"name":"div","attribs":{"style":{"background":"#F6E6DB"},"className":"roundcorners"},"children":["2.5"]},{"name":"div","attribs":{"style":{"background":"#B8D7E6"},"className":"roundcorners"},"children":["-5.4"]},{"name":"div","attribs":{"style":{"background":"#EFF7F5"},"className":"roundcorners"},"children":["-1.2"]},{"name":"div","attribs":{"style":{"background":"#F4D4C4"},"className":"roundcorners"},"children":["5.0"]},{"name":"div","attribs":{"style":{"background":"#F7F5F0"},"className":"roundcorners"},"children":["0.3"]},{"name":"div","attribs":{"style":{"background":"#F4D5C5"},"className":"roundcorners"},"children":["4.9"]},{"name":"div","attribs":{"style":{"background":"#E6F1F3"},"className":"roundcorners"},"children":["-1.9"]},{"name":"div","attribs":{"style":{"background":"#F3C8B4"},"className":"roundcorners"},"children":["6.7"]},{"name":"div","attribs":{"style":{"background":"#F6E3D7"},"className":"roundcorners"},"children":["2.9"]},{"name":"div","attribs":{"style":{"background":"#F6E8DE"},"className":"roundcorners"},"children":["2.2"]},{"name":"div","attribs":{"style":{"background":"#F7FAF5"},"className":"roundcorners"},"children":["-0.3"]}],"maxWidth":60,"align":"right","className":"cell number","headerStyle":{"fontWeight":"500"}},{"accessor":"DSRS","name":"Def.","type":"numeric","headerClassName":"header colheader","cell":[{"name":"div","attribs":{"style":{"background":"#F3C2AC"},"className":"roundcorners"},"children":["7.6"]},{"name":"div","attribs":{"style":{"background":"#F4CFBD"},"className":"roundcorners"},"children":["5.7"]},{"name":"div","attribs":{"style":{"background":"#F7FBF7"},"className":"roundcorners"},"children":["-0.6"]},{"name":"div","attribs":{"style":{"background":"#87BBD8"},"className":"roundcorners"},"children":["-9.1"]},{"name":"div","attribs":{"style":{"background":"#F5D6C7"},"className":"roundcorners"},"children":["4.7"]},{"name":"div","attribs":{"style":{"background":"#F5D7C8"},"className":"roundcorners"},"children":["4.6"]},{"name":"div","attribs":{"style":{"background":"#EBF4F4"},"className":"roundcorners"},"children":["-1.5"]},{"name":"div","attribs":{"style":{"background":"#D9EAEF"},"className":"roundcorners"},"children":["-2.9"]},{"name":"div","attribs":{"style":{"background":"#F7FBF7"},"className":"roundcorners"},"children":["-0.5"]},{"name":"div","attribs":{"style":{"background":"#F6ECE3"},"className":"roundcorners"},"children":["1.7"]},{"name":"div","attribs":{"style":{"background":"#F4FAF7"},"className":"roundcorners"},"children":["-0.8"]},{"name":"div","attribs":{"style":{"background":"#E3F0F2"},"className":"roundcorners"},"children":["-2.1"]},{"name":"div","attribs":{"style":{"background":"#F6E3D7"},"className":"roundcorners"},"children":["2.9"]},{"name":"div","attribs":{"style":{"background":"#F6E5D9"},"className":"roundcorners"},"children":["2.7"]},{"name":"div","attribs":{"style":{"background":"#C5DFE9"},"className":"roundcorners"},"children":["-4.4"]},{"name":"div","attribs":{"style":{"background":"#F7F5F0"},"className":"roundcorners"},"children":["0.3"]},{"name":"div","attribs":{"style":{"background":"#F7FAF6"},"className":"roundcorners"},"children":["-0.4"]},{"name":"div","attribs":{"style":{"background":"#F6EDE4"},"className":"roundcorners"},"children":["1.5"]},{"name":"div","attribs":{"style":{"background":"#AFD2E3"},"className":"roundcorners"},"children":["-6.1"]},{"name":"div","attribs":{"style":{"background":"#C4DEE9"},"className":"roundcorners"},"children":["-4.5"]},{"name":"div","attribs":{"style":{"background":"#F6E5DA"},"className":"roundcorners"},"children":["2.6"]},{"name":"div","attribs":{"style":{"background":"#F6E3D7"},"className":"roundcorners"},"children":["2.9"]},{"name":"div","attribs":{"style":{"background":"#F5D8C9"},"className":"roundcorners"},"children":["4.5"]},{"name":"div","attribs":{"style":{"background":"#CAE2EB"},"className":"roundcorners"},"children":["-4.0"]},{"name":"div","attribs":{"style":{"background":"#F6E7DD"},"className":"roundcorners"},"children":["2.3"]},{"name":"div","attribs":{"style":{"background":"#F7FAF6"},"className":"roundcorners"},"children":["-0.4"]},{"name":"div","attribs":{"style":{"background":"#C4DEE9"},"className":"roundcorners"},"children":["-4.5"]},{"name":"div","attribs":{"style":{"background":"#BCD9E7"},"className":"roundcorners"},"children":["-5.1"]},{"name":"div","attribs":{"style":{"background":"#F5D9CA"},"className":"roundcorners"},"children":["4.3"]},{"name":"div","attribs":{"style":{"background":"#F7F9F4"},"className":"roundcorners"},"children":["-0.2"]},{"name":"div","attribs":{"style":{"background":"#F6ECE3"},"className":"roundcorners"},"children":["1.7"]},{"name":"div","attribs":{"style":{"background":"#D9EAEF"},"className":"roundcorners"},"children":["-2.9"]}],"maxWidth":60,"align":"right","className":"cell number","headerStyle":{"fontWeight":"500"}},{"accessor":"SRS","name":"Total","type":"numeric","headerClassName":"header colheader","cell":[{"name":"div","attribs":{"style":{"background":"#F1AE92"},"className":"roundcorners"},"children":["10.4"]},{"name":"div","attribs":{"style":{"background":"#F6E8DE"},"className":"roundcorners"},"children":["2.2"]},{"name":"div","attribs":{"style":{"background":"#ACD0E2"},"className":"roundcorners"},"children":["-6.3"]},{"name":"div","attribs":{"style":{"background":"#67A9CF"},"className":"roundcorners"},"children":["-11.6"]},{"name":"div","attribs":{"style":{"background":"#EF8A62"},"className":"roundcorners"},"children":["15.6"]},{"name":"div","attribs":{"style":{"background":"#F7F5F0"},"className":"roundcorners"},"children":["0.3"]},{"name":"div","attribs":{"style":{"background":"#E6F1F3"},"className":"roundcorners"},"children":["-1.9"]},{"name":"div","attribs":{"style":{"background":"#9FC9DE"},"className":"roundcorners"},"children":["-7.3"]},{"name":"div","attribs":{"style":{"background":"#F7F4EE"},"className":"roundcorners"},"children":["0.5"]},{"name":"div","attribs":{"style":{"background":"#F5E0D3"},"className":"roundcorners"},"children":["3.4"]},{"name":"div","attribs":{"style":{"background":"#E7F2F3"},"className":"roundcorners"},"children":["-1.8"]},{"name":"div","attribs":{"style":{"background":"#A7CDE1"},"className":"roundcorners"},"children":["-6.7"]},{"name":"div","attribs":{"style":{"background":"#F2B79E"},"className":"roundcorners"},"children":["9.1"]},{"name":"div","attribs":{"style":{"background":"#E3F0F2"},"className":"roundcorners"},"children":["-2.1"]},{"name":"div","attribs":{"style":{"background":"#A4CCE0"},"className":"roundcorners"},"children":["-6.9"]},{"name":"div","attribs":{"style":{"background":"#EEF6F5"},"className":"roundcorners"},"children":["-1.3"]},{"name":"div","attribs":{"style":{"background":"#F7F5F0"},"className":"roundcorners"},"children":["0.3"]},{"name":"div","attribs":{"style":{"background":"#F4D2C1"},"className":"roundcorners"},"children":["5.3"]},{"name":"div","attribs":{"style":{"background":"#97C4DC"},"className":"roundcorners"},"children":["-7.9"]},{"name":"div","attribs":{"style":{"background":"#71AFD1"},"className":"roundcorners"},"children":["-10.8"]},{"name":"div","attribs":{"style":{"background":"#F5E1D5"},"className":"roundcorners"},"children":["3.2"]},{"name":"div","attribs":{"style":{"background":"#F4D1C0"},"className":"roundcorners"},"children":["5.4"]},{"name":"div","attribs":{"style":{"background":"#F3F9F6"},"className":"roundcorners"},"children":["-0.9"]},{"name":"div","attribs":{"style":{"background":"#BBD9E6"},"className":"roundcorners"},"children":["-5.2"]},{"name":"div","attribs":{"style":{"background":"#F3C3AE"},"className":"roundcorners"},"children":["7.4"]},{"name":"div","attribs":{"style":{"background":"#F7F8F3"},"className":"roundcorners"},"children":["-0.1"]},{"name":"div","attribs":{"style":{"background":"#F7F5EF"},"className":"roundcorners"},"children":["0.4"]},{"name":"div","attribs":{"style":{"background":"#A3CBE0"},"className":"roundcorners"},"children":["-7.0"]},{"name":"div","attribs":{"style":{"background":"#F1AA8C"},"className":"roundcorners"},"children":["11.0"]},{"name":"div","attribs":{"style":{"background":"#F6E5D9"},"className":"roundcorners"},"children":["2.7"]},{"name":"div","attribs":{"style":{"background":"#F5DCCE"},"className":"roundcorners"},"children":["3.9"]},{"name":"div","attribs":{"style":{"background":"#D5E8EE"},"className":"roundcorners"},"children":["-3.2"]}],"maxWidth":60,"align":"right","className":"cell number","headerStyle":{"fontWeight":"500"}}],"columnGroups":[{"name":"Team Rating (SRS)","headerClassName":"groupheader","columns":["SRS","OSRS","DSRS"]},{"name":"Team Scoring & Margin of Victory","headerClassName":"groupheader","columns":["PF","PA","MoV"]}],"defaultSortDesc":true,"defaultSorted":[{"id":"SRS","desc":true}],"defaultPageSize":32,"paginationType":"numbers","showPageInfo":true,"minRows":1,"highlight":true,"compact":true,"showSortIcon":false,"crosstalkKey":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32"],"crosstalkGroup":"SharedData9e4f2e5d","dataKey":"dc13ec7bffbc8deb273d91c03f5b5476"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+</div></p>
+<p>Created by: <span class="citation">@kc_analytics</span></p>
+Source: <a href="https://www.pro-football-reference.com/years/2019/">Pro-Football-Reference</a>
+<hr>
+<div id="process" class="section level1">
+<h1>Process</h1>
+<p>The main inspiration for this post came from <a href="https://projects.fivethirtyeight.com/2020-nba-player-ratings/?ex_cid=irpromo">538’s NBA Player Ratings</a> which shows the player ratings in an interactive chart and table that are linked together. My goal was to build a similar-styled data visualization for NFL team ratings from the 2019 season and make it reproducible so that it could be easily updated for the upcoming 2020 season.</p>
+<p>A couple great tutorials that I used to create the interactive table from the <code>reactable</code> package were from Greg Lin, who <a href="https://glin.github.io/reactable/index.html">wrote</a> one of the most comprehensive tutorials I’ve seen out there for an R package, and also Tom Mock, who wrote a <a href="https://themockup.blog/posts/2020-05-13-reactable-tables-the-rest-of-the-owl/">fantastic tutorial</a> that really helped me understand how to use CSS and Google fonts to enhance the visual appeal of the table.</p>
+<p>For creating the interactive plot, I frequently referenced this <a href="https://plotly.com/r/">Plotly guide</a> from the makers of the <code>plotly</code> package.</p>
+<p>And for linking the <code>reactable</code> table and <code>plotly</code> plot together, I used the <code>crosstalk</code> package which can be found <a href="https://rstudio.github.io/crosstalk/index.html">here</a>.</p>
+</div>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<p>The data I used comes from the 2019 NFL Standings &amp; Team Stats page on the <a href="https://www.pro-football-reference.com/years/2019/">Pro Football Reference website</a>. I utilized the <code>rvest</code> package to scrape the data from the AFC and NFC Standings table and combined them into a single table.</p>
+<p>I then used packages such as <code>dplyr</code>, <code>tidyr</code>, and <code>stringr</code> to clean and tidy the data so that it could be easily used for visualization.</p>
+</div>
+<div id="visualization" class="section level1">
+<h1>Visualization</h1>
+<p>For the Strength-of-Schedule (SoS) metric from Pro-Football-Reference, I thought it would be more easily understood if I bucketed the metric into groups and assigned an easy-to-difficult scale. I based my scale off of the ski trail difficulty scale below:</p>
+<p><img src="/img/ski-trail-difficulty.png" width=400 height=300 /></p>
+<p>I also decided to remove the asterisks that are present in the original Pro-Football-Reference table that signify if the team made the playoffs or not and converted this into a new column with a green checkmark for teams that made the playoffs and a red x for teams that didn’t so that we could filter this column for playoff teams vs non-playoff teams if desired.</p>
+<p>I also made the plot above the table interactive so that when you hover over a point you can see the team name and the OSRS and DSRS rating of that team. You can also click-and-drag over a group of data points to display just those data points in the table and double-click on the plot to de-select.</p>
+<p>Both the plot and the table are controlled by the filters that are located on the left-hand side of the plot.</p>
+</div>
+<div id="code" class="section level1">
+<h1>Code</h1>
+<pre class="r"><code>interactive_plot &lt;-
+  plot_ly(
+    NFL_table_clean_shared,
+    x = ~ OSRS,
+    y = ~ DSRS,
+    text = ~ Team,
+    hoverinfo = &quot;text&quot;,
+    hovertemplate = paste(
+      &quot;&lt;b&gt;%{text}&lt;/b&gt;&lt;br&gt;&quot;,
+      &quot;%{xaxis.title.text}: %{x:+.1f}&lt;br&gt;&quot;,
+      &quot;%{yaxis.title.text}: %{y:+.1f}&lt;br&gt;&quot;,
+      &quot;&lt;extra&gt;&lt;/extra&gt;&quot;
+    ),
+    type = &quot;scatter&quot;,
+    mode = &quot;markers&quot;,
+    marker = list(
+      size = 18,
+      color = &quot;white&quot;,
+      line = list(color = &quot;black&quot;,
+                  width = 1.5)
+    ),
+    width = 680,
+    height = 420
+  ) %&gt;%
+  ### Top right (+Offense +Defense)
+  add_annotations(
+    x = 10,
+    y = 10.75,
+    xref = &quot;x&quot;,
+    yref = &quot;y&quot;,
+    text = &quot;+ Offense&quot;,
+    bgcolor = &quot;#ef8a62&quot;,
+    showarrow = F
+  ) %&gt;%
+  add_annotations(
+    x = 10,
+    y = 9.25,
+    xref = &quot;x&quot;,
+    yref = &quot;y&quot;,
+    text = &quot;+ Defense&quot;,
+    bgcolor = &quot;#ef8a62&quot;,
+    showarrow = F
+  ) %&gt;%
+  ### Bottom left (-Offense -Defense)
+  add_annotations(
+    x = -10,
+    y = -9.25,
+    xref = &quot;x&quot;,
+    yref = &quot;y&quot;,
+    text = &quot;- Offense&quot;,
+    bgcolor = &quot;#67a9cf&quot;,
+    showarrow = F
+  ) %&gt;%
+  add_annotations(
+    x = -10,
+    y = -10.75,
+    xref = &quot;x&quot;,
+    yref = &quot;y&quot;,
+    text = &quot;- Defense&quot;,
+    bgcolor = &quot;#67a9cf&quot;,
+    showarrow = F
+  ) %&gt;%
+  ### Bottom right (+Offense -Defense)
+  add_annotations(
+    x = 10,
+    y = -9.25,
+    xref = &quot;x&quot;,
+    yref = &quot;y&quot;,
+    text = &quot;+ Offense&quot;,
+    bgcolor = &quot;#ef8a62&quot;,
+    showarrow = F
+  ) %&gt;%
+  add_annotations(
+    x = 10,
+    y = -10.75,
+    xref = &quot;x&quot;,
+    yref = &quot;y&quot;,
+    text = &quot;- Defense&quot;,
+    bgcolor = &quot;#67a9cf&quot;,
+    showarrow = F
+  ) %&gt;%
+  ### Top left (-Offense +Defense)
+  add_annotations(
+    x = -10,
+    y = 10.75,
+    xref = &quot;x&quot;,
+    yref = &quot;y&quot;,
+    text = &quot;- Offense&quot;,
+    bgcolor = &quot;#67a9cf&quot;,
+    showarrow = F
+  ) %&gt;%
+  add_annotations(
+    x = -10,
+    y = 9.25,
+    xref = &quot;x&quot;,
+    yref = &quot;y&quot;,
+    text = &quot;+ Defense&quot;,
+    bgcolor = &quot;#ef8a62&quot;,
+    showarrow = F
+  ) %&gt;%
+  layout(
+    autosize = FALSE,
+    xaxis = list(
+      range = c(-12.5, 12.5),
+      fixedrange = TRUE,
+      zeroline = FALSE,
+      ticks = &quot;outside&quot;,
+      tickcolor = &quot;#fff&quot;,
+      tickformat = &quot;+&quot;,
+      tickfont = list(size = 14),
+      titlefont = list(family = &quot;Open Sans&quot;,
+                       size = 18),
+      title = &quot;Offensive SRS&quot;
+    ),
+    yaxis = list(
+      range = c(-12.5, 12.5),
+      fixedrange = TRUE,
+      zeroline = FALSE,
+      ticks = &quot;outside&quot;,
+      tickcolor = &quot;#fff&quot;,
+      tickformat = &quot;+&quot;,
+      tickfont = list(size = 14),
+      titlefont = list(family = &quot;Open Sans&quot;,
+                       size = 18),
+      title = &quot;Defensive SRS&quot;
+    ),
+    hoverlabel = list(font = list(family = &quot;Open Sans&quot;,
+                                  size = 16)),
+    shapes = list(
+      list(
+        type = rect,
+        x0 = 0,
+        x1 = 15,
+        y0 = 0,
+        y1 = 15,
+        fillcolor = &#39;rgba(239, 138, 98, 0.5)&#39;,
+        layer = &#39;below&#39;
+      ),
+      list(
+        type = rect,
+        x0 = 0,
+        x1 = -15,
+        y0 = 0,
+        y1 = -15,
+        fillcolor = &#39;rgba(103, 169, 207, 0.5)&#39;,
+        layer = &#39;below&#39;
+      )
+    )
+  ) %&gt;%
+  highlight(on = &quot;plotly_selected&quot;,
+            off = &quot;plotly_deselect&quot;) %&gt;%
+  config(displayModeBar = FALSE)</code></pre>
+<pre class="r"><code>bar_chart &lt;-
+  function(label,
+           width = &quot;100%&quot;,
+           height = &quot;13px&quot;,
+           fill = &quot;#00bfc4&quot;,
+           background = NULL) {
+    bar &lt;-
+      div(style = list(
+        background = fill,
+        width = width,
+        height = height
+      ))
+    chart &lt;-
+      div(style = list(
+        flexGrow = 1,
+        marginLeft = &quot;8px&quot;,
+        background = background
+      ),
+      bar)
+    div(style = list(display = &quot;flex&quot;, alignItems = &quot;center&quot;), label, chart)
+  }
+
+make_color_pal &lt;- function(colors, bias = 1) {
+  get_color &lt;- colorRamp(colors, bias = bias)
+  function(x)
+    rgb(get_color(x), maxColorValue = 255)
+}
+
+off_rating_color &lt;-
+  make_color_pal(c(&quot;#67a9cf&quot;, &quot;#f8fcf8&quot;, &quot;#ef8a62&quot;), bias = 1.3)
+def_rating_color &lt;-
+  make_color_pal(c(&quot;#67a9cf&quot;, &quot;#f8fcf8&quot;, &quot;#ef8a62&quot;), bias = 0.8)
+
+team_rating_column &lt;- function(maxWidth = 60, ...) {
+  colDef(
+    maxWidth = maxWidth,
+    align = &quot;right&quot;,
+    class = &quot;cell number&quot;,
+    headerStyle = list(fontWeight = &quot;500&quot;),
+    ...
+  )
+}
+
+conf_filter &lt;- filter_checkbox(
+  id = &quot;conf&quot;,
+  label = &quot;Conference&quot;,
+  inline = TRUE,
+  sharedData = NFL_table_clean_shared,
+  group = ~ Conference
+)
+
+div_filter &lt;- filter_select(
+  id = &quot;divi&quot;,
+  label = &quot;Division&quot;,
+  sharedData = NFL_table_clean_shared,
+  group = ~ Division
+)
+
+sos_filter &lt;- filter_checkbox(
+  id = &quot;sos&quot;,
+  label = &quot;Strength of Schedule (SoS)&quot;,
+  sharedData = NFL_table_clean_shared,
+  group = ~ SoS_rating
+)
+
+playoff_filter &lt;- filter_checkbox(
+  id = &quot;play&quot;,
+  label = &quot;Playoffs&quot;,
+  inline = TRUE,
+  sharedData = NFL_table_clean_shared,
+  group = ~ Playoffs
+)
+
+srs_filter &lt;- filter_slider(
+  id = &quot;srs&quot;,
+  label = &quot;Team Rating (SRS): Total&quot;,
+  sharedData = NFL_table_clean_shared,
+  column = ~ SRS,
+  ticks = FALSE,
+  step = 1
+)
+
+table &lt;-
+  reactable(
+    NFL_table_clean_shared,
+    pagination = FALSE,
+    showSortIcon = FALSE,
+    highlight = TRUE,
+    compact = TRUE,
+    defaultSorted = &quot;SRS&quot;,
+    defaultSortOrder = &quot;desc&quot;,
+    defaultColDef = colDef(headerClass = &quot;header colheader&quot;),
+    columnGroups = list(
+      colGroup(
+        name = &quot;Team Rating (SRS)&quot;,
+        columns = c(&quot;SRS&quot;, &quot;OSRS&quot;, &quot;DSRS&quot;),
+        headerClass = &quot;groupheader&quot;
+      ),
+      colGroup(
+        name = &quot;Team Scoring &amp; Margin of Victory&quot;,
+        columns = c(&quot;PF&quot;, &quot;PA&quot;, &quot;MoV&quot;),
+        headerClass = &quot;groupheader&quot;
+      )
+    ),
+    columns = list(
+      Division = colDef(show = FALSE),
+      Conference = colDef(show = FALSE),
+      Rank = colDef(
+        name = &quot;#&quot;,
+        maxWidth = 30,
+        class = &quot;cell number&quot;
+      ),
+      Team = colDef(
+        minWidth = 150,
+        class = &quot;cell&quot;,
+        cell = function(value, index) {
+          div(div(class = &quot;team-name&quot;, value),
+              div(class = &quot;record&quot;, sprintf(&quot;(%s)&quot;, NFL_table_clean[index, &quot;Record&quot;])))
+        }
+      ),
+      Record = colDef(show = FALSE),
+      SRS = team_rating_column(
+        name = &quot;Total&quot;,
+        cell = function(value) {
+          normalized &lt;-
+            (value - min(NFL_table_clean$SRS)) / (max(NFL_table_clean$SRS) - min(NFL_table_clean$SRS))
+          color &lt;- off_rating_color(normalized)
+          value &lt;- format(value, nsmall = 1, digits = 1)
+          div(class = &quot;roundcorners&quot;,
+              style = list(background = color),
+              value)
+        }
+      ),
+      OSRS = team_rating_column(
+        name = &quot;Off.&quot;,
+        cell = function(value) {
+          normalized &lt;-
+            (value - min(NFL_table_clean$SRS)) / (max(NFL_table_clean$SRS) - min(NFL_table_clean$SRS))
+          color &lt;- off_rating_color(normalized)
+          value &lt;- format(value, nsmall = 1, digits = 1)
+          div(class = &quot;roundcorners&quot;,
+              style = list(background = color),
+              value)
+        }
+      ),
+      DSRS = team_rating_column(
+        name = &quot;Def.&quot;,
+        cell = function(value) {
+          normalized &lt;-
+            (value - min(NFL_table_clean$SRS)) / (max(NFL_table_clean$SRS) - min(NFL_table_clean$SRS))
+          color &lt;- off_rating_color(normalized)
+          value &lt;- format(value, nsmall = 1, digits = 1)
+          div(class = &quot;roundcorners&quot;,
+              style = list(background = color),
+              value)
+        }
+      ),
+      PF = colDef(
+        name = &quot;Points Scored&quot;,
+        align = &quot;left&quot;,
+        class = &quot;border-left cell number&quot;,
+        headerStyle = list(fontWeight = &quot;500&quot;),
+        cell = function(value) {
+          width &lt;- paste0(value / max(NFL_table_clean$PF) * 100, &quot;%&quot;)
+          bar_chart(value,
+                    width = width,
+                    fill = &quot;#ef8a62&quot;,
+                    background = &quot;#e1e1e1&quot;)
+        }
+      ),
+      PA = colDef(
+        name = &quot;Points Against&quot;,
+        align = &quot;left&quot;,
+        class = &quot;cell number&quot;,
+        headerStyle = list(fontWeight = &quot;500&quot;),
+        cell = function(value) {
+          width &lt;- paste0(value / max(NFL_table_clean$PA) * 100, &quot;%&quot;)
+          bar_chart(value,
+                    width = width,
+                    fill = &quot;#ef8a62&quot;,
+                    background = &quot;#e1e1e1&quot;)
+        }
+      ),
+      PD = colDef(show = FALSE),
+      MoV = colDef(
+        maxWidth = 60,
+        class = &quot;border-right cell number&quot;,
+        headerStyle = list(fontWeight = &quot;500&quot;),
+        cell = function(value) {
+          if (value &gt; 0)
+            paste0(&quot;+&quot;, value)
+          else
+            value
+        },
+        style = function(value) {
+          if (value &gt; 0) {
+            color &lt;- &quot;#008000&quot;
+          } else if (value &lt; 0) {
+            color &lt;- &quot;#e00000&quot;
+          } else {
+            color &lt;- &quot;#777&quot;
+          }
+          list(color = color)
+        }
+      ),
+      SoS_rating = colDef(
+        name = &quot;SoS&quot;,
+        align = &quot;center&quot;,
+        maxWidth = 55,
+        class = &quot;border-left cell number&quot;,
+        cell = function(value) {
+          if (value == &quot;Most Difficult&quot;) {
+            list(tagAppendAttributes(shiny::icon(&quot;square&quot;, class = &quot;rotate&quot;)),
+                 tagAppendAttributes(shiny::icon(&quot;square&quot;, class = &quot;rotate&quot;)))
+          } else if (value == &quot;Difficult&quot;) {
+            tagAppendAttributes(shiny::icon(&quot;square&quot;, class = &quot;rotate&quot;))
+          } else if (value == &quot;Moderate&quot;) {
+            tagAppendAttributes(shiny::icon(&quot;square&quot;))
+          } else {
+            tagAppendAttributes(shiny::icon(&quot;circle&quot;))
+          }
+        },
+        style = function(value) {
+          if (value %in% c(&quot;Difficult&quot;, &quot;Most Difficult&quot;)) {
+            color &lt;- &quot;black&quot;
+          } else if (value == &quot;Moderate&quot;) {
+            color &lt;- &quot;blue&quot;
+          } else {
+            color &lt;- &quot;green&quot;
+          }
+          list(color = color)
+        }
+      ),
+      Playoffs = colDef(
+        maxWidth = 75,
+        align = &quot;center&quot;,
+        class = &quot;cell number border-left&quot;,
+        cell = function(value) {
+          if (value == &quot;Yes&quot;)
+            tagAppendAttributes(shiny::icon(&quot;check&quot;))
+          else
+            tagAppendAttributes(shiny::icon(&quot;times&quot;))
+        },
+        style = function(value) {
+          if (value == &quot;Yes&quot;) {
+            color &lt;- &quot;green&quot;
+          } else {
+            color &lt;- &quot;red&quot;
+          }
+          list(color = color)
+        }
+      )
+    )
+  )
+
+div(
+  div(class = &quot;title&quot;,
+      h2(&quot;2019 NFL Team Stats &amp; Ratings&quot;)),
+  class = &quot;filtertext&quot;,
+  bscols(
+    widths = c(3, NA),
+    list(
+      srs_filter,
+      sos_filter,
+      playoff_filter,
+      conf_filter,
+      div_filter
+    ),
+    interactive_plot
+  ),
+  div(class = &quot;linebreak&quot;)
+)
+
+div(class = &quot;table-font&quot;,
+    table)</code></pre>
+<pre class="r"><code>tags$link(href = &quot;https://fonts.googleapis.com/css?family=Karla:400,700|Fira+Mono&amp;display=fallback&quot;, rel = &quot;stylesheet&quot;)</code></pre>
+<link href="https://fonts.googleapis.com/css?family=Karla:400,700|Fira+Mono&amp;display=fallback" rel="stylesheet"/>
+<pre class="css"><code>.border-left {
+  border-left: 0.3px solid #999;
+}
+
+.border-right {
+  border-right: 0.3px solid #999;
+}
+
+.cell {
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.roundcorners {
+  border-radius: 8px;
+  color: #000;
+  padding: 2px;
+  width: 48px;
+  height: 28px;
+}
+
+.rotate{
+  transform: rotate(45deg);
+}
+
+.header:hover,
+.header[aria-sort=&quot;ascending&quot;],
+.header[aria-sort=&quot;descending&quot;] {
+  background-color: #b3b3b3;
+  color: #fff;
+}
+
+.header:active,
+.header[aria-sort=&quot;ascending&quot;],
+.header[aria-sort=&quot;descending&quot;] {
+  background-color: #555;
+  color: #fff;
+}
+
+.linebreak {
+  border-bottom: 1px solid #EEE;
+  margin-bottom: 12px;
+}
+
+.filtertext {
+  font-family: Karla, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+.colheader {
+  font-family: Karla, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  border-bottom: 2px solid #555;
+}
+
+.groupheader {
+  font-family: Karla, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+}
+
+.title {
+  font-family: Karla, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
+  font-size: 20px;
+}
+
+.number {
+  font-family: &quot;Fira Mono&quot;, Consolas, Monaco, monospace;
+  font-size: 14px;
+  line-height: 30px;
+  white-space: pre;
+}
+
+.record {
+  margin-left: 2px;
+  color: #999;
+  font-size: 13px;
+}
+
+.team-name {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.table-font {
+  font-family: Karla, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}</code></pre>
+<style type="text/css">
+.border-left {
+  border-left: 0.3px solid #999;
+}
+
+.border-right {
+  border-right: 0.3px solid #999;
+}
+
+.cell {
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.roundcorners {
+  border-radius: 8px;
+  color: #000;
+  padding: 2px;
+  width: 48px;
+  height: 28px;
+}
+
+.rotate{
+  transform: rotate(45deg);
+}
+
+.header:hover,
+.header[aria-sort="ascending"],
+.header[aria-sort="descending"] {
+  background-color: #b3b3b3;
+  color: #fff;
+}
+
+.header:active,
+.header[aria-sort="ascending"],
+.header[aria-sort="descending"] {
+  background-color: #555;
+  color: #fff;
+}
+
+.linebreak {
+  border-bottom: 1px solid #EEE;
+  margin-bottom: 12px;
+}
+
+.filtertext {
+  font-family: Karla, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+.colheader {
+  font-family: Karla, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  border-bottom: 2px solid #555;
+}
+
+.groupheader {
+  font-family: Karla, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+}
+
+.title {
+  font-family: Karla, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+}
+
+.number {
+  font-family: "Fira Mono", Consolas, Monaco, monospace;
+  font-size: 14px;
+  line-height: 30px;
+  white-space: pre;
+}
+
+.record {
+  margin-left: 2px;
+  color: #999;
+  font-size: 13px;
+}
+
+.team-name {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.table-font {
+  font-family: Karla, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+</style>
+<style type="text/css">
+.article-container {
+  max-width: 940px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+</div>
