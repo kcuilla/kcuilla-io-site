@@ -79,6 +79,814 @@
     </item>
     
     <item>
+      <title></title>
+      <link>/project/2019-nfl-team-ratings/</link>
+      <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>/project/2019-nfl-team-ratings/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>2019 NFL Team Ratings</title>
+      <link>/post/2019-nfl-team-ratings/</link>
+      <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
+      <guid>/post/2019-nfl-team-ratings/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/jquery/jquery.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/ionrangeslider/css/ion.rangeSlider.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;link href=&#34;/rmarkdown-libs/ionrangeslider/css/ion.rangeSlider.skinShiny.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/ionrangeslider/js/ion.rangeSlider.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/strftime/strftime-min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/crosstalk/css/crosstalk.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/crosstalk/js/crosstalk.min.js&#34;&gt;&lt;/script&gt;
+&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1&#34; /&gt;
+&lt;link href=&#34;/rmarkdown-libs/bootstrap/css/bootstrap.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/bootstrap/js/bootstrap.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/selectize/css/selectize.bootstrap3.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/selectize/js/selectize.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/plotly-binding/plotly.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/typedarray/typedarray.min.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/rmarkdown-libs/plotly-main/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/core-js/shim.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/react/react.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/react/react-dom.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/reactwidget/react-tools.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/rmarkdown-libs/reactable-binding/reactable.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/font-awesome/css/all.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;link href=&#34;/rmarkdown-libs/font-awesome/css/v4-shims.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
+
+
+&lt;p&gt;&lt;div class=&#34;filtertext&#34;&gt;
+&lt;div class=&#34;title&#34;&gt;
+&lt;h2&gt;2019 NFL Team Stats &amp;amp; Ratings&lt;/h2&gt;
+&lt;/div&gt;
+&lt;div class=&#34;container-fluid crosstalk-bscols&#34;&gt;
+&lt;div class=&#34;fluid-row&#34;&gt;
+&lt;div class=&#34;col-xs-3&#34;&gt;
+&lt;div class=&#34;form-group crosstalk-input crosstalk-input-slider js-range-slider&#34; id=&#34;srs&#34;&gt;
+&lt;label class=&#34;control-label&#34; for=&#34;srs&#34;&gt;Team Rating (SRS): Total&lt;/label&gt;
+&lt;input data-type=&#34;double&#34; data-min=&#34;-11.6&#34; data-max=&#34;15.6&#34; data-from=&#34;-11.6&#34; data-to=&#34;15.6&#34; data-step=&#34;1&#34; data-grid=&#34;false&#34; data-grid-snap=&#34;false&#34; data-prettify-separator=&#34;,&#34; data-keyboard=&#34;true&#34; data-keyboard-step=&#34;3.67647058823529&#34; data-drag-interval=&#34;true&#34; data-data-type=&#34;number&#34;/&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;srs&#34;&gt;{
+  &#34;values&#34;: [-11.6, -10.8, -7.9, -7.3, -7, -6.9, -6.7, -6.3, -5.2, -3.2, -2.1, -1.9, -1.8, -1.3, -0.9, -0.1, 0.3, 0.3, 0.4, 0.5, 2.2, 2.7, 3.2, 3.4, 3.9, 5.3, 5.4, 7.4, 9.1, 10.4, 11, 15.6],
+  &#34;keys&#34;: [&#34;4&#34;, &#34;20&#34;, &#34;19&#34;, &#34;8&#34;, &#34;28&#34;, &#34;15&#34;, &#34;12&#34;, &#34;3&#34;, &#34;24&#34;, &#34;32&#34;, &#34;14&#34;, &#34;7&#34;, &#34;11&#34;, &#34;16&#34;, &#34;23&#34;, &#34;26&#34;, &#34;6&#34;, &#34;17&#34;, &#34;27&#34;, &#34;9&#34;, &#34;2&#34;, &#34;30&#34;, &#34;21&#34;, &#34;10&#34;, &#34;31&#34;, &#34;18&#34;, &#34;22&#34;, &#34;25&#34;, &#34;13&#34;, &#34;1&#34;, &#34;29&#34;, &#34;5&#34;],
+  &#34;group&#34;: [&#34;SharedData9e4f2e5d&#34;]
+}&lt;/script&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sos&#34; class=&#34;form-group crosstalk-input-checkboxgroup crosstalk-input&#34;&gt;
+&lt;label class=&#34;control-label&#34; for=&#34;sos&#34;&gt;Strength of Schedule (SoS)&lt;/label&gt;
+&lt;div class=&#34;crosstalk-options-group&#34;&gt;
+&lt;div class=&#34;checkbox&#34;&gt;
+&lt;label&gt;
+&lt;input type=&#34;checkbox&#34; name=&#34;sos&#34; value=&#34;Easy&#34;/&gt;
+&lt;span&gt;Easy&lt;/span&gt;
+&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class=&#34;checkbox&#34;&gt;
+&lt;label&gt;
+&lt;input type=&#34;checkbox&#34; name=&#34;sos&#34; value=&#34;Moderate&#34;/&gt;
+&lt;span&gt;Moderate&lt;/span&gt;
+&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class=&#34;checkbox&#34;&gt;
+&lt;label&gt;
+&lt;input type=&#34;checkbox&#34; name=&#34;sos&#34; value=&#34;Difficult&#34;/&gt;
+&lt;span&gt;Difficult&lt;/span&gt;
+&lt;/label&gt;
+&lt;/div&gt;
+&lt;div class=&#34;checkbox&#34;&gt;
+&lt;label&gt;
+&lt;input type=&#34;checkbox&#34; name=&#34;sos&#34; value=&#34;Most Difficult&#34;/&gt;
+&lt;span&gt;Most Difficult&lt;/span&gt;
+&lt;/label&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;sos&#34;&gt;{
+  &#34;map&#34;: {
+    &#34;Easy&#34;: [&#34;1&#34;, &#34;2&#34;, &#34;3&#34;, &#34;10&#34;, &#34;11&#34;, &#34;17&#34;, &#34;18&#34;, &#34;22&#34;],
+    &#34;Moderate&#34;: [&#34;12&#34;, &#34;15&#34;, &#34;16&#34;, &#34;19&#34;, &#34;20&#34;, &#34;21&#34;, &#34;24&#34;, &#34;27&#34;],
+    &#34;Difficult&#34;: [&#34;4&#34;, &#34;5&#34;, &#34;9&#34;, &#34;13&#34;, &#34;14&#34;, &#34;23&#34;, &#34;25&#34;, &#34;29&#34;],
+    &#34;Most Difficult&#34;: [&#34;6&#34;, &#34;7&#34;, &#34;8&#34;, &#34;26&#34;, &#34;28&#34;, &#34;30&#34;, &#34;31&#34;, &#34;32&#34;]
+  },
+  &#34;group&#34;: [&#34;SharedData9e4f2e5d&#34;]
+}&lt;/script&gt;
+&lt;/div&gt;
+&lt;div id=&#34;play&#34; class=&#34;form-group crosstalk-input-checkboxgroup crosstalk-input&#34;&gt;
+&lt;label class=&#34;control-label&#34; for=&#34;play&#34;&gt;Playoffs&lt;/label&gt;
+&lt;div class=&#34;crosstalk-options-group&#34;&gt;
+&lt;label class=&#34;checkbox-inline&#34;&gt;
+&lt;input type=&#34;checkbox&#34; name=&#34;play&#34; value=&#34;No&#34;/&gt;
+&lt;span&gt;No&lt;/span&gt;
+&lt;/label&gt;
+&lt;label class=&#34;checkbox-inline&#34;&gt;
+&lt;input type=&#34;checkbox&#34; name=&#34;play&#34; value=&#34;Yes&#34;/&gt;
+&lt;span&gt;Yes&lt;/span&gt;
+&lt;/label&gt;
+&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;play&#34;&gt;{
+  &#34;map&#34;: {
+    &#34;No&#34;: [&#34;3&#34;, &#34;4&#34;, &#34;6&#34;, &#34;7&#34;, &#34;8&#34;, &#34;11&#34;, &#34;12&#34;, &#34;14&#34;, &#34;15&#34;, &#34;16&#34;, &#34;18&#34;, &#34;19&#34;, &#34;20&#34;, &#34;23&#34;, &#34;24&#34;, &#34;26&#34;, &#34;27&#34;, &#34;28&#34;, &#34;31&#34;, &#34;32&#34;],
+    &#34;Yes&#34;: [&#34;1&#34;, &#34;2&#34;, &#34;5&#34;, &#34;9&#34;, &#34;10&#34;, &#34;13&#34;, &#34;17&#34;, &#34;21&#34;, &#34;22&#34;, &#34;25&#34;, &#34;29&#34;, &#34;30&#34;]
+  },
+  &#34;group&#34;: [&#34;SharedData9e4f2e5d&#34;]
+}&lt;/script&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conf&#34; class=&#34;form-group crosstalk-input-checkboxgroup crosstalk-input&#34;&gt;
+&lt;label class=&#34;control-label&#34; for=&#34;conf&#34;&gt;Conference&lt;/label&gt;
+&lt;div class=&#34;crosstalk-options-group&#34;&gt;
+&lt;label class=&#34;checkbox-inline&#34;&gt;
+&lt;input type=&#34;checkbox&#34; name=&#34;conf&#34; value=&#34;AFC&#34;/&gt;
+&lt;span&gt;AFC&lt;/span&gt;
+&lt;/label&gt;
+&lt;label class=&#34;checkbox-inline&#34;&gt;
+&lt;input type=&#34;checkbox&#34; name=&#34;conf&#34; value=&#34;NFC&#34;/&gt;
+&lt;span&gt;NFC&lt;/span&gt;
+&lt;/label&gt;
+&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;conf&#34;&gt;{
+  &#34;map&#34;: {
+    &#34;AFC&#34;: [&#34;1&#34;, &#34;2&#34;, &#34;3&#34;, &#34;4&#34;, &#34;5&#34;, &#34;6&#34;, &#34;7&#34;, &#34;8&#34;, &#34;9&#34;, &#34;10&#34;, &#34;11&#34;, &#34;12&#34;, &#34;13&#34;, &#34;14&#34;, &#34;15&#34;, &#34;16&#34;],
+    &#34;NFC&#34;: [&#34;17&#34;, &#34;18&#34;, &#34;19&#34;, &#34;20&#34;, &#34;21&#34;, &#34;22&#34;, &#34;23&#34;, &#34;24&#34;, &#34;25&#34;, &#34;26&#34;, &#34;27&#34;, &#34;28&#34;, &#34;29&#34;, &#34;30&#34;, &#34;31&#34;, &#34;32&#34;]
+  },
+  &#34;group&#34;: [&#34;SharedData9e4f2e5d&#34;]
+}&lt;/script&gt;
+&lt;/div&gt;
+&lt;div id=&#34;divi&#34; class=&#34;form-group crosstalk-input-select crosstalk-input&#34;&gt;
+&lt;label class=&#34;control-label&#34; for=&#34;divi&#34;&gt;Division&lt;/label&gt;
+&lt;div&gt;
+&lt;select multiple&gt;&lt;/select&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;divi&#34;&gt;{
+  &#34;items&#34;: {
+    &#34;value&#34;: [&#34;AFC East&#34;, &#34;AFC North&#34;, &#34;AFC South&#34;, &#34;AFC West&#34;, &#34;NFC East&#34;, &#34;NFC North&#34;, &#34;NFC South&#34;, &#34;NFC West&#34;],
+    &#34;label&#34;: [&#34;AFC East&#34;, &#34;AFC North&#34;, &#34;AFC South&#34;, &#34;AFC West&#34;, &#34;NFC East&#34;, &#34;NFC North&#34;, &#34;NFC South&#34;, &#34;NFC West&#34;]
+  },
+  &#34;map&#34;: {
+    &#34;AFC East&#34;: [&#34;1&#34;, &#34;2&#34;, &#34;3&#34;, &#34;4&#34;],
+    &#34;AFC North&#34;: [&#34;5&#34;, &#34;6&#34;, &#34;7&#34;, &#34;8&#34;],
+    &#34;AFC South&#34;: [&#34;9&#34;, &#34;10&#34;, &#34;11&#34;, &#34;12&#34;],
+    &#34;AFC West&#34;: [&#34;13&#34;, &#34;14&#34;, &#34;15&#34;, &#34;16&#34;],
+    &#34;NFC East&#34;: [&#34;17&#34;, &#34;18&#34;, &#34;19&#34;, &#34;20&#34;],
+    &#34;NFC North&#34;: [&#34;21&#34;, &#34;22&#34;, &#34;23&#34;, &#34;24&#34;],
+    &#34;NFC South&#34;: [&#34;25&#34;, &#34;26&#34;, &#34;27&#34;, &#34;28&#34;],
+    &#34;NFC West&#34;: [&#34;29&#34;, &#34;30&#34;, &#34;31&#34;, &#34;32&#34;]
+  },
+  &#34;group&#34;: [&#34;SharedData9e4f2e5d&#34;]
+}&lt;/script&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;col-xs-9&#34;&gt;
+&lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:680px;height:420px;&#34; class=&#34;plotly html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;visdat&#34;:{&#34;19416c616c5&#34;:[&#34;function () &#34;,&#34;plotlyVisDat&#34;]},&#34;cur_data&#34;:&#34;19416c616c5&#34;,&#34;attrs&#34;:{&#34;19416c616c5&#34;:{&#34;x&#34;:{},&#34;y&#34;:{},&#34;text&#34;:{},&#34;hoverinfo&#34;:&#34;text&#34;,&#34;hovertemplate&#34;:&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;mode&#34;:&#34;markers&#34;,&#34;marker&#34;:{&#34;size&#34;:18,&#34;color&#34;:&#34;white&#34;,&#34;line&#34;:{&#34;color&#34;:&#34;black&#34;,&#34;width&#34;:1.5}},&#34;alpha_stroke&#34;:1,&#34;sizes&#34;:[10,100],&#34;spans&#34;:[1,20],&#34;type&#34;:&#34;scatter&#34;}},&#34;layout&#34;:{&#34;width&#34;:680,&#34;height&#34;:420,&#34;margin&#34;:{&#34;b&#34;:40,&#34;l&#34;:60,&#34;t&#34;:25,&#34;r&#34;:10},&#34;annotations&#34;:[{&#34;text&#34;:&#34;+ Offense&#34;,&#34;x&#34;:10,&#34;y&#34;:10.75,&#34;xref&#34;:&#34;x&#34;,&#34;yref&#34;:&#34;y&#34;,&#34;bgcolor&#34;:&#34;#ef8a62&#34;,&#34;showarrow&#34;:false},{&#34;text&#34;:&#34;+ Defense&#34;,&#34;x&#34;:10,&#34;y&#34;:9.25,&#34;xref&#34;:&#34;x&#34;,&#34;yref&#34;:&#34;y&#34;,&#34;bgcolor&#34;:&#34;#ef8a62&#34;,&#34;showarrow&#34;:false},{&#34;text&#34;:&#34;- Offense&#34;,&#34;x&#34;:-10,&#34;y&#34;:-9.25,&#34;xref&#34;:&#34;x&#34;,&#34;yref&#34;:&#34;y&#34;,&#34;bgcolor&#34;:&#34;#67a9cf&#34;,&#34;showarrow&#34;:false},{&#34;text&#34;:&#34;- Defense&#34;,&#34;x&#34;:-10,&#34;y&#34;:-10.75,&#34;xref&#34;:&#34;x&#34;,&#34;yref&#34;:&#34;y&#34;,&#34;bgcolor&#34;:&#34;#67a9cf&#34;,&#34;showarrow&#34;:false},{&#34;text&#34;:&#34;+ Offense&#34;,&#34;x&#34;:10,&#34;y&#34;:-9.25,&#34;xref&#34;:&#34;x&#34;,&#34;yref&#34;:&#34;y&#34;,&#34;bgcolor&#34;:&#34;#ef8a62&#34;,&#34;showarrow&#34;:false},{&#34;text&#34;:&#34;- Defense&#34;,&#34;x&#34;:10,&#34;y&#34;:-10.75,&#34;xref&#34;:&#34;x&#34;,&#34;yref&#34;:&#34;y&#34;,&#34;bgcolor&#34;:&#34;#67a9cf&#34;,&#34;showarrow&#34;:false},{&#34;text&#34;:&#34;- Offense&#34;,&#34;x&#34;:-10,&#34;y&#34;:10.75,&#34;xref&#34;:&#34;x&#34;,&#34;yref&#34;:&#34;y&#34;,&#34;bgcolor&#34;:&#34;#67a9cf&#34;,&#34;showarrow&#34;:false},{&#34;text&#34;:&#34;+ Defense&#34;,&#34;x&#34;:-10,&#34;y&#34;:9.25,&#34;xref&#34;:&#34;x&#34;,&#34;yref&#34;:&#34;y&#34;,&#34;bgcolor&#34;:&#34;#ef8a62&#34;,&#34;showarrow&#34;:false}],&#34;autosize&#34;:false,&#34;xaxis&#34;:{&#34;domain&#34;:[0,1],&#34;automargin&#34;:true,&#34;range&#34;:[-12.5,12.5],&#34;fixedrange&#34;:true,&#34;zeroline&#34;:false,&#34;ticks&#34;:&#34;outside&#34;,&#34;tickcolor&#34;:&#34;#fff&#34;,&#34;tickformat&#34;:&#34;+&#34;,&#34;tickfont&#34;:{&#34;size&#34;:14},&#34;titlefont&#34;:{&#34;family&#34;:&#34;Open Sans&#34;,&#34;size&#34;:18},&#34;title&#34;:&#34;Offensive SRS&#34;},&#34;yaxis&#34;:{&#34;domain&#34;:[0,1],&#34;automargin&#34;:true,&#34;range&#34;:[-12.5,12.5],&#34;fixedrange&#34;:true,&#34;zeroline&#34;:false,&#34;ticks&#34;:&#34;outside&#34;,&#34;tickcolor&#34;:&#34;#fff&#34;,&#34;tickformat&#34;:&#34;+&#34;,&#34;tickfont&#34;:{&#34;size&#34;:14},&#34;titlefont&#34;:{&#34;family&#34;:&#34;Open Sans&#34;,&#34;size&#34;:18},&#34;title&#34;:&#34;Defensive SRS&#34;},&#34;hoverlabel&#34;:{&#34;font&#34;:{&#34;family&#34;:&#34;Open Sans&#34;,&#34;size&#34;:16}},&#34;shapes&#34;:[{&#34;type&#34;:[&#34;function (xleft, ybottom, xright, ytop, density = NULL, angle = 45, &#34;,&#34;    col = NA, border = NULL, lty = par(\&#34;lty\&#34;), lwd = par(\&#34;lwd\&#34;), &#34;,&#34;    ...) &#34;,&#34;{&#34;,&#34;    if (is.numeric(density) &amp;&amp; all(is.na(density) | density &lt; &#34;,&#34;        0)) &#34;,&#34;        density &lt;- NULL&#34;,&#34;    if (!is.null(density) &amp;&amp; !is.null(angle)) {&#34;,&#34;        if (is.logical(border) &amp;&amp; !is.na(border)) {&#34;,&#34;            if (border) &#34;,&#34;                border &lt;- col&#34;,&#34;            else border &lt;- NA&#34;,&#34;        }&#34;,&#34;        n &lt;- range(length(xleft), length(xright), length(ybottom), &#34;,&#34;            length(ytop))&#34;,&#34;        if (n[1L] == 0) &#34;,&#34;            stop(\&#34;invalid rectangle specification\&#34;)&#34;,&#34;        n &lt;- n[2L]&#34;,&#34;        x &lt;- rbind(rep.int(NA, n), xleft, xright, xright, xleft)[-1L]&#34;,&#34;        y &lt;- rbind(rep.int(NA, n), ybottom, ybottom, ytop, ytop)[-1L]&#34;,&#34;        polygon(x, y, col = col, border = border, lty = lty, &#34;,&#34;            lwd = lwd, density = density, angle = angle, ...)&#34;,&#34;    }&#34;,&#34;    else .External.graphics(C_rect, as.double(xleft), as.double(ybottom), &#34;,&#34;        as.double(xright), as.double(ytop), col = col, border = border, &#34;,&#34;        lty = lty, lwd = lwd, ...)&#34;,&#34;    invisible()&#34;,&#34;}&#34;],&#34;x0&#34;:0,&#34;x1&#34;:15,&#34;y0&#34;:0,&#34;y1&#34;:15,&#34;fillcolor&#34;:&#34;rgba(239, 138, 98, 0.5)&#34;,&#34;layer&#34;:&#34;below&#34;},{&#34;type&#34;:[&#34;function (xleft, ybottom, xright, ytop, density = NULL, angle = 45, &#34;,&#34;    col = NA, border = NULL, lty = par(\&#34;lty\&#34;), lwd = par(\&#34;lwd\&#34;), &#34;,&#34;    ...) &#34;,&#34;{&#34;,&#34;    if (is.numeric(density) &amp;&amp; all(is.na(density) | density &lt; &#34;,&#34;        0)) &#34;,&#34;        density &lt;- NULL&#34;,&#34;    if (!is.null(density) &amp;&amp; !is.null(angle)) {&#34;,&#34;        if (is.logical(border) &amp;&amp; !is.na(border)) {&#34;,&#34;            if (border) &#34;,&#34;                border &lt;- col&#34;,&#34;            else border &lt;- NA&#34;,&#34;        }&#34;,&#34;        n &lt;- range(length(xleft), length(xright), length(ybottom), &#34;,&#34;            length(ytop))&#34;,&#34;        if (n[1L] == 0) &#34;,&#34;            stop(\&#34;invalid rectangle specification\&#34;)&#34;,&#34;        n &lt;- n[2L]&#34;,&#34;        x &lt;- rbind(rep.int(NA, n), xleft, xright, xright, xleft)[-1L]&#34;,&#34;        y &lt;- rbind(rep.int(NA, n), ybottom, ybottom, ytop, ytop)[-1L]&#34;,&#34;        polygon(x, y, col = col, border = border, lty = lty, &#34;,&#34;            lwd = lwd, density = density, angle = angle, ...)&#34;,&#34;    }&#34;,&#34;    else .External.graphics(C_rect, as.double(xleft), as.double(ybottom), &#34;,&#34;        as.double(xright), as.double(ytop), col = col, border = border, &#34;,&#34;        lty = lty, lwd = lwd, ...)&#34;,&#34;    invisible()&#34;,&#34;}&#34;],&#34;x0&#34;:0,&#34;x1&#34;:-15,&#34;y0&#34;:0,&#34;y1&#34;:-15,&#34;fillcolor&#34;:&#34;rgba(103, 169, 207, 0.5)&#34;,&#34;layer&#34;:&#34;below&#34;}],&#34;dragmode&#34;:&#34;select&#34;,&#34;hovermode&#34;:&#34;closest&#34;,&#34;showlegend&#34;:false},&#34;source&#34;:&#34;A&#34;,&#34;config&#34;:{&#34;showSendToCloud&#34;:false,&#34;displayModeBar&#34;:false},&#34;highlight&#34;:{&#34;on&#34;:&#34;plotly_selected&#34;,&#34;off&#34;:&#34;plotly_deselect&#34;,&#34;persistent&#34;:false,&#34;dynamic&#34;:false,&#34;color&#34;:null,&#34;selectize&#34;:false,&#34;defaultValues&#34;:null,&#34;opacityDim&#34;:0.2,&#34;selected&#34;:{&#34;opacity&#34;:1},&#34;debounce&#34;:0,&#34;ctGroups&#34;:[&#34;SharedData9e4f2e5d&#34;]},&#34;data&#34;:[{&#34;x&#34;:[2.8,-3.5,-5.7,-2.4,11,-4.3,-0.4,-4.4,1,1.8,-1,-4.6,6.2,-4.8,-2.5,-1.6,0.7,3.8,-1.8,-6.3,0.6,2.5,-5.4,-1.2,5,0.3,4.9,-1.9,6.7,2.9,2.2,-0.3],&#34;y&#34;:[7.6,5.7,-0.6,-9.1,4.7,4.6,-1.5,-2.9,-0.5,1.7,-0.8,-2.1,2.9,2.7,-4.4,0.3,-0.4,1.5,-6.1,-4.5,2.6,2.9,4.5,-4,2.3,-0.4,-4.5,-5.1,4.3,-0.2,1.7,-2.9],&#34;text&#34;:[&#34;New England Patriots&#34;,&#34;Buffalo Bills&#34;,&#34;New York Jets&#34;,&#34;Miami Dolphins&#34;,&#34;Baltimore Ravens&#34;,&#34;Pittsburgh Steelers&#34;,&#34;Cleveland Browns&#34;,&#34;Cincinnati Bengals&#34;,&#34;Houston Texans&#34;,&#34;Tennessee Titans&#34;,&#34;Indianapolis Colts&#34;,&#34;Jacksonville Jaguars&#34;,&#34;Kansas City Chiefs&#34;,&#34;Denver Broncos&#34;,&#34;Las Vegas Raiders&#34;,&#34;Los Angeles Chargers&#34;,&#34;Philadelphia Eagles&#34;,&#34;Dallas Cowboys&#34;,&#34;New York Giants&#34;,&#34;Washington Football Team&#34;,&#34;Green Bay Packers&#34;,&#34;Minnesota Vikings&#34;,&#34;Chicago Bears&#34;,&#34;Detroit Lions&#34;,&#34;New Orleans Saints&#34;,&#34;Atlanta Falcons&#34;,&#34;Tampa Bay Buccaneers&#34;,&#34;Carolina Panthers&#34;,&#34;San Francisco 49ers&#34;,&#34;Seattle Seahawks&#34;,&#34;Los Angeles Rams&#34;,&#34;Arizona Cardinals&#34;],&#34;hoverinfo&#34;:[&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;,&#34;text&#34;],&#34;hovertemplate&#34;:[&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;,&#34;&lt;b&gt;%{text}&lt;\/b&gt;&lt;br&gt; %{xaxis.title.text}: %{x:+.1f}&lt;br&gt; %{yaxis.title.text}: %{y:+.1f}&lt;br&gt; &lt;extra&gt;&lt;\/extra&gt;&#34;],&#34;mode&#34;:&#34;markers&#34;,&#34;marker&#34;:{&#34;color&#34;:&#34;white&#34;,&#34;size&#34;:18,&#34;line&#34;:{&#34;color&#34;:&#34;black&#34;,&#34;width&#34;:1.5}},&#34;type&#34;:&#34;scatter&#34;,&#34;key&#34;:[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;10&#34;,&#34;11&#34;,&#34;12&#34;,&#34;13&#34;,&#34;14&#34;,&#34;15&#34;,&#34;16&#34;,&#34;17&#34;,&#34;18&#34;,&#34;19&#34;,&#34;20&#34;,&#34;21&#34;,&#34;22&#34;,&#34;23&#34;,&#34;24&#34;,&#34;25&#34;,&#34;26&#34;,&#34;27&#34;,&#34;28&#34;,&#34;29&#34;,&#34;30&#34;,&#34;31&#34;,&#34;32&#34;],&#34;set&#34;:&#34;SharedData9e4f2e5d&#34;,&#34;error_y&#34;:{&#34;color&#34;:&#34;rgba(31,119,180,1)&#34;},&#34;error_x&#34;:{&#34;color&#34;:&#34;rgba(31,119,180,1)&#34;},&#34;line&#34;:{&#34;color&#34;:&#34;rgba(31,119,180,1)&#34;},&#34;xaxis&#34;:&#34;x&#34;,&#34;yaxis&#34;:&#34;y&#34;,&#34;_isNestedKey&#34;:false,&#34;frame&#34;:null}],&#34;shinyEvents&#34;:[&#34;plotly_hover&#34;,&#34;plotly_click&#34;,&#34;plotly_selected&#34;,&#34;plotly_relayout&#34;,&#34;plotly_brushed&#34;,&#34;plotly_brushing&#34;,&#34;plotly_clickannotation&#34;,&#34;plotly_doubleclick&#34;,&#34;plotly_deselect&#34;,&#34;plotly_afterplot&#34;,&#34;plotly_sunburstclick&#34;],&#34;base_url&#34;:&#34;https://plot.ly&#34;},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;linebreak&#34;&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;table-font&#34;&gt;
+&lt;div id=&#34;htmlwidget-2&#34; class=&#34;reactable html-widget&#34; style=&#34;width:auto;height:auto;&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-2&#34;&gt;{&#34;x&#34;:{&#34;tag&#34;:{&#34;name&#34;:&#34;Reactable&#34;,&#34;attribs&#34;:{&#34;data&#34;:{&#34;Division&#34;:[&#34;AFC East&#34;,&#34;AFC East&#34;,&#34;AFC East&#34;,&#34;AFC East&#34;,&#34;AFC North&#34;,&#34;AFC North&#34;,&#34;AFC North&#34;,&#34;AFC North&#34;,&#34;AFC South&#34;,&#34;AFC South&#34;,&#34;AFC South&#34;,&#34;AFC South&#34;,&#34;AFC West&#34;,&#34;AFC West&#34;,&#34;AFC West&#34;,&#34;AFC West&#34;,&#34;NFC East&#34;,&#34;NFC East&#34;,&#34;NFC East&#34;,&#34;NFC East&#34;,&#34;NFC North&#34;,&#34;NFC North&#34;,&#34;NFC North&#34;,&#34;NFC North&#34;,&#34;NFC South&#34;,&#34;NFC South&#34;,&#34;NFC South&#34;,&#34;NFC South&#34;,&#34;NFC West&#34;,&#34;NFC West&#34;,&#34;NFC West&#34;,&#34;NFC West&#34;],&#34;Conference&#34;:[&#34;AFC&#34;,&#34;AFC&#34;,&#34;AFC&#34;,&#34;AFC&#34;,&#34;AFC&#34;,&#34;AFC&#34;,&#34;AFC&#34;,&#34;AFC&#34;,&#34;AFC&#34;,&#34;AFC&#34;,&#34;AFC&#34;,&#34;AFC&#34;,&#34;AFC&#34;,&#34;AFC&#34;,&#34;AFC&#34;,&#34;AFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;,&#34;NFC&#34;],&#34;Rank&#34;:[3,12,25,32,1,16,21,29,13,9,20,26,4,22,27,19,15,7,30,31,10,6,18,24,5,17,14,28,2,11,8,23],&#34;Team&#34;:[&#34;New England Patriots&#34;,&#34;Buffalo Bills&#34;,&#34;New York Jets&#34;,&#34;Miami Dolphins&#34;,&#34;Baltimore Ravens&#34;,&#34;Pittsburgh Steelers&#34;,&#34;Cleveland Browns&#34;,&#34;Cincinnati Bengals&#34;,&#34;Houston Texans&#34;,&#34;Tennessee Titans&#34;,&#34;Indianapolis Colts&#34;,&#34;Jacksonville Jaguars&#34;,&#34;Kansas City Chiefs&#34;,&#34;Denver Broncos&#34;,&#34;Las Vegas Raiders&#34;,&#34;Los Angeles Chargers&#34;,&#34;Philadelphia Eagles&#34;,&#34;Dallas Cowboys&#34;,&#34;New York Giants&#34;,&#34;Washington Football Team&#34;,&#34;Green Bay Packers&#34;,&#34;Minnesota Vikings&#34;,&#34;Chicago Bears&#34;,&#34;Detroit Lions&#34;,&#34;New Orleans Saints&#34;,&#34;Atlanta Falcons&#34;,&#34;Tampa Bay Buccaneers&#34;,&#34;Carolina Panthers&#34;,&#34;San Francisco 49ers&#34;,&#34;Seattle Seahawks&#34;,&#34;Los Angeles Rams&#34;,&#34;Arizona Cardinals&#34;],&#34;Record&#34;:[&#34;12-4-0&#34;,&#34;10-6-0&#34;,&#34;7-9-0&#34;,&#34;5-11-0&#34;,&#34;14-2-0&#34;,&#34;8-8-0&#34;,&#34;6-10-0&#34;,&#34;2-14-0&#34;,&#34;10-6-0&#34;,&#34;9-7-0&#34;,&#34;7-9-0&#34;,&#34;6-10-0&#34;,&#34;12-4-0&#34;,&#34;7-9-0&#34;,&#34;7-9-0&#34;,&#34;5-11-0&#34;,&#34;9-7-0&#34;,&#34;8-8-0&#34;,&#34;4-12-0&#34;,&#34;3-13-0&#34;,&#34;13-3-0&#34;,&#34;10-6-0&#34;,&#34;8-8-0&#34;,&#34;3-12-1&#34;,&#34;13-3-0&#34;,&#34;7-9-0&#34;,&#34;7-9-0&#34;,&#34;5-11-0&#34;,&#34;13-3-0&#34;,&#34;11-5-0&#34;,&#34;9-7-0&#34;,&#34;5-10-1&#34;],&#34;Playoffs&#34;:[&#34;Yes&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;No&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;No&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;No&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;No&#34;,&#34;No&#34;,&#34;Yes&#34;,&#34;Yes&#34;,&#34;No&#34;,&#34;No&#34;],&#34;SoS_rating&#34;:[&#34;Easy&#34;,&#34;Easy&#34;,&#34;Easy&#34;,&#34;Difficult&#34;,&#34;Difficult&#34;,&#34;Most Difficult&#34;,&#34;Most Difficult&#34;,&#34;Most Difficult&#34;,&#34;Difficult&#34;,&#34;Easy&#34;,&#34;Easy&#34;,&#34;Moderate&#34;,&#34;Difficult&#34;,&#34;Difficult&#34;,&#34;Moderate&#34;,&#34;Moderate&#34;,&#34;Easy&#34;,&#34;Easy&#34;,&#34;Moderate&#34;,&#34;Moderate&#34;,&#34;Moderate&#34;,&#34;Easy&#34;,&#34;Difficult&#34;,&#34;Moderate&#34;,&#34;Difficult&#34;,&#34;Most Difficult&#34;,&#34;Moderate&#34;,&#34;Most Difficult&#34;,&#34;Difficult&#34;,&#34;Most Difficult&#34;,&#34;Most Difficult&#34;,&#34;Most Difficult&#34;],&#34;PF&#34;:[420,314,276,306,531,289,335,279,378,402,361,300,451,282,313,337,385,434,341,266,376,407,280,341,458,381,458,340,479,405,394,361],&#34;PA&#34;:[225,259,359,494,282,303,393,420,385,331,373,397,308,316,419,345,354,321,451,435,313,303,298,423,341,399,449,470,310,398,364,442],&#34;MoV&#34;:[12.2,3.4,-5.2,-11.8,15.6,-0.9,-3.6,-8.8,-0.4,4.4,-0.8,-6.1,8.9,-2.1,-6.6,-0.5,1.9,7.1,-6.9,-10.6,3.9,6.5,-1.1,-5.1,7.3,-1.1,0.6,-8.1,10.6,0.4,1.9,-5.1],&#34;OSRS&#34;:[2.8,-3.5,-5.7,-2.4,11,-4.3,-0.4,-4.4,1,1.8,-1,-4.6,6.2,-4.8,-2.5,-1.6,0.7,3.8,-1.8,-6.3,0.6,2.5,-5.4,-1.2,5,0.3,4.9,-1.9,6.7,2.9,2.2,-0.3],&#34;DSRS&#34;:[7.6,5.7,-0.6,-9.1,4.7,4.6,-1.5,-2.9,-0.5,1.7,-0.8,-2.1,2.9,2.7,-4.4,0.3,-0.4,1.5,-6.1,-4.5,2.6,2.9,4.5,-4,2.3,-0.4,-4.5,-5.1,4.3,-0.2,1.7,-2.9],&#34;SRS&#34;:[10.4,2.2,-6.3,-11.6,15.6,0.3,-1.9,-7.3,0.5,3.4,-1.8,-6.7,9.1,-2.1,-6.9,-1.3,0.3,5.3,-7.9,-10.8,3.2,5.4,-0.9,-5.2,7.4,-0.1,0.4,-7,11,2.7,3.9,-3.2]},&#34;columns&#34;:[{&#34;accessor&#34;:&#34;Division&#34;,&#34;name&#34;:&#34;Division&#34;,&#34;type&#34;:&#34;character&#34;,&#34;headerClassName&#34;:&#34;header colheader&#34;,&#34;show&#34;:false},{&#34;accessor&#34;:&#34;Conference&#34;,&#34;name&#34;:&#34;Conference&#34;,&#34;type&#34;:&#34;character&#34;,&#34;headerClassName&#34;:&#34;header colheader&#34;,&#34;show&#34;:false},{&#34;accessor&#34;:&#34;Rank&#34;,&#34;name&#34;:&#34;#&#34;,&#34;type&#34;:&#34;numeric&#34;,&#34;headerClassName&#34;:&#34;header colheader&#34;,&#34;maxWidth&#34;:30,&#34;className&#34;:&#34;cell number&#34;},{&#34;accessor&#34;:&#34;Team&#34;,&#34;name&#34;:&#34;Team&#34;,&#34;type&#34;:&#34;character&#34;,&#34;headerClassName&#34;:&#34;header colheader&#34;,&#34;cell&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;New England Patriots&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(12-4-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Buffalo Bills&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(10-6-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;New York Jets&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(7-9-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Miami Dolphins&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(5-11-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Baltimore Ravens&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(14-2-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Pittsburgh Steelers&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(8-8-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Cleveland Browns&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(6-10-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Cincinnati Bengals&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(2-14-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Houston Texans&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(10-6-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Tennessee Titans&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(9-7-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Indianapolis Colts&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(7-9-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Jacksonville Jaguars&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(6-10-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Kansas City Chiefs&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(12-4-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Denver Broncos&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(7-9-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Las Vegas Raiders&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(7-9-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Los Angeles Chargers&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(5-11-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Philadelphia Eagles&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(9-7-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Dallas Cowboys&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(8-8-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;New York Giants&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(4-12-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Washington Football Team&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(3-13-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Green Bay Packers&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(13-3-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Minnesota Vikings&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(10-6-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Chicago Bears&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(8-8-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Detroit Lions&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(3-12-1)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;New Orleans Saints&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(13-3-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Atlanta Falcons&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(7-9-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Tampa Bay Buccaneers&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(7-9-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Carolina Panthers&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(5-11-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;San Francisco 49ers&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(13-3-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Seattle Seahawks&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(11-5-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Los Angeles Rams&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(9-7-0)&#34;]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;team-name&#34;},&#34;children&#34;:[&#34;Arizona Cardinals&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;record&#34;},&#34;children&#34;:[&#34;(5-10-1)&#34;]}]}],&#34;minWidth&#34;:150,&#34;className&#34;:&#34;cell&#34;},{&#34;accessor&#34;:&#34;Record&#34;,&#34;name&#34;:&#34;Record&#34;,&#34;type&#34;:&#34;character&#34;,&#34;headerClassName&#34;:&#34;header colheader&#34;,&#34;show&#34;:false},{&#34;accessor&#34;:&#34;Playoffs&#34;,&#34;name&#34;:&#34;Playoffs&#34;,&#34;type&#34;:&#34;character&#34;,&#34;headerClassName&#34;:&#34;header colheader&#34;,&#34;cell&#34;:[{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-check&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-check&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-check&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-check&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-check&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-check&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-check&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-check&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-check&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-check&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-check&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-check&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-times&#34;},&#34;children&#34;:[]}],&#34;maxWidth&#34;:75,&#34;align&#34;:&#34;center&#34;,&#34;className&#34;:&#34;cell number border-left&#34;,&#34;style&#34;:[{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;red&#34;},{&#34;color&#34;:&#34;red&#34;}]},{&#34;accessor&#34;:&#34;SoS_rating&#34;,&#34;name&#34;:&#34;SoS&#34;,&#34;type&#34;:&#34;factor&#34;,&#34;headerClassName&#34;:&#34;header colheader&#34;,&#34;cell&#34;:[{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-circle&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-circle&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-circle&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;Fragment&#34;,&#34;attribs&#34;:[],&#34;children&#34;:[{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]}]},{&#34;name&#34;:&#34;Fragment&#34;,&#34;attribs&#34;:[],&#34;children&#34;:[{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]}]},{&#34;name&#34;:&#34;Fragment&#34;,&#34;attribs&#34;:[],&#34;children&#34;:[{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]}]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-circle&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-circle&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-circle&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-circle&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-circle&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;Fragment&#34;,&#34;attribs&#34;:[],&#34;children&#34;:[{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]}]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;Fragment&#34;,&#34;attribs&#34;:[],&#34;children&#34;:[{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]}]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;Fragment&#34;,&#34;attribs&#34;:[],&#34;children&#34;:[{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]}]},{&#34;name&#34;:&#34;Fragment&#34;,&#34;attribs&#34;:[],&#34;children&#34;:[{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]}]},{&#34;name&#34;:&#34;Fragment&#34;,&#34;attribs&#34;:[],&#34;children&#34;:[{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]},{&#34;name&#34;:&#34;i&#34;,&#34;attribs&#34;:{&#34;className&#34;:&#34;fa fa-square rotate&#34;},&#34;children&#34;:[]}]}],&#34;maxWidth&#34;:55,&#34;align&#34;:&#34;center&#34;,&#34;className&#34;:&#34;border-left cell number&#34;,&#34;style&#34;:[{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;blue&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;blue&#34;},{&#34;color&#34;:&#34;blue&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;blue&#34;},{&#34;color&#34;:&#34;blue&#34;},{&#34;color&#34;:&#34;blue&#34;},{&#34;color&#34;:&#34;green&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;blue&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;blue&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;black&#34;},{&#34;color&#34;:&#34;black&#34;}]},{&#34;accessor&#34;:&#34;PF&#34;,&#34;name&#34;:&#34;Points Scored&#34;,&#34;type&#34;:&#34;numeric&#34;,&#34;headerClassName&#34;:&#34;header colheader&#34;,&#34;cell&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;420&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;79.0960451977401%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;314&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;59.1337099811676%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;276&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;51.9774011299435%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;306&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;57.6271186440678%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;531&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;100%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;289&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;54.4256120527307%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;335&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;63.0885122410546%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;279&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;52.5423728813559%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;378&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;71.1864406779661%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;402&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;75.7062146892655%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;361&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;67.984934086629%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;300&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;56.4971751412429%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;451&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;84.9340866290019%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;282&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;53.1073446327684%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;313&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;58.9453860640301%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;337&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;63.4651600753296%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;385&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;72.5047080979284%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;434&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;81.7325800376648%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;341&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;64.2184557438795%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;266&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;50.0941619585687%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;376&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;70.8097928436911%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;407&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;76.6478342749529%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;280&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;52.7306967984934%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;341&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;64.2184557438795%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;458&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;86.2523540489642%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;381&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;71.7514124293785%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;458&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;86.2523540489642%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;340&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;64.030131826742%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;479&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;90.2071563088512%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;405&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;76.271186440678%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;394&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;74.1996233521657%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;361&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;67.984934086629%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]}],&#34;align&#34;:&#34;left&#34;,&#34;className&#34;:&#34;border-left cell number&#34;,&#34;headerStyle&#34;:{&#34;fontWeight&#34;:&#34;500&#34;}},{&#34;accessor&#34;:&#34;PA&#34;,&#34;name&#34;:&#34;Points Against&#34;,&#34;type&#34;:&#34;numeric&#34;,&#34;headerClassName&#34;:&#34;header colheader&#34;,&#34;cell&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;225&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;45.5465587044534%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;259&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;52.4291497975709%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;359&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;72.6720647773279%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;494&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;100%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;282&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;57.085020242915%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;303&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;61.336032388664%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;393&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;79.5546558704453%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;420&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;85.0202429149798%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;385&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;77.9352226720648%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;331&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;67.0040485829959%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;373&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;75.5060728744939%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;397&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;80.3643724696356%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;308&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;62.3481781376518%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;316&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;63.9676113360324%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;419&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;84.8178137651822%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;345&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;69.8380566801619%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;354&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;71.6599190283401%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;321&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;64.9797570850202%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;451&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;91.2955465587045%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;435&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;88.0566801619433%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;313&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;63.3603238866397%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;303&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;61.336032388664%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;298&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;60.3238866396761%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;423&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;85.6275303643725%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;341&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;69.0283400809717%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;399&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;80.7692307692308%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;449&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;90.8906882591093%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;470&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;95.1417004048583%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;310&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;62.753036437247%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;398&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;80.5668016194332%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;364&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;73.6842105263158%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;display&#34;:&#34;flex&#34;,&#34;alignItems&#34;:&#34;center&#34;}},&#34;children&#34;:[&#34;442&#34;,{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;flexGrow&#34;:1,&#34;marginLeft&#34;:&#34;8px&#34;,&#34;background&#34;:&#34;#e1e1e1&#34;}},&#34;children&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ef8a62&#34;,&#34;width&#34;:&#34;89.4736842105263%&#34;,&#34;height&#34;:&#34;13px&#34;}},&#34;children&#34;:[]}]}]}],&#34;align&#34;:&#34;left&#34;,&#34;className&#34;:&#34;cell number&#34;,&#34;headerStyle&#34;:{&#34;fontWeight&#34;:&#34;500&#34;}},{&#34;accessor&#34;:&#34;MoV&#34;,&#34;name&#34;:&#34;MoV&#34;,&#34;type&#34;:&#34;numeric&#34;,&#34;headerClassName&#34;:&#34;header colheader&#34;,&#34;cell&#34;:[&#34;+12.2&#34;,&#34;+3.4&#34;,&#34;-5.2&#34;,&#34;-11.8&#34;,&#34;+15.6&#34;,&#34;-0.9&#34;,&#34;-3.6&#34;,&#34;-8.8&#34;,&#34;-0.4&#34;,&#34;+4.4&#34;,&#34;-0.8&#34;,&#34;-6.1&#34;,&#34;+8.9&#34;,&#34;-2.1&#34;,&#34;-6.6&#34;,&#34;-0.5&#34;,&#34;+1.9&#34;,&#34;+7.1&#34;,&#34;-6.9&#34;,&#34;-10.6&#34;,&#34;+3.9&#34;,&#34;+6.5&#34;,&#34;-1.1&#34;,&#34;-5.1&#34;,&#34;+7.3&#34;,&#34;-1.1&#34;,&#34;+0.6&#34;,&#34;-8.1&#34;,&#34;+10.6&#34;,&#34;+0.4&#34;,&#34;+1.9&#34;,&#34;-5.1&#34;],&#34;maxWidth&#34;:60,&#34;className&#34;:&#34;border-right cell number&#34;,&#34;style&#34;:[{&#34;color&#34;:&#34;#008000&#34;},{&#34;color&#34;:&#34;#008000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#008000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#008000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#008000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#008000&#34;},{&#34;color&#34;:&#34;#008000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#008000&#34;},{&#34;color&#34;:&#34;#008000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#008000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#008000&#34;},{&#34;color&#34;:&#34;#e00000&#34;},{&#34;color&#34;:&#34;#008000&#34;},{&#34;color&#34;:&#34;#008000&#34;},{&#34;color&#34;:&#34;#008000&#34;},{&#34;color&#34;:&#34;#e00000&#34;}],&#34;headerStyle&#34;:{&#34;fontWeight&#34;:&#34;500&#34;}},{&#34;accessor&#34;:&#34;OSRS&#34;,&#34;name&#34;:&#34;Off.&#34;,&#34;type&#34;:&#34;numeric&#34;,&#34;headerClassName&#34;:&#34;header colheader&#34;,&#34;cell&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6E4D8&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;2.8&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#D1E5ED&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-3.5&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#B4D5E4&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-5.7&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#DFEEF1&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-2.4&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F1AA8C&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;11.0&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#C6DFEA&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-4.3&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7FAF6&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-0.4&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#C5DFE9&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-4.4&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7F1E9&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;1.0&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6EBE2&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;1.8&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F2F8F6&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-1.0&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#C2DDE8&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-4.6&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F4CCB9&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;6.2&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#C0DCE8&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-4.8&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#DEEDF0&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-2.5&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#EAF4F4&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-1.6&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7F3EC&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;0.7&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F5DDCF&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;3.8&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#E7F2F3&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-1.8&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ACD0E2&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-6.3&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7F3ED&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;0.6&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6E6DB&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;2.5&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#B8D7E6&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-5.4&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#EFF7F5&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-1.2&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F4D4C4&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;5.0&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7F5F0&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;0.3&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F4D5C5&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;4.9&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#E6F1F3&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-1.9&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F3C8B4&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;6.7&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6E3D7&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;2.9&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6E8DE&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;2.2&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7FAF5&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-0.3&#34;]}],&#34;maxWidth&#34;:60,&#34;align&#34;:&#34;right&#34;,&#34;className&#34;:&#34;cell number&#34;,&#34;headerStyle&#34;:{&#34;fontWeight&#34;:&#34;500&#34;}},{&#34;accessor&#34;:&#34;DSRS&#34;,&#34;name&#34;:&#34;Def.&#34;,&#34;type&#34;:&#34;numeric&#34;,&#34;headerClassName&#34;:&#34;header colheader&#34;,&#34;cell&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F3C2AC&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;7.6&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F4CFBD&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;5.7&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7FBF7&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-0.6&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#87BBD8&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-9.1&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F5D6C7&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;4.7&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F5D7C8&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;4.6&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#EBF4F4&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-1.5&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#D9EAEF&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-2.9&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7FBF7&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-0.5&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6ECE3&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;1.7&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F4FAF7&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-0.8&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#E3F0F2&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-2.1&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6E3D7&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;2.9&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6E5D9&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;2.7&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#C5DFE9&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-4.4&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7F5F0&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;0.3&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7FAF6&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-0.4&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6EDE4&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;1.5&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#AFD2E3&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-6.1&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#C4DEE9&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-4.5&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6E5DA&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;2.6&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6E3D7&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;2.9&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F5D8C9&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;4.5&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#CAE2EB&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-4.0&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6E7DD&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;2.3&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7FAF6&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-0.4&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#C4DEE9&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-4.5&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#BCD9E7&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-5.1&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F5D9CA&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;4.3&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7F9F4&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-0.2&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6ECE3&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;1.7&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#D9EAEF&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-2.9&#34;]}],&#34;maxWidth&#34;:60,&#34;align&#34;:&#34;right&#34;,&#34;className&#34;:&#34;cell number&#34;,&#34;headerStyle&#34;:{&#34;fontWeight&#34;:&#34;500&#34;}},{&#34;accessor&#34;:&#34;SRS&#34;,&#34;name&#34;:&#34;Total&#34;,&#34;type&#34;:&#34;numeric&#34;,&#34;headerClassName&#34;:&#34;header colheader&#34;,&#34;cell&#34;:[{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F1AE92&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;10.4&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6E8DE&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;2.2&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#ACD0E2&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-6.3&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#67A9CF&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-11.6&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#EF8A62&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;15.6&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7F5F0&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;0.3&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#E6F1F3&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-1.9&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#9FC9DE&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-7.3&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7F4EE&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;0.5&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F5E0D3&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;3.4&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#E7F2F3&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-1.8&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#A7CDE1&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-6.7&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F2B79E&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;9.1&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#E3F0F2&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-2.1&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#A4CCE0&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-6.9&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#EEF6F5&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-1.3&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7F5F0&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;0.3&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F4D2C1&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;5.3&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#97C4DC&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-7.9&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#71AFD1&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-10.8&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F5E1D5&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;3.2&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F4D1C0&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;5.4&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F3F9F6&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-0.9&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#BBD9E6&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-5.2&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F3C3AE&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;7.4&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7F8F3&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-0.1&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F7F5EF&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;0.4&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#A3CBE0&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-7.0&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F1AA8C&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;11.0&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F6E5D9&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;2.7&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#F5DCCE&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;3.9&#34;]},{&#34;name&#34;:&#34;div&#34;,&#34;attribs&#34;:{&#34;style&#34;:{&#34;background&#34;:&#34;#D5E8EE&#34;},&#34;className&#34;:&#34;roundcorners&#34;},&#34;children&#34;:[&#34;-3.2&#34;]}],&#34;maxWidth&#34;:60,&#34;align&#34;:&#34;right&#34;,&#34;className&#34;:&#34;cell number&#34;,&#34;headerStyle&#34;:{&#34;fontWeight&#34;:&#34;500&#34;}}],&#34;columnGroups&#34;:[{&#34;name&#34;:&#34;Team Rating (SRS)&#34;,&#34;headerClassName&#34;:&#34;groupheader&#34;,&#34;columns&#34;:[&#34;SRS&#34;,&#34;OSRS&#34;,&#34;DSRS&#34;]},{&#34;name&#34;:&#34;Team Scoring &amp; Margin of Victory&#34;,&#34;headerClassName&#34;:&#34;groupheader&#34;,&#34;columns&#34;:[&#34;PF&#34;,&#34;PA&#34;,&#34;MoV&#34;]}],&#34;defaultSortDesc&#34;:true,&#34;defaultSorted&#34;:[{&#34;id&#34;:&#34;SRS&#34;,&#34;desc&#34;:true}],&#34;defaultPageSize&#34;:32,&#34;paginationType&#34;:&#34;numbers&#34;,&#34;showPageInfo&#34;:true,&#34;minRows&#34;:1,&#34;highlight&#34;:true,&#34;compact&#34;:true,&#34;showSortIcon&#34;:false,&#34;crosstalkKey&#34;:[&#34;1&#34;,&#34;2&#34;,&#34;3&#34;,&#34;4&#34;,&#34;5&#34;,&#34;6&#34;,&#34;7&#34;,&#34;8&#34;,&#34;9&#34;,&#34;10&#34;,&#34;11&#34;,&#34;12&#34;,&#34;13&#34;,&#34;14&#34;,&#34;15&#34;,&#34;16&#34;,&#34;17&#34;,&#34;18&#34;,&#34;19&#34;,&#34;20&#34;,&#34;21&#34;,&#34;22&#34;,&#34;23&#34;,&#34;24&#34;,&#34;25&#34;,&#34;26&#34;,&#34;27&#34;,&#34;28&#34;,&#34;29&#34;,&#34;30&#34;,&#34;31&#34;,&#34;32&#34;],&#34;crosstalkGroup&#34;:&#34;SharedData9e4f2e5d&#34;,&#34;dataKey&#34;:&#34;dc13ec7bffbc8deb273d91c03f5b5476&#34;},&#34;children&#34;:[]},&#34;class&#34;:&#34;reactR_markup&#34;},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Created by: &lt;span class=&#34;citation&#34;&gt;@kc_analytics&lt;/span&gt;&lt;/p&gt;
+Source: &lt;a href=&#34;https://www.pro-football-reference.com/years/2019/&#34;&gt;Pro-Football-Reference&lt;/a&gt;
+&lt;hr&gt;
+&lt;div id=&#34;process&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Process&lt;/h1&gt;
+&lt;p&gt;The main inspiration for this post came from &lt;a href=&#34;https://projects.fivethirtyeight.com/2020-nba-player-ratings/?ex_cid=irpromo&#34;&gt;538’s NBA Player Ratings&lt;/a&gt; which shows the player ratings in an interactive chart and table that are linked together. My goal was to build a similar-styled data visualization for NFL team ratings from the 2019 season and make it reproducible so that it could be easily updated for the upcoming 2020 season.&lt;/p&gt;
+&lt;p&gt;A couple great tutorials that I used to create the interactive table from the &lt;code&gt;reactable&lt;/code&gt; package were from Greg Lin, who &lt;a href=&#34;https://glin.github.io/reactable/index.html&#34;&gt;wrote&lt;/a&gt; one of the most comprehensive tutorials I’ve seen out there for an R package, and also Tom Mock, who wrote a &lt;a href=&#34;https://themockup.blog/posts/2020-05-13-reactable-tables-the-rest-of-the-owl/&#34;&gt;fantastic tutorial&lt;/a&gt; that really helped me understand how to use CSS and Google fonts to enhance the visual appeal of the table.&lt;/p&gt;
+&lt;p&gt;For creating the interactive plot, I frequently referenced this &lt;a href=&#34;https://plotly.com/r/&#34;&gt;Plotly guide&lt;/a&gt; from the makers of the &lt;code&gt;plotly&lt;/code&gt; package.&lt;/p&gt;
+&lt;p&gt;And for linking the &lt;code&gt;reactable&lt;/code&gt; table and &lt;code&gt;plotly&lt;/code&gt; plot together, I used the &lt;code&gt;crosstalk&lt;/code&gt; package which can be found &lt;a href=&#34;https://rstudio.github.io/crosstalk/index.html&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Data&lt;/h1&gt;
+&lt;p&gt;The data I used comes from the 2019 NFL Standings &amp;amp; Team Stats page on the &lt;a href=&#34;https://www.pro-football-reference.com/years/2019/&#34;&gt;Pro Football Reference website&lt;/a&gt;. I utilized the &lt;code&gt;rvest&lt;/code&gt; package to scrape the data from the AFC and NFC Standings table and combined them into a single table.&lt;/p&gt;
+&lt;p&gt;I then used packages such as &lt;code&gt;dplyr&lt;/code&gt;, &lt;code&gt;tidyr&lt;/code&gt;, and &lt;code&gt;stringr&lt;/code&gt; to clean and tidy the data so that it could be easily used for visualization.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;visualization&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Visualization&lt;/h1&gt;
+&lt;p&gt;For the Strength-of-Schedule (SoS) metric from Pro-Football-Reference, I thought it would be more easily understood if I bucketed the metric into groups and assigned an easy-to-difficult scale. I based my scale off of the ski trail difficulty scale below:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/ski-trail-difficulty.png&#34; width=400 height=300 /&gt;&lt;/p&gt;
+&lt;p&gt;I also decided to remove the asterisks that are present in the original Pro-Football-Reference table that signify if the team made the playoffs or not and converted this into a new column with a green checkmark for teams that made the playoffs and a red x for teams that didn’t so that we could filter this column for playoff teams vs non-playoff teams if desired.&lt;/p&gt;
+&lt;p&gt;I also made the plot above the table interactive so that when you hover over a point you can see the team name and the OSRS and DSRS rating of that team. You can also click-and-drag over a group of data points to display just those data points in the table and double-click on the plot to de-select.&lt;/p&gt;
+&lt;p&gt;Both the plot and the table are controlled by the filters that are located on the left-hand side of the plot.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;code&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Code&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;interactive_plot &amp;lt;-
+  plot_ly(
+    NFL_table_clean_shared,
+    x = ~ OSRS,
+    y = ~ DSRS,
+    text = ~ Team,
+    hoverinfo = &amp;quot;text&amp;quot;,
+    hovertemplate = paste(
+      &amp;quot;&amp;lt;b&amp;gt;%{text}&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;&amp;quot;,
+      &amp;quot;%{xaxis.title.text}: %{x:+.1f}&amp;lt;br&amp;gt;&amp;quot;,
+      &amp;quot;%{yaxis.title.text}: %{y:+.1f}&amp;lt;br&amp;gt;&amp;quot;,
+      &amp;quot;&amp;lt;extra&amp;gt;&amp;lt;/extra&amp;gt;&amp;quot;
+    ),
+    type = &amp;quot;scatter&amp;quot;,
+    mode = &amp;quot;markers&amp;quot;,
+    marker = list(
+      size = 18,
+      color = &amp;quot;white&amp;quot;,
+      line = list(color = &amp;quot;black&amp;quot;,
+                  width = 1.5)
+    ),
+    width = 680,
+    height = 420
+  ) %&amp;gt;%
+  ### Top right (+Offense +Defense)
+  add_annotations(
+    x = 10,
+    y = 10.75,
+    xref = &amp;quot;x&amp;quot;,
+    yref = &amp;quot;y&amp;quot;,
+    text = &amp;quot;+ Offense&amp;quot;,
+    bgcolor = &amp;quot;#ef8a62&amp;quot;,
+    showarrow = F
+  ) %&amp;gt;%
+  add_annotations(
+    x = 10,
+    y = 9.25,
+    xref = &amp;quot;x&amp;quot;,
+    yref = &amp;quot;y&amp;quot;,
+    text = &amp;quot;+ Defense&amp;quot;,
+    bgcolor = &amp;quot;#ef8a62&amp;quot;,
+    showarrow = F
+  ) %&amp;gt;%
+  ### Bottom left (-Offense -Defense)
+  add_annotations(
+    x = -10,
+    y = -9.25,
+    xref = &amp;quot;x&amp;quot;,
+    yref = &amp;quot;y&amp;quot;,
+    text = &amp;quot;- Offense&amp;quot;,
+    bgcolor = &amp;quot;#67a9cf&amp;quot;,
+    showarrow = F
+  ) %&amp;gt;%
+  add_annotations(
+    x = -10,
+    y = -10.75,
+    xref = &amp;quot;x&amp;quot;,
+    yref = &amp;quot;y&amp;quot;,
+    text = &amp;quot;- Defense&amp;quot;,
+    bgcolor = &amp;quot;#67a9cf&amp;quot;,
+    showarrow = F
+  ) %&amp;gt;%
+  ### Bottom right (+Offense -Defense)
+  add_annotations(
+    x = 10,
+    y = -9.25,
+    xref = &amp;quot;x&amp;quot;,
+    yref = &amp;quot;y&amp;quot;,
+    text = &amp;quot;+ Offense&amp;quot;,
+    bgcolor = &amp;quot;#ef8a62&amp;quot;,
+    showarrow = F
+  ) %&amp;gt;%
+  add_annotations(
+    x = 10,
+    y = -10.75,
+    xref = &amp;quot;x&amp;quot;,
+    yref = &amp;quot;y&amp;quot;,
+    text = &amp;quot;- Defense&amp;quot;,
+    bgcolor = &amp;quot;#67a9cf&amp;quot;,
+    showarrow = F
+  ) %&amp;gt;%
+  ### Top left (-Offense +Defense)
+  add_annotations(
+    x = -10,
+    y = 10.75,
+    xref = &amp;quot;x&amp;quot;,
+    yref = &amp;quot;y&amp;quot;,
+    text = &amp;quot;- Offense&amp;quot;,
+    bgcolor = &amp;quot;#67a9cf&amp;quot;,
+    showarrow = F
+  ) %&amp;gt;%
+  add_annotations(
+    x = -10,
+    y = 9.25,
+    xref = &amp;quot;x&amp;quot;,
+    yref = &amp;quot;y&amp;quot;,
+    text = &amp;quot;+ Defense&amp;quot;,
+    bgcolor = &amp;quot;#ef8a62&amp;quot;,
+    showarrow = F
+  ) %&amp;gt;%
+  layout(
+    autosize = FALSE,
+    xaxis = list(
+      range = c(-12.5, 12.5),
+      fixedrange = TRUE,
+      zeroline = FALSE,
+      ticks = &amp;quot;outside&amp;quot;,
+      tickcolor = &amp;quot;#fff&amp;quot;,
+      tickformat = &amp;quot;+&amp;quot;,
+      tickfont = list(size = 14),
+      titlefont = list(family = &amp;quot;Open Sans&amp;quot;,
+                       size = 18),
+      title = &amp;quot;Offensive SRS&amp;quot;
+    ),
+    yaxis = list(
+      range = c(-12.5, 12.5),
+      fixedrange = TRUE,
+      zeroline = FALSE,
+      ticks = &amp;quot;outside&amp;quot;,
+      tickcolor = &amp;quot;#fff&amp;quot;,
+      tickformat = &amp;quot;+&amp;quot;,
+      tickfont = list(size = 14),
+      titlefont = list(family = &amp;quot;Open Sans&amp;quot;,
+                       size = 18),
+      title = &amp;quot;Defensive SRS&amp;quot;
+    ),
+    hoverlabel = list(font = list(family = &amp;quot;Open Sans&amp;quot;,
+                                  size = 16)),
+    shapes = list(
+      list(
+        type = rect,
+        x0 = 0,
+        x1 = 15,
+        y0 = 0,
+        y1 = 15,
+        fillcolor = &amp;#39;rgba(239, 138, 98, 0.5)&amp;#39;,
+        layer = &amp;#39;below&amp;#39;
+      ),
+      list(
+        type = rect,
+        x0 = 0,
+        x1 = -15,
+        y0 = 0,
+        y1 = -15,
+        fillcolor = &amp;#39;rgba(103, 169, 207, 0.5)&amp;#39;,
+        layer = &amp;#39;below&amp;#39;
+      )
+    )
+  ) %&amp;gt;%
+  highlight(on = &amp;quot;plotly_selected&amp;quot;,
+            off = &amp;quot;plotly_deselect&amp;quot;) %&amp;gt;%
+  config(displayModeBar = FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bar_chart &amp;lt;-
+  function(label,
+           width = &amp;quot;100%&amp;quot;,
+           height = &amp;quot;13px&amp;quot;,
+           fill = &amp;quot;#00bfc4&amp;quot;,
+           background = NULL) {
+    bar &amp;lt;-
+      div(style = list(
+        background = fill,
+        width = width,
+        height = height
+      ))
+    chart &amp;lt;-
+      div(style = list(
+        flexGrow = 1,
+        marginLeft = &amp;quot;8px&amp;quot;,
+        background = background
+      ),
+      bar)
+    div(style = list(display = &amp;quot;flex&amp;quot;, alignItems = &amp;quot;center&amp;quot;), label, chart)
+  }
+
+make_color_pal &amp;lt;- function(colors, bias = 1) {
+  get_color &amp;lt;- colorRamp(colors, bias = bias)
+  function(x)
+    rgb(get_color(x), maxColorValue = 255)
+}
+
+off_rating_color &amp;lt;-
+  make_color_pal(c(&amp;quot;#67a9cf&amp;quot;, &amp;quot;#f8fcf8&amp;quot;, &amp;quot;#ef8a62&amp;quot;), bias = 1.3)
+def_rating_color &amp;lt;-
+  make_color_pal(c(&amp;quot;#67a9cf&amp;quot;, &amp;quot;#f8fcf8&amp;quot;, &amp;quot;#ef8a62&amp;quot;), bias = 0.8)
+
+team_rating_column &amp;lt;- function(maxWidth = 60, ...) {
+  colDef(
+    maxWidth = maxWidth,
+    align = &amp;quot;right&amp;quot;,
+    class = &amp;quot;cell number&amp;quot;,
+    headerStyle = list(fontWeight = &amp;quot;500&amp;quot;),
+    ...
+  )
+}
+
+conf_filter &amp;lt;- filter_checkbox(
+  id = &amp;quot;conf&amp;quot;,
+  label = &amp;quot;Conference&amp;quot;,
+  inline = TRUE,
+  sharedData = NFL_table_clean_shared,
+  group = ~ Conference
+)
+
+div_filter &amp;lt;- filter_select(
+  id = &amp;quot;divi&amp;quot;,
+  label = &amp;quot;Division&amp;quot;,
+  sharedData = NFL_table_clean_shared,
+  group = ~ Division
+)
+
+sos_filter &amp;lt;- filter_checkbox(
+  id = &amp;quot;sos&amp;quot;,
+  label = &amp;quot;Strength of Schedule (SoS)&amp;quot;,
+  sharedData = NFL_table_clean_shared,
+  group = ~ SoS_rating
+)
+
+playoff_filter &amp;lt;- filter_checkbox(
+  id = &amp;quot;play&amp;quot;,
+  label = &amp;quot;Playoffs&amp;quot;,
+  inline = TRUE,
+  sharedData = NFL_table_clean_shared,
+  group = ~ Playoffs
+)
+
+srs_filter &amp;lt;- filter_slider(
+  id = &amp;quot;srs&amp;quot;,
+  label = &amp;quot;Team Rating (SRS): Total&amp;quot;,
+  sharedData = NFL_table_clean_shared,
+  column = ~ SRS,
+  ticks = FALSE,
+  step = 1
+)
+
+table &amp;lt;-
+  reactable(
+    NFL_table_clean_shared,
+    pagination = FALSE,
+    showSortIcon = FALSE,
+    highlight = TRUE,
+    compact = TRUE,
+    defaultSorted = &amp;quot;SRS&amp;quot;,
+    defaultSortOrder = &amp;quot;desc&amp;quot;,
+    defaultColDef = colDef(headerClass = &amp;quot;header colheader&amp;quot;),
+    columnGroups = list(
+      colGroup(
+        name = &amp;quot;Team Rating (SRS)&amp;quot;,
+        columns = c(&amp;quot;SRS&amp;quot;, &amp;quot;OSRS&amp;quot;, &amp;quot;DSRS&amp;quot;),
+        headerClass = &amp;quot;groupheader&amp;quot;
+      ),
+      colGroup(
+        name = &amp;quot;Team Scoring &amp;amp; Margin of Victory&amp;quot;,
+        columns = c(&amp;quot;PF&amp;quot;, &amp;quot;PA&amp;quot;, &amp;quot;MoV&amp;quot;),
+        headerClass = &amp;quot;groupheader&amp;quot;
+      )
+    ),
+    columns = list(
+      Division = colDef(show = FALSE),
+      Conference = colDef(show = FALSE),
+      Rank = colDef(
+        name = &amp;quot;#&amp;quot;,
+        maxWidth = 30,
+        class = &amp;quot;cell number&amp;quot;
+      ),
+      Team = colDef(
+        minWidth = 150,
+        class = &amp;quot;cell&amp;quot;,
+        cell = function(value, index) {
+          div(div(class = &amp;quot;team-name&amp;quot;, value),
+              div(class = &amp;quot;record&amp;quot;, sprintf(&amp;quot;(%s)&amp;quot;, NFL_table_clean[index, &amp;quot;Record&amp;quot;])))
+        }
+      ),
+      Record = colDef(show = FALSE),
+      SRS = team_rating_column(
+        name = &amp;quot;Total&amp;quot;,
+        cell = function(value) {
+          normalized &amp;lt;-
+            (value - min(NFL_table_clean$SRS)) / (max(NFL_table_clean$SRS) - min(NFL_table_clean$SRS))
+          color &amp;lt;- off_rating_color(normalized)
+          value &amp;lt;- format(value, nsmall = 1, digits = 1)
+          div(class = &amp;quot;roundcorners&amp;quot;,
+              style = list(background = color),
+              value)
+        }
+      ),
+      OSRS = team_rating_column(
+        name = &amp;quot;Off.&amp;quot;,
+        cell = function(value) {
+          normalized &amp;lt;-
+            (value - min(NFL_table_clean$SRS)) / (max(NFL_table_clean$SRS) - min(NFL_table_clean$SRS))
+          color &amp;lt;- off_rating_color(normalized)
+          value &amp;lt;- format(value, nsmall = 1, digits = 1)
+          div(class = &amp;quot;roundcorners&amp;quot;,
+              style = list(background = color),
+              value)
+        }
+      ),
+      DSRS = team_rating_column(
+        name = &amp;quot;Def.&amp;quot;,
+        cell = function(value) {
+          normalized &amp;lt;-
+            (value - min(NFL_table_clean$SRS)) / (max(NFL_table_clean$SRS) - min(NFL_table_clean$SRS))
+          color &amp;lt;- off_rating_color(normalized)
+          value &amp;lt;- format(value, nsmall = 1, digits = 1)
+          div(class = &amp;quot;roundcorners&amp;quot;,
+              style = list(background = color),
+              value)
+        }
+      ),
+      PF = colDef(
+        name = &amp;quot;Points Scored&amp;quot;,
+        align = &amp;quot;left&amp;quot;,
+        class = &amp;quot;border-left cell number&amp;quot;,
+        headerStyle = list(fontWeight = &amp;quot;500&amp;quot;),
+        cell = function(value) {
+          width &amp;lt;- paste0(value / max(NFL_table_clean$PF) * 100, &amp;quot;%&amp;quot;)
+          bar_chart(value,
+                    width = width,
+                    fill = &amp;quot;#ef8a62&amp;quot;,
+                    background = &amp;quot;#e1e1e1&amp;quot;)
+        }
+      ),
+      PA = colDef(
+        name = &amp;quot;Points Against&amp;quot;,
+        align = &amp;quot;left&amp;quot;,
+        class = &amp;quot;cell number&amp;quot;,
+        headerStyle = list(fontWeight = &amp;quot;500&amp;quot;),
+        cell = function(value) {
+          width &amp;lt;- paste0(value / max(NFL_table_clean$PA) * 100, &amp;quot;%&amp;quot;)
+          bar_chart(value,
+                    width = width,
+                    fill = &amp;quot;#ef8a62&amp;quot;,
+                    background = &amp;quot;#e1e1e1&amp;quot;)
+        }
+      ),
+      PD = colDef(show = FALSE),
+      MoV = colDef(
+        maxWidth = 60,
+        class = &amp;quot;border-right cell number&amp;quot;,
+        headerStyle = list(fontWeight = &amp;quot;500&amp;quot;),
+        cell = function(value) {
+          if (value &amp;gt; 0)
+            paste0(&amp;quot;+&amp;quot;, value)
+          else
+            value
+        },
+        style = function(value) {
+          if (value &amp;gt; 0) {
+            color &amp;lt;- &amp;quot;#008000&amp;quot;
+          } else if (value &amp;lt; 0) {
+            color &amp;lt;- &amp;quot;#e00000&amp;quot;
+          } else {
+            color &amp;lt;- &amp;quot;#777&amp;quot;
+          }
+          list(color = color)
+        }
+      ),
+      SoS_rating = colDef(
+        name = &amp;quot;SoS&amp;quot;,
+        align = &amp;quot;center&amp;quot;,
+        maxWidth = 55,
+        class = &amp;quot;border-left cell number&amp;quot;,
+        cell = function(value) {
+          if (value == &amp;quot;Most Difficult&amp;quot;) {
+            list(tagAppendAttributes(shiny::icon(&amp;quot;square&amp;quot;, class = &amp;quot;rotate&amp;quot;)),
+                 tagAppendAttributes(shiny::icon(&amp;quot;square&amp;quot;, class = &amp;quot;rotate&amp;quot;)))
+          } else if (value == &amp;quot;Difficult&amp;quot;) {
+            tagAppendAttributes(shiny::icon(&amp;quot;square&amp;quot;, class = &amp;quot;rotate&amp;quot;))
+          } else if (value == &amp;quot;Moderate&amp;quot;) {
+            tagAppendAttributes(shiny::icon(&amp;quot;square&amp;quot;))
+          } else {
+            tagAppendAttributes(shiny::icon(&amp;quot;circle&amp;quot;))
+          }
+        },
+        style = function(value) {
+          if (value %in% c(&amp;quot;Difficult&amp;quot;, &amp;quot;Most Difficult&amp;quot;)) {
+            color &amp;lt;- &amp;quot;black&amp;quot;
+          } else if (value == &amp;quot;Moderate&amp;quot;) {
+            color &amp;lt;- &amp;quot;blue&amp;quot;
+          } else {
+            color &amp;lt;- &amp;quot;green&amp;quot;
+          }
+          list(color = color)
+        }
+      ),
+      Playoffs = colDef(
+        maxWidth = 75,
+        align = &amp;quot;center&amp;quot;,
+        class = &amp;quot;cell number border-left&amp;quot;,
+        cell = function(value) {
+          if (value == &amp;quot;Yes&amp;quot;)
+            tagAppendAttributes(shiny::icon(&amp;quot;check&amp;quot;))
+          else
+            tagAppendAttributes(shiny::icon(&amp;quot;times&amp;quot;))
+        },
+        style = function(value) {
+          if (value == &amp;quot;Yes&amp;quot;) {
+            color &amp;lt;- &amp;quot;green&amp;quot;
+          } else {
+            color &amp;lt;- &amp;quot;red&amp;quot;
+          }
+          list(color = color)
+        }
+      )
+    )
+  )
+
+div(
+  div(class = &amp;quot;title&amp;quot;,
+      h2(&amp;quot;2019 NFL Team Stats &amp;amp; Ratings&amp;quot;)),
+  class = &amp;quot;filtertext&amp;quot;,
+  bscols(
+    widths = c(3, NA),
+    list(
+      srs_filter,
+      sos_filter,
+      playoff_filter,
+      conf_filter,
+      div_filter
+    ),
+    interactive_plot
+  ),
+  div(class = &amp;quot;linebreak&amp;quot;)
+)
+
+div(class = &amp;quot;table-font&amp;quot;,
+    table)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tags$link(href = &amp;quot;https://fonts.googleapis.com/css?family=Karla:400,700|Fira+Mono&amp;amp;display=fallback&amp;quot;, rel = &amp;quot;stylesheet&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;link href=&#34;https://fonts.googleapis.com/css?family=Karla:400,700|Fira+Mono&amp;amp;display=fallback&#34; rel=&#34;stylesheet&#34;/&gt;
+&lt;pre class=&#34;css&#34;&gt;&lt;code&gt;.border-left {
+  border-left: 0.3px solid #999;
+}
+
+.border-right {
+  border-right: 0.3px solid #999;
+}
+
+.cell {
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.roundcorners {
+  border-radius: 8px;
+  color: #000;
+  padding: 2px;
+  width: 48px;
+  height: 28px;
+}
+
+.rotate{
+  transform: rotate(45deg);
+}
+
+.header:hover,
+.header[aria-sort=&amp;quot;ascending&amp;quot;],
+.header[aria-sort=&amp;quot;descending&amp;quot;] {
+  background-color: #b3b3b3;
+  color: #fff;
+}
+
+.header:active,
+.header[aria-sort=&amp;quot;ascending&amp;quot;],
+.header[aria-sort=&amp;quot;descending&amp;quot;] {
+  background-color: #555;
+  color: #fff;
+}
+
+.linebreak {
+  border-bottom: 1px solid #EEE;
+  margin-bottom: 12px;
+}
+
+.filtertext {
+  font-family: Karla, &amp;quot;Helvetica Neue&amp;quot;, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+.colheader {
+  font-family: Karla, &amp;quot;Helvetica Neue&amp;quot;, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  border-bottom: 2px solid #555;
+}
+
+.groupheader {
+  font-family: Karla, &amp;quot;Helvetica Neue&amp;quot;, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+}
+
+.title {
+  font-family: Karla, &amp;quot;Helvetica Neue&amp;quot;, Helvetica, Arial, sans-serif;
+  font-size: 20px;
+}
+
+.number {
+  font-family: &amp;quot;Fira Mono&amp;quot;, Consolas, Monaco, monospace;
+  font-size: 14px;
+  line-height: 30px;
+  white-space: pre;
+}
+
+.record {
+  margin-left: 2px;
+  color: #999;
+  font-size: 13px;
+}
+
+.team-name {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.table-font {
+  font-family: Karla, &amp;quot;Helvetica Neue&amp;quot;, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+.border-left {
+  border-left: 0.3px solid #999;
+}
+
+.border-right {
+  border-right: 0.3px solid #999;
+}
+
+.cell {
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.roundcorners {
+  border-radius: 8px;
+  color: #000;
+  padding: 2px;
+  width: 48px;
+  height: 28px;
+}
+
+.rotate{
+  transform: rotate(45deg);
+}
+
+.header:hover,
+.header[aria-sort=&#34;ascending&#34;],
+.header[aria-sort=&#34;descending&#34;] {
+  background-color: #b3b3b3;
+  color: #fff;
+}
+
+.header:active,
+.header[aria-sort=&#34;ascending&#34;],
+.header[aria-sort=&#34;descending&#34;] {
+  background-color: #555;
+  color: #fff;
+}
+
+.linebreak {
+  border-bottom: 1px solid #EEE;
+  margin-bottom: 12px;
+}
+
+.filtertext {
+  font-family: Karla, &#34;Helvetica Neue&#34;, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+.colheader {
+  font-family: Karla, &#34;Helvetica Neue&#34;, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  border-bottom: 2px solid #555;
+}
+
+.groupheader {
+  font-family: Karla, &#34;Helvetica Neue&#34;, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+}
+
+.title {
+  font-family: Karla, &#34;Helvetica Neue&#34;, Helvetica, Arial, sans-serif;
+  font-size: 20px;
+}
+
+.number {
+  font-family: &#34;Fira Mono&#34;, Consolas, Monaco, monospace;
+  font-size: 14px;
+  line-height: 30px;
+  white-space: pre;
+}
+
+.record {
+  margin-left: 2px;
+  color: #999;
+  font-size: 13px;
+}
+
+.team-name {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.table-font {
+  font-family: Karla, &#34;Helvetica Neue&#34;, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+&lt;/style&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+.article-container {
+  max-width: 940px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+&lt;/style&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Re-Creating Data Visualizations Seen on the Internet - Part 1</title>
       <link>/post/recreating-data-viz-pt1/</link>
       <pubDate>Sun, 24 May 2020 21:13:14 -0500</pubDate>
@@ -285,6 +1093,22 @@ custom_breaks &amp;lt;- c(min(dataset$date),
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/project/recreating-data-viz/</link>
+      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
+      <guid>/project/recreating-data-viz/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/project/interactive-maps/</link>
+      <pubDate>Tue, 05 May 2020 00:00:00 +0000</pubDate>
+      <guid>/project/interactive-maps/</guid>
+      <description></description>
     </item>
     
     <item>
@@ -596,6 +1420,14 @@ blogdown::new_site(theme = &amp;#39;user/repo&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
     </item>
     
     <item>
+      <title></title>
+      <link>/project/create-website/</link>
+      <pubDate>Thu, 06 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>/project/create-website/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>An example preprint / working paper</title>
       <link>/publication/preprint/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
@@ -764,27 +1596,6 @@ Three
       <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
       <guid>/terms/</guid>
       <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>External Project</title>
-      <link>/project/external-project/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/project/external-project/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Internal Project</title>
-      <link>/project/internal-project/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/project/internal-project/</guid>
-      <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
-&lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
-&lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
-&lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
-&lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
 </description>
     </item>
     

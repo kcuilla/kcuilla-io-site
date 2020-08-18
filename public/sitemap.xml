@@ -33,13 +33,38 @@
   </url>
   
   <url>
+    <loc>/project/2019-nfl-team-ratings/</loc>
+    <lastmod>2020-08-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2019-nfl-team-ratings/</loc>
+    <lastmod>2020-08-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/</loc>
-    <lastmod>2020-05-24T21:13:14-05:00</lastmod>
+    <lastmod>2020-08-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/</loc>
+    <lastmod>2020-08-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/post/recreating-data-viz-pt1/</loc>
     <lastmod>2020-05-24T21:13:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/recreating-data-viz/</loc>
+    <lastmod>2020-05-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/interactive-maps/</loc>
+    <lastmod>2020-05-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -50,6 +75,11 @@
   <url>
     <loc>/post/website-with-blogdown/</loc>
     <lastmod>2020-02-06T21:13:14-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/project/create-website/</loc>
+    <lastmod>2020-02-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -100,21 +130,6 @@
   <url>
     <loc>/terms/</loc>
     <lastmod>2018-06-28T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/external-project/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/internal-project/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/project/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
