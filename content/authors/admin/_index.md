@@ -21,16 +21,11 @@ interests:
 - Sports analytics
 name: Kyle Cuilla
 organizations:
-# - name: Stanford University
-#   url: ""
 role: Lead Quantitative Analyst <br> MPS Data Analytics
 social:
 - icon: envelope
   icon_pack: fas
   link: '#contact'
-# - icon: twitter
-#   icon_pack: fab
-#   link: https://twitter.com/GeorgeCushen
 - icon: linkedin
   icon_pack: fab
   link: https://www.linkedin.com/in/kylecuilla
@@ -43,7 +38,7 @@ user_groups:
 - Visitors
 ---
 
-I am an analytics professional with five years of experience leveraging data-driven technology to solve business problems and make processes more efficient. I currently work as a Lead Quantitative Analyst within the fintech industry and generate useful insights from data analysis and visualization. 
+I am an analytics professional with over five years of experience leveraging data-driven technology to solve business problems and make processes more efficient. I currently work as a Lead Quantitative Analyst within the fintech industry and generate useful insights from data analysis and visualization. 
 
 I received my Master's Degree in Data Analytics from Penn State University. Prior to my graduate studies, I received a BS degree in Environmental Science & Technology with a focus in the design of ecotechnology systems from the University of Maryland. 
 
