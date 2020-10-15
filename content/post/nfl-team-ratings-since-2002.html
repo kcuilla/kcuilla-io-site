@@ -1,0 +1,56 @@
+---
+title: "NFL Division Ratings"
+author: "Kyle Cuilla"
+date: 2020-09-13
+categories: ["R"]
+output: html_document
+---
+
+
+
+<center>
+<img width="900" height="900" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC%20North%20Division.png">
+</center>
+<div id="process" class="section level1">
+<h1>Process</h1>
+<p>In my last post, <a href="https://kcuilla.netlify.app/post/2019-nfl-team-ratings/">2019 NFL Team Ratings</a>, I created an interactive visualization to display the NFL team ratings from <a href="https://www.pro-football-reference.com/years/2019/">Pro Football Reference website</a> for the 2019 season.</p>
+<p>After spending time looking at the 2019 ratings, I was curious to see how each NFL team rated over the past ~20 years and how they compared to other teams within their division.</p>
+<p>In order to do this, I pulled the team ratings for every year since 2002 from Pro Football Reference and plotted the data using the highly versatile <code>ggplot2</code> package.</p>
+<p>The final plots for each division are located at the end of the article under the Visualization section.</p>
+</div>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<p>The data I needed to gather was located on 18 different pages from Pro Football Reference’s site (one page for each year from 2002 to 2019). <a href="https://www.pro-football-reference.com/years/2019/">Here</a> is the link for the 2019 team ratings from Pro Football Reference. If you want to view the ratings for any of the prior years, you just need to change the year at the end of the link. In order to pull the data for all 18 years at once, I wrote a function to scrape each year and bind the data together to form one datatset.</p>
+<p>I then did some minor cleaning/tidying on the data so that it could be easily used for creating the data visualizations.</p>
+<p>The code for this process can be found on my <a href="https://github.com/kcuilla/kcuilla-io-site/blob/master/content/post/2019-nfl-team-ratings.Rmd">Github</a>.</p>
+</div>
+<div id="visualization" class="section level1">
+<h1>Visualization</h1>
+<p><img align="left" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC%20North%20Division.png">
+<img align="right" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC%20North%20Division.png"></p>
+<p><img align="left" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC-East-Division.png">
+<img align="right" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC%20East%20Division.png"></p>
+<p><img align="left" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC%20South%20Division.png">
+<img align="right" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC%20South%20Division.png"></p>
+<p><img align="left" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC%20West%20Division.png">
+<img align="right" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC%20West%20Division.png"></p>
+<p><br></p>
+<p>The visualizations above shows the distribution of SRS by team and division since 2002 and whether or not the team made the playoffs for each year.</p>
+<p>There are a couple key takeaways that stand out:</p>
+<ul>
+<li>The best division since 2002 in the AFC was the AFC North with a median SRS of +0.7, and the best division in the NFC was the NFC East which also had a median SRS of +0.7</li>
+<li>The New England Patriots have absolutely dominated their division since 2002. Their <i>worst</i> season was still <b>better</b> than the median for their division. They also made the playoffs 89% of the time, the highest in the NFL</li>
+<li>It’s also interesting to see when team’s made the playoffs or not in regards to their SRS rating. For example, the Buffalo Bills and Miami Dolphins did not make the playoffs in their highest rated seasons. Meanwhile, the Denver Broncos made the playoffs in a year in which their SRS rating was -5 (I checked this, and yes, this was the infamous season where Tim Tebow led them to the playoffs in 2011 when they finished the season 8-8)</li>
+</ul>
+</div>
+<div id="code" class="section level1">
+<h1>Code</h1>
+<p>The full code from the data gathering to the data visualization process can be found on my <a href="https://github.com/kcuilla/kcuilla-io-site/blob/master/content/post/2019-nfl-team-ratings.Rmd">Github</a>.</p>
+<style type="text/css">
+.article-container {
+  max-width: 900px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+</div>

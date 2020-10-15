@@ -13,88 +13,59 @@
     </image>
     
     <item>
-      <title>NFL Team Ratings Since 2002</title>
+      <title>NFL Division Ratings</title>
       <link>/post/nfl-team-ratings-since-2002/</link>
       <pubDate>Sun, 13 Sep 2020 00:00:00 +0000</pubDate>
       <guid>/post/nfl-team-ratings-since-2002/</guid>
       <description>
 
 
-&lt;pre&gt;&lt;code&gt;## Getting 2002 AFC Standings
-## Getting 2003 AFC Standings
-## Getting 2004 AFC Standings
-## Getting 2005 AFC Standings
-## Getting 2006 AFC Standings
-## Getting 2007 AFC Standings
-## Getting 2008 AFC Standings
-## Getting 2009 AFC Standings
-## Getting 2010 AFC Standings
-## Getting 2011 AFC Standings
-## Getting 2012 AFC Standings
-## Getting 2013 AFC Standings
-## Getting 2014 AFC Standings
-## Getting 2015 AFC Standings
-## Getting 2016 AFC Standings
-## Getting 2017 AFC Standings
-## Getting 2018 AFC Standings
-## Getting 2019 AFC Standings&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Getting 2002 NFC Standings
-## Getting 2003 NFC Standings
-## Getting 2004 NFC Standings
-## Getting 2005 NFC Standings
-## Getting 2006 NFC Standings
-## Getting 2007 NFC Standings
-## Getting 2008 NFC Standings
-## Getting 2009 NFC Standings
-## Getting 2010 NFC Standings
-## Getting 2011 NFC Standings
-## Getting 2012 NFC Standings
-## Getting 2013 NFC Standings
-## Getting 2014 NFC Standings
-## Getting 2015 NFC Standings
-## Getting 2016 NFC Standings
-## Getting 2017 NFC Standings
-## Getting 2018 NFC Standings
-## Getting 2019 NFC Standings&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Duplicated aesthetics after name standardisation: colour&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Vectorized input to `element_text()` is not officially supported.
-## Results may be unexpected or may change in future versions of ggplot2.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Duplicated aesthetics after name standardisation: colour&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Vectorized input to `element_text()` is not officially supported.
-## Results may be unexpected or may change in future versions of ggplot2.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Duplicated aesthetics after name standardisation: colour&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Vectorized input to `element_text()` is not officially supported.
-## Results may be unexpected or may change in future versions of ggplot2.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Duplicated aesthetics after name standardisation: colour&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Vectorized input to `element_text()` is not officially supported.
-## Results may be unexpected or may change in future versions of ggplot2.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Duplicated aesthetics after name standardisation: colour&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Vectorized input to `element_text()` is not officially supported.
-## Results may be unexpected or may change in future versions of ggplot2.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Duplicated aesthetics after name standardisation: colour&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Vectorized input to `element_text()` is not officially supported.
-## Results may be unexpected or may change in future versions of ggplot2.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Duplicated aesthetics after name standardisation: colour&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Vectorized input to `element_text()` is not officially supported.
-## Results may be unexpected or may change in future versions of ggplot2.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Duplicated aesthetics after name standardisation: colour&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning: Vectorized input to `element_text()` is not officially supported.
-## Results may be unexpected or may change in future versions of ggplot2.&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img class = &#34;left&#34; src=&#34;/img/AFC North Division.png&#34; width=450 height=450 /&gt;
-&lt;img class = &#34;right&#34; src=&#34;/img/NFC North Division.png&#34; width=450 height=450 /&gt;
-&lt;img class = &#34;left&#34; src=&#34;/img/AFC East Division.png&#34; width=450 height=450 /&gt;
-&lt;img class = &#34;right&#34; src=&#34;/img/NFC East Division.png&#34; width=450 height=450 /&gt;
-&lt;img class = &#34;left&#34; src=&#34;/img/AFC West Division.png&#34; width=450 height=450 /&gt;
-&lt;img class = &#34;right&#34; src=&#34;/img/NFC West Division.png&#34; width=450 height=450 /&gt;
-&lt;img class = &#34;left&#34; src=&#34;/img/AFC South Division.png&#34; width=450 height=450 /&gt;
-&lt;img class = &#34;right&#34; src=&#34;/img/NFC South Division.png&#34; width=450 height=450 /&gt;&lt;/p&gt;
+&lt;center&gt;
+&lt;img width=&#34;900&#34; height=&#34;900&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC%20North%20Division.png&#34;&gt;
+&lt;/center&gt;
+&lt;div id=&#34;process&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Process&lt;/h1&gt;
+&lt;p&gt;In my last post, &lt;a href=&#34;https://kcuilla.netlify.app/post/2019-nfl-team-ratings/&#34;&gt;2019 NFL Team Ratings&lt;/a&gt;, I created an interactive visualization to display the NFL team ratings from &lt;a href=&#34;https://www.pro-football-reference.com/years/2019/&#34;&gt;Pro Football Reference website&lt;/a&gt; for the 2019 season.&lt;/p&gt;
+&lt;p&gt;After spending time looking at the 2019 ratings, I was curious to see how each NFL team rated over the past ~20 years and how they compared to other teams within their division.&lt;/p&gt;
+&lt;p&gt;In order to do this, I pulled the team ratings for every year since 2002 from Pro Football Reference and plotted the data using the highly versatile &lt;code&gt;ggplot2&lt;/code&gt; package.&lt;/p&gt;
+&lt;p&gt;The final plots for each division are located at the end of the article under the Visualization section.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Data&lt;/h1&gt;
+&lt;p&gt;The data I needed to gather was located on 18 different pages from Pro Football Reference’s site (one page for each year from 2002 to 2019). &lt;a href=&#34;https://www.pro-football-reference.com/years/2019/&#34;&gt;Here&lt;/a&gt; is the link for the 2019 team ratings from Pro Football Reference. If you want to view the ratings for any of the prior years, you just need to change the year at the end of the link. In order to pull the data for all 18 years at once, I wrote a function to scrape each year and bind the data together to form one datatset.&lt;/p&gt;
+&lt;p&gt;I then did some minor cleaning/tidying on the data so that it could be easily used for creating the data visualizations.&lt;/p&gt;
+&lt;p&gt;The code for this process can be found on my &lt;a href=&#34;https://github.com/kcuilla/kcuilla-io-site/blob/master/content/post/2019-nfl-team-ratings.Rmd&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;visualization&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Visualization&lt;/h1&gt;
+&lt;p&gt;&lt;img align=&#34;left&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC%20North%20Division.png&#34;&gt;
+&lt;img align=&#34;right&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC%20North%20Division.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img align=&#34;left&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC-East-Division.png&#34;&gt;
+&lt;img align=&#34;right&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC%20East%20Division.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img align=&#34;left&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC%20South%20Division.png&#34;&gt;
+&lt;img align=&#34;right&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC%20South%20Division.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img align=&#34;left&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC%20West%20Division.png&#34;&gt;
+&lt;img align=&#34;right&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC%20West%20Division.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;The visualizations above shows the distribution of SRS by team and division since 2002 and whether or not the team made the playoffs for each year.&lt;/p&gt;
+&lt;p&gt;There are a couple key takeaways that stand out:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The best division since 2002 in the AFC was the AFC North with a median SRS of +0.7, and the best division in the NFC was the NFC East which also had a median SRS of +0.7&lt;/li&gt;
+&lt;li&gt;The New England Patriots have absolutely dominated their division since 2002. Their &lt;i&gt;worst&lt;/i&gt; season was still &lt;b&gt;better&lt;/b&gt; than the median for their division. They also made the playoffs 89% of the time, the highest in the NFL&lt;/li&gt;
+&lt;li&gt;It’s also interesting to see when team’s made the playoffs or not in regards to their SRS rating. For example, the Buffalo Bills and Miami Dolphins did not make the playoffs in their highest rated seasons. Meanwhile, the Denver Broncos made the playoffs in a year in which their SRS rating was -5 (I checked this, and yes, this was the infamous season where Tim Tebow led them to the playoffs in 2011 when they finished the season 8-8)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;code&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Code&lt;/h1&gt;
+&lt;p&gt;The full code from the data gathering to the data visualization process can be found on my &lt;a href=&#34;https://github.com/kcuilla/kcuilla-io-site/blob/master/content/post/2019-nfl-team-ratings.Rmd&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;
 &lt;style type=&#34;text/css&#34;&gt;
 .article-container {
-  max-width: 940px !important;
+  max-width: 900px !important;
   margin-left: auto;
   margin-right: auto;
 }
 &lt;/style&gt;
+&lt;/div&gt;
 </description>
     </item>
     
