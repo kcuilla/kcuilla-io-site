@@ -17,7 +17,7 @@ library(colorspace)
 library(nflfastR)
 ```
 
-<center><img width="900" height="900" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC North Division.png"></center>
+<center><img width="900" height="900" src="/img/AFC North Division.png"></center>
 
 # Process
 
@@ -39,17 +39,17 @@ The code for this process can be found on my [Github](https://github.com/kcuilla
 
 # Visualization
 
-<img align="left" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC North Division.png">
-<img align="right" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC North Division.png">
+<img align="left" width="450" height="450" src="/img/AFC North Division.png">
+<img align="right" width="450" height="450" src="/img/NFC North Division.png">
 
-<img align="left" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC-East-Division.png">
-<img align="right" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC East Division.png">
+<img align="left" width="450" height="450" src="/img/AFC-East-Division.png">
+<img align="right" width="450" height="450" src="/img/NFC East Division.png">
 
-<img align="left" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC South Division.png">
-<img align="right" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC South Division.png">
+<img align="left" width="450" height="450" src="/img/AFC South Division.png">
+<img align="right" width="450" height="450" src="/img/NFC South Division.png">
 
-<img align="left" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC West Division.png">
-<img align="right" width="450" height="450" src="C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC West Division.png">
+<img align="left" width="450" height="450" src="/img/AFC West Division.png">
+<img align="right" width="450" height="450" src="/img/NFC West Division.png">
 
 <br>
 
