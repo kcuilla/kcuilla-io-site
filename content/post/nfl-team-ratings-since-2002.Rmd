@@ -35,23 +35,21 @@ The data I needed to gather was located on 18 different pages from Pro Football 
 
 I then did some minor cleaning/tidying on the data so that it could be easily used for creating the data visualizations. 
 
-The code for this process can be found on my [Github](https://github.com/kcuilla/kcuilla-io-site/blob/master/content/post/2019-nfl-team-ratings.Rmd). 
+The code for this process can be found on my [Github](https://github.com/kcuilla/kcuilla-io-site/blob/master/content/post/nfl-team-ratings-since-2002.Rmd). 
 
 # Visualization
 
-<img align="left" width="450" height="450" src="/img/AFC North Division.png">
-<img align="right" width="450" height="450" src="/img/NFC North Division.png">
+<img width="700" height="700" src="/img/AFC North Division.png">
+<img width="700" height="700" src="/img/NFC North Division.png">
 
-<img align="left" width="450" height="450" src="/img/AFC-East-Division.png">
-<img align="right" width="450" height="450" src="/img/NFC East Division.png">
+<img width="700" height="700" src="/img/AFC-East-Division.png">
+<img width="700" height="700" src="/img/NFC East Division.png">
 
-<img align="left" width="450" height="450" src="/img/AFC South Division.png">
-<img align="right" width="450" height="450" src="/img/NFC South Division.png">
+<img width="700" height="700" src="/img/AFC South Division.png">
+<img width="700" height="700" src="/img/NFC South Division.png">
 
-<img align="left" width="450" height="450" src="/img/AFC West Division.png">
-<img align="right" width="450" height="450" src="/img/NFC West Division.png">
-
-<br>
+<img width="700" height="700" src="/img/AFC West Division.png">
+<img width="700" height="700" src="/img/NFC West Division.png">
 
 The visualizations above shows the distribution of SRS by team and division since 2002 and whether or not the team made the playoffs for each year.
 
@@ -63,10 +61,10 @@ There are a couple key takeaways that stand out:
 
 # Code
 
-The full code from the data gathering to the data visualization process can be found on my [Github](https://github.com/kcuilla/kcuilla-io-site/blob/master/content/post/2019-nfl-team-ratings.Rmd). 
+The full code from the data gathering to the data visualization process can be found on my [Github](https://github.com/kcuilla/kcuilla-io-site/blob/master/content/post/nfl-team-ratings-since-2002.Rmd). 
 
 
-```{r data, echo = FALSE, eval = FALSE}
+```{r data, echo = FALSE, eval = FALSE, include = FALSE}
 ### Pull data from pro-football-reference -----------------------
 ### AFC tables
 get_AFC_tables <- function(year) {
@@ -146,7 +144,7 @@ NFL_table_clean <- AFC_standings_past18_years %>%
 ```
 
 
-```{r plot, echo = FALSE, message = FALSE, warnings = FALSE, eval = FALSE}
+```{r plot, echo = FALSE, message = FALSE, warnings = FALSE, eval = FALSE, include = FALSE}
 ### Set theme for ggplot -----------------------
 theme_set(theme_minimal(base_size = 18, base_family = "Lucida Console"))
 theme_update(
@@ -440,271 +438,8 @@ ggplot(data, aes(SRS, Team_num - .2)) +
 
 ggsave(file = paste0(i, " Division.png"), height = 4, width = 4, device = "png", type = "cairo")
 }
-
-
-
-
-
-
-
-division <- unique(NFL_table_clean$Division)
-
-for (i in division) {
-data <- NFL_table_clean %>% 
-  filter(Division == "NFC West")
-
-data <- data %>% 
-  group_by(Team) %>% 
-  mutate(
-    median = median(SRS),
-    q25 = quantile(SRS, probs = .25),
-    q75 = quantile(SRS, probs = .75),
-    n = n()
-  ) %>% 
-  ungroup() %>% 
-  mutate(Team_num = as.numeric(fct_rev(Team))) %>% 
-  arrange(Team)
-
-teams_colors_logos <- teams_colors_logos %>% 
-  filter(team_abbr != "LA")
-
-team_colors <- data %>%
-  distinct(Team) %>% 
-  inner_join(teams_colors_logos, by=c("Team"="team_name")) %>% 
-  arrange(Team)
-
-pal <- team_colors$team_color
-
-abbrv <- team_colors$team_abbr
-
-ggplot(data, aes(SRS, Team_num - .2)) +
-  geom_linerange(
-    data = data %>%
-      group_by(Team, Team_num) %>%
-      summarize(m = unique(median)),
-    aes(
-      xmin = -Inf,
-      xmax = m,
-      y = Team_num,
-      color = Team
-    ),
-    inherit.aes = F,
-    linetype = "dotted",
-    size = .5
-  ) +
-  geom_boxplot(
-    aes(
-      y = Team_num - .15,
-      color = Team,
-      color = after_scale(darken(color, .1, space = "HLS"))
-    ),
-    width = 0,
-    size = .5,
-    outlier.shape = 8
-  ) +
-  geom_rect(
-    aes(
-      xmin = q25,
-      xmax = median,
-      ymin = Team_num - .07,
-      ymax = Team_num - .22
-    ),
-    fill = "grey95",
-    color = "grey80"
-  ) +
-  geom_rect(
-    aes(
-      xmin = q75,
-      xmax = median,
-      ymin = Team_num - .07,
-      ymax = Team_num - .22
-    ),
-    fill = "grey85",
-    color = "grey80"
-  ) +
-  geom_point(
-    aes(y = Team_num - .15),
-    color = ifelse(data$Playoffs == "Yes", "darkgreen", "red"),
-    shape = 20,
-    size = 5,
-    alpha = .4
-  ) +
-  ggdist::stat_halfeye(
-    aes(
-      y = Team_num,
-      color = Team,
-      fill = after_scale(lighten(color, .5))
-    ),
-    alpha = .7,
-    shape = 18,
-    point_size = 3,
-    interval_size = 1.8,
-    adjust = .5,
-    .width = c(0, 1)
-  ) +
-  # geom_text(
-  #   data = data %>%
-  #     group_by(Team, Team_num) %>%
-  #     summarize(m = unique(median)) %>% 
-  #     ungroup(),
-  #   aes(
-  #     x = m,
-  #     y = Team_num + .1,
-  #     label = sprintf("%+.1f", m)
-  #   ),
-  #   inherit.aes = F,
-  #   color = "white",
-  #   fontface = "bold",
-  #   family = "Lucida Console",
-  #   size = 4.5
-  # ) +
-  # geom_text(
-  #   data = data %>%
-  #     filter(Team_num == 4) %>%
-  #     summarize(max = max(SRS)) %>% 
-  #     ungroup(),
-  #   aes(x = max + 1,
-  #       y = 4 + .05,
-  #       label = "Playoff Pct."),
-  #   inherit.aes = F,
-  #   family = "Lucida Sans Unicode",
-  #   color = "grey20",
-  #   fontface = "bold",
-  #   size = 3.5,
-  #   hjust = 0
-  # ) +
-  geom_text(
-    data = data %>%
-      mutate(playoff_num = ifelse(Playoffs == "Yes", 1, 0)) %>%
-      group_by(Team, Team_num) %>%
-      summarize(max = max(SRS),
-                playoff_pct = round(100 * sum(playoff_num) / 18, 0)) %>% 
-      ungroup(),
-    aes(
-      x = max + 1,
-      y = Team_num - .15,
-      label = glue::glue("{playoff_pct}%"),
-      color = Team
-    ),
-    inherit.aes = F,
-    family = "Lucida Console",
-    fontface = "bold",
-    size = 4,
-    hjust = 0
-  ) +
-  scale_x_continuous(
-    labels = function(x)
-      sprintf("%+.0f", x),
-    limits = c(-18, 21.5),
-    breaks = c(-20, -15, -10, -5, 0, 5, 10, 15, 20)
-  ) +
-  scale_y_continuous(
-    limits = c(.55, NA),
-    breaks = 1:4,
-    labels = rev(team_colors$team_abbr),
-    expand = c(0, 0.05)
-  ) +
-  scale_color_manual(values = pal,
-                     guide = F) +
-  scale_fill_manual(values = pal,
-                    guide = F) +
-  labs(
-    x = "SRS",
-    title = i,
-    subtitle = "Distribution of SRS since 2002",
-    caption = 'Note: Simple Rating System (SRS) is a measurement of team quality relative to average (0.0)\nVisualization: Kyle Cuilla  •  Data: Pro-Football-Reference'
-  ) +
-  theme(
-    panel.grid.major.y = element_blank(),
-    axis.text.y = element_text(
-      family = "Lucida Console",
-      color = rev(pal),
-      size = 20,
-      lineheight = .9
-    ),
-    axis.ticks.length = unit(0, "lines")
-  ) +
-  geom_vline(
-    xintercept = data$div_median_SRS,
-    linetype = "dashed",
-    size = 0.5,
-    alpha = 0.5
-  ) +
-  geom_text(
-    data = data %>%
-      filter(Team_num == 4),
-    aes(
-      x = div_median_SRS + 0.4,
-      y = 4 + 1,
-      label = paste0("Division median: ", sprintf("%+.1f", div_median_SRS))
-    ),
-    inherit.aes = F,
-    family = "Lucida Sans Unicode",
-    color = "grey20",
-    fontface = "bold.italic",
-    size = 3.8,
-    hjust = 0
-  ) +
-  annotate(
-    "text",
-    x = 17.5,
-    y = 5,
-    label = "Playoffs",
-    family = "Lucida Sans Unicode",
-    color = "grey20",
-    fontface = "bold",
-    size = 4,
-    lineheight = .9
-  )  +
-  geom_point(
-    x = 16.5,
-    y = 4.7,
-    color = "darkgreen",
-    shape = 20,
-    size = 5,
-    alpha = .5
-  ) +
-  annotate(
-    "text",
-    x = 16.5,
-    y = 4.85,
-    label = "Yes",
-    family = "Lucida Sans Unicode",
-    color = "grey20",
-    size = 3.2,
-    lineheight = .9
-  ) +
-  geom_point(
-    x = 18,
-    y = 4.7,
-    color = "red",
-    shape = 20,
-    size = 5,
-    alpha = .5
-  ) +
-  annotate(
-    "text",
-    x = 18,
-    y = 4.85,
-    label = "No",
-    family = "Lucida Sans Unicode",
-    color = "grey20",
-    size = 3.2,
-    lineheight = .9
-  ) 
-
-ggsave(file = paste0(i, " Division.png"), height = 4, width = 4, device = "png", type = "cairo")
-}
 ```
 
-
-```{css echo = FALSE}
-.article-container {
-  max-width: 900px !important;
-  margin-left: auto;
-  margin-right: auto;
-}
-```
 
 
 
