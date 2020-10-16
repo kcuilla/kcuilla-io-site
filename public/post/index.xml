@@ -21,7 +21,7 @@
 
 
 &lt;center&gt;
-&lt;img width=&#34;900&#34; height=&#34;900&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC%20North%20Division.png&#34;&gt;
+&lt;img width=&#34;900&#34; height=&#34;900&#34; src=&#34;/img/AFC North Division.png&#34;&gt;
 &lt;/center&gt;
 &lt;div id=&#34;process&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Process&lt;/h1&gt;
@@ -34,19 +34,18 @@
 &lt;h1&gt;Data&lt;/h1&gt;
 &lt;p&gt;The data I needed to gather was located on 18 different pages from Pro Football Reference’s site (one page for each year from 2002 to 2019). &lt;a href=&#34;https://www.pro-football-reference.com/years/2019/&#34;&gt;Here&lt;/a&gt; is the link for the 2019 team ratings from Pro Football Reference. If you want to view the ratings for any of the prior years, you just need to change the year at the end of the link. In order to pull the data for all 18 years at once, I wrote a function to scrape each year and bind the data together to form one datatset.&lt;/p&gt;
 &lt;p&gt;I then did some minor cleaning/tidying on the data so that it could be easily used for creating the data visualizations.&lt;/p&gt;
-&lt;p&gt;The code for this process can be found on my &lt;a href=&#34;https://github.com/kcuilla/kcuilla-io-site/blob/master/content/post/2019-nfl-team-ratings.Rmd&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The code for this process can be found on my &lt;a href=&#34;https://github.com/kcuilla/kcuilla-io-site/blob/master/content/post/nfl-team-ratings-since-2002.Rmd&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;visualization&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Visualization&lt;/h1&gt;
-&lt;p&gt;&lt;img align=&#34;left&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC%20North%20Division.png&#34;&gt;
-&lt;img align=&#34;right&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC%20North%20Division.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img align=&#34;left&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC-East-Division.png&#34;&gt;
-&lt;img align=&#34;right&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC%20East%20Division.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img align=&#34;left&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC%20South%20Division.png&#34;&gt;
-&lt;img align=&#34;right&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC%20South%20Division.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img align=&#34;left&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/AFC%20West%20Division.png&#34;&gt;
-&lt;img align=&#34;right&#34; width=&#34;450&#34; height=&#34;450&#34; src=&#34;C:/Users/Kyle/Documents/Website2/kcuilla-io-site/static/img/NFC%20West%20Division.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img width=&#34;700&#34; height=&#34;700&#34; src=&#34;/img/AFC North Division.png&#34;&gt;
+&lt;img width=&#34;700&#34; height=&#34;700&#34; src=&#34;/img/NFC North Division.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img width=&#34;700&#34; height=&#34;700&#34; src=&#34;/img/AFC-East-Division.png&#34;&gt;
+&lt;img width=&#34;700&#34; height=&#34;700&#34; src=&#34;/img/NFC East Division.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img width=&#34;700&#34; height=&#34;700&#34; src=&#34;/img/AFC South Division.png&#34;&gt;
+&lt;img width=&#34;700&#34; height=&#34;700&#34; src=&#34;/img/NFC South Division.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img width=&#34;700&#34; height=&#34;700&#34; src=&#34;/img/AFC West Division.png&#34;&gt;
+&lt;img width=&#34;700&#34; height=&#34;700&#34; src=&#34;/img/NFC West Division.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;The visualizations above shows the distribution of SRS by team and division since 2002 and whether or not the team made the playoffs for each year.&lt;/p&gt;
 &lt;p&gt;There are a couple key takeaways that stand out:&lt;/p&gt;
 &lt;ul&gt;
@@ -57,14 +56,7 @@
 &lt;/div&gt;
 &lt;div id=&#34;code&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Code&lt;/h1&gt;
-&lt;p&gt;The full code from the data gathering to the data visualization process can be found on my &lt;a href=&#34;https://github.com/kcuilla/kcuilla-io-site/blob/master/content/post/2019-nfl-team-ratings.Rmd&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;
-&lt;style type=&#34;text/css&#34;&gt;
-.article-container {
-  max-width: 900px !important;
-  margin-left: auto;
-  margin-right: auto;
-}
-&lt;/style&gt;
+&lt;p&gt;The full code from the data gathering to the data visualization process can be found on my &lt;a href=&#34;https://github.com/kcuilla/kcuilla-io-site/blob/master/content/post/nfl-team-ratings-since-2002.Rmd&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
