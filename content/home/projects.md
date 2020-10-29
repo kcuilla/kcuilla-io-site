@@ -26,10 +26,6 @@ subtitle = ""
     tag = "featured"
   
   [[content.filter_button]]
-    name = "R"
-    tag = "featured R"
-    
-  [[content.filter_button]]
     name = "Data Viz"
     tag = "featured Data Viz"
   
