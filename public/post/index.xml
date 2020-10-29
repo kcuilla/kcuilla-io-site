@@ -5,12 +5,181 @@
     <link>/post/</link>
       <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Sun, 13 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Mon, 12 Oct 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
       <title>Posts</title>
       <link>/post/</link>
     </image>
+    
+    <item>
+      <title>NCAA Tourney Visualization</title>
+      <link>/post/ncaa-tourney-visualization/</link>
+      <pubDate>Mon, 12 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>/post/ncaa-tourney-visualization/</guid>
+      <description>
+
+
+&lt;center&gt;
+&lt;img width=&#34;900&#34; height=&#34;900&#34; src=&#34;/img/2020_41_NCAA_Tourney_viz.png&#34;&gt;
+&lt;/center&gt;
+&lt;div id=&#34;data&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Data&lt;/h1&gt;
+&lt;p&gt;I created this data visualization as part of the weekly social data project in R called &lt;a href=&#34;https://github.com/rfordatascience/tidytuesday&#34;&gt;TidyTuesday&lt;/a&gt;. Each week, a new dataset is posted, and R users analyze and arrange the data into useful charts using the packages within the &lt;code&gt;tidyverse&lt;/code&gt; ecosystem.&lt;/p&gt;
+&lt;p&gt;The dataset for this week’s TidyTuesday came from &lt;a href=&#34;www.fivethirtyeight.com&#34;&gt;FiveThirtyEight&lt;/a&gt;. It contains year-by-year results from each team in the NCAA Women’s Basketball Tournament since 1982. See below for a preview of the raw data:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tournament &amp;lt;- readr::read_csv(&amp;#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-10-06/tournament.csv&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   year = col_double(),
+##   school = col_character(),
+##   seed = col_double(),
+##   conference = col_character(),
+##   conf_w = col_double(),
+##   conf_l = col_double(),
+##   conf_percent = col_double(),
+##   conf_place = col_character(),
+##   reg_w = col_double(),
+##   reg_l = col_double(),
+##   reg_percent = col_double(),
+##   how_qual = col_character(),
+##   x1st_game_at_home = col_character(),
+##   tourney_w = col_double(),
+##   tourney_l = col_double(),
+##   tourney_finish = col_character(),
+##   full_w = col_double(),
+##   full_l = col_double(),
+##   full_percent = col_double()
+## )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(tournament)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 19
+##    year school  seed conference conf_w conf_l conf_percent conf_place reg_w
+##   &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;       &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;        &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;      &amp;lt;dbl&amp;gt;
+## 1  1982 Arizo~     4 Western C~     NA     NA         NA   -             23
+## 2  1982 Auburn     7 Southeast~     NA     NA         NA   -             24
+## 3  1982 Cheyn~     2 Independe~     NA     NA         NA   -             24
+## 4  1982 Clems~     5 Atlantic ~      6      3         66.7 4th           20
+## 5  1982 Drake      4 Missouri ~     NA     NA         NA   -             26
+## 6  1982 East ~     6 Independe~     NA     NA         NA   -             19
+## # ... with 10 more variables: reg_l &amp;lt;dbl&amp;gt;, reg_percent &amp;lt;dbl&amp;gt;, how_qual &amp;lt;chr&amp;gt;,
+## #   x1st_game_at_home &amp;lt;chr&amp;gt;, tourney_w &amp;lt;dbl&amp;gt;, tourney_l &amp;lt;dbl&amp;gt;,
+## #   tourney_finish &amp;lt;chr&amp;gt;, full_w &amp;lt;dbl&amp;gt;, full_l &amp;lt;dbl&amp;gt;, full_percent &amp;lt;dbl&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The first thing I was curious about was which teams had been to the most NCAA championship games.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;TOURNAMENT_DATA &amp;lt;- tournament %&amp;gt;%
+  mutate(
+    tourney_finish = case_when(
+      tourney_finish == &amp;quot;Champ&amp;quot; ~ &amp;quot;Champion&amp;quot;,
+      tourney_finish == &amp;quot;N2nd&amp;quot; ~ &amp;quot;Runner-up&amp;quot;,
+      tourney_finish == &amp;quot;NSF&amp;quot; ~ &amp;quot;Final Four&amp;quot;,
+      tourney_finish == &amp;quot;RF&amp;quot; ~ &amp;quot;Elite Eight&amp;quot;,
+      tourney_finish == &amp;quot;RSF&amp;quot; ~ &amp;quot;Sweet Sixteen&amp;quot;,
+      tourney_finish == &amp;quot;2nd&amp;quot; ~ &amp;quot;2nd Round&amp;quot;,
+      tourney_finish == &amp;quot;1st&amp;quot; ~ &amp;quot;1st Round&amp;quot;,
+      TRUE ~ &amp;quot;other&amp;quot;
+    )
+  )
+
+most_championship_games &amp;lt;- TOURNAMENT_DATA %&amp;gt;%
+  group_by(school) %&amp;gt;%
+  mutate(
+    championship_games = case_when(
+      tourney_finish == &amp;quot;Champion&amp;quot; | tourney_finish == &amp;quot;Runner-up&amp;quot; ~ 1,
+      TRUE ~ 0
+    )
+  ) %&amp;gt;%
+  group_by(school) %&amp;gt;%
+  summarize(total_championship_games = sum(championship_games)) %&amp;gt;%
+  arrange(desc(total_championship_games)) %&amp;gt;%
+  top_n(5, total_championship_games)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` ungrouping output (override with `.groups` argument)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;most_championship_games&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 5 x 2
+##   school         total_championship_games
+##   &amp;lt;chr&amp;gt;                             &amp;lt;dbl&amp;gt;
+## 1 Tennessee                            13
+## 2 UConn                                11
+## 3 Louisiana Tech                        6
+## 4 Notre Dame                            6
+## 5 Stanford                              4&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As you can see, Tennessee has been to the most NCAA championship games since 1982 with 13, followed by UConn with 11.&lt;/p&gt;
+&lt;p&gt;Next, I wanted to know how often these teams exceeded or under-exceeded their expectations based on their seed heading into the tournament. In order to do this, first I needed to calculate the number of wins expected for each seed in the tournament. I did this by simply taking the average tournament wins for each seed since 1982.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;avg_seed_wins &amp;lt;- tournament %&amp;gt;%
+  filter(!is.na(seed)) %&amp;gt;%
+  group_by(seed) %&amp;gt;%
+  summarize(expected_wins = mean(tourney_w)) %&amp;gt;% 
+  arrange(seed)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` ungrouping output (override with `.groups` argument)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;avg_seed_wins&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 16 x 2
+##     seed expected_wins
+##    &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt;
+##  1     1        3.48  
+##  2     2        2.48  
+##  3     3        1.79  
+##  4     4        1.57  
+##  5     5        0.993 
+##  6     6        0.850 
+##  7     7        0.725 
+##  8     8        0.518 
+##  9     9        0.534 
+## 10    10        0.424 
+## 11    11        0.433 
+## 12    12        0.228 
+## 13    13        0.0909
+## 14    14        0     
+## 15    15        0     
+## 16    16        0.0396&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This shows us that on average, the 1 seed won approximately 3.5 games in the tournament. There are six rounds in the NCAA tournament, so if a team wins six games in a row, they win the championship. Since the 1 seed wins an average of 3.5 games per tournament, they typically reach the Regional Finals or National Semi-finals (also known as the Elite Eight and Final Four). Meanwhile, the 14 and 15 seeds have 0 expected wins, meaning that neither seed has ever won a single game in the tournament.&lt;/p&gt;
+&lt;p&gt;To calculate the wins above or below expectations for each of the top 5 teams we selected, I took the number of wins each team won minus the expected wins for their seed. For example, if a team was a 1 seed entering the tournament and ended up winning the championship, this would give them 2.5 wins over expectation since they won 6 games and were only expected to win 3.5 games as a 1 seed.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;expectations &amp;lt;- TOURNAMENT_DATA %&amp;gt;%
+  filter(school %in% most_championship_games$school) %&amp;gt;%
+  inner_join(avg_seed_wins, by = c(&amp;quot;seed&amp;quot; = &amp;quot;seed&amp;quot;)) %&amp;gt;%
+  group_by(school) %&amp;gt;%
+  summarize(
+    avg_games_played = mean(tourney_w) + mean(tourney_l),
+    avg_actual_wins = mean(tourney_w),
+    avg_expected_wins = mean(expected_wins)
+  ) %&amp;gt;%
+  ungroup() %&amp;gt;%
+  mutate(avg_wins_vs_expectations = avg_actual_wins - avg_expected_wins) %&amp;gt;%
+  arrange(desc(avg_wins_vs_expectations))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## `summarise()` ungrouping output (override with `.groups` argument)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;expectations&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 5 x 5
+##   school    avg_games_played avg_actual_wins avg_expected_wi~ avg_wins_vs_expec~
+##   &amp;lt;chr&amp;gt;                &amp;lt;dbl&amp;gt;           &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;              &amp;lt;dbl&amp;gt;
+## 1 UConn                 4.53            3.9              2.93              0.968
+## 2 Notre Da~             3.4             2.48             1.82              0.665
+## 3 Tennessee             4.16            3.38             2.85              0.528
+## 4 Stanford              3.62            2.69             2.37              0.322
+## 5 Louisian~             3.33            2.41             2.09              0.322&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Based on this calculation, UConn had the highest average wins over expectation with just under +1, meaning that for every NCAA tournament they participated in, they won 1 more game than they were expected to based on their seed entering the tournament.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;visualization&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Visualization&lt;/h1&gt;
+&lt;p&gt;Now that I had my subdataset, I needed to think of a way to visually display the results. I recently bought a book called &lt;a href=&#34;https://us.gestalten.com/products/visual-journalism&#34;&gt;Visual Journalism&lt;/a&gt; from gestalten that contains data visualizations and infographics from publications from around the world. My inspiration came from a data visualization I saw within that book called, &lt;a href=&#34;https://www.informationisbeautifulawards.com/showcase/204-nobels-no-degrees&#34;&gt;Nobels, no degrees&lt;/a&gt; by Giorgia Lupi. The challenge for me was to not only try to adapt a version of this to display basketball data but to also make it in just a matter of a few days in order to be submitted for the current week of TidyTuesday challenge.&lt;/p&gt;
+&lt;p&gt;The data visualization I created is not just one chart, but actually multiple charts pieced together. The first chart I made was a line chart showing each team’s wins over expectations for each year they were in the tournament. The solid horizontal line represents the team’s average wins over expectation over the time frame and the dotted line represents the average wins over expectation for the top 5 teams combined. Also, if the red circles around the data points signify if that team won the tournament that year.&lt;/p&gt;
+&lt;center&gt;
+&lt;img width=&#34;900&#34; height=&#34;900&#34; src=&#34;/img/2020_41_NCAA_Tourney_linechart.png&#34;&gt;
+&lt;/center&gt;
+&lt;p&gt;I then created a horizontal bar chart to show the occurrence of each seed the team was when entering the tournament. Each row represents the seeds 1 through 5+ with 1 being on top and 5+ on the bottom:&lt;/p&gt;
+&lt;center&gt;
+&lt;img width=&#34;900&#34; height=&#34;900&#34; src=&#34;/img/2020_41_NCAA_Tourney_horizontalbar.png&#34;&gt;
+&lt;/center&gt;
+&lt;p&gt;And last, I created an alluvial chart to show the frequency of tourney finishes for each team. This type of chart does a good job of displaying UConn’s dominance once again as you can see that they ended most of their tournaments as Champions and have never lost a championship game (no lines going to Runner-up).&lt;/p&gt;
+&lt;center&gt;
+&lt;img width=&#34;900&#34; height=&#34;900&#34; src=&#34;/img/2020_41_NCAA_Tourney_alluvial.png&#34;&gt;
+&lt;/center&gt;
+&lt;p&gt;Piecing all of the charts together was a bit tedious to get each chart aligned properly so that the data “flowed” through the visualization. I also had to truncate the charts at the top in order to fit the title, description, and legend, but overall I’m happy with the way it turned out. This was my first-ever contribution to the TidyTuesday challenge and I hope to be able to contribute more!&lt;/p&gt;
+&lt;center&gt;
+&lt;img width=&#34;900&#34; height=&#34;900&#34; src=&#34;/img/2020_41_NCAA_Tourney_viz.png&#34;&gt;
+&lt;/center&gt;
+&lt;/div&gt;
+&lt;div id=&#34;code&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Code&lt;/h1&gt;
+&lt;p&gt;The full code from the can be found on my &lt;a href=&#34;https://github.com/kcuilla/Tidy-Tuesday/tree/main/2020_41&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>NFL Division Ratings</title>
