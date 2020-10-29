@@ -7,4 +7,5 @@ summary: 2019 NFL Team Ratings
 tags:
 - featured
 - featured R
+- featured Data Viz
 ---

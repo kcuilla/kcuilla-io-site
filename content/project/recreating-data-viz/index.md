@@ -7,4 +7,5 @@ summary: Re-creating a data visualization from NPR
 tags:
 - featured
 - featured R
+- featured Data Viz
 ---

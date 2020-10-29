@@ -28,6 +28,14 @@ subtitle = ""
   [[content.filter_button]]
     name = "R"
     tag = "featured R"
+    
+  [[content.filter_button]]
+    name = "Data Viz"
+    tag = "featured Data Viz"
+  
+  [[content.filter_button]]
+    name = "Tutorial"
+    tag = "featured Tutorial"
 
 [design]
   # Choose how many columns the section has. Valid values: 1 or 2.

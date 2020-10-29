@@ -7,4 +7,5 @@ summary: How I created my website in R
 tags:
 - featured
 - featured R
+- featured Tutorial
 ---

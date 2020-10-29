@@ -7,4 +7,6 @@ summary: Guide to making interactive maps in R
 tags:
 - featured
 - featured R
+- featured Data Viz
+- featured Tutorial
 ---

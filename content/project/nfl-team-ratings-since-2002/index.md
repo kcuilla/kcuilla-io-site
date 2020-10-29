@@ -7,4 +7,5 @@ summary: NFL Team Ratings Since 2002
 tags:
 - featured
 - featured R
+- featured Data Viz
 ---

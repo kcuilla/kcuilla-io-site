@@ -7,4 +7,5 @@ summary: NCAA Women's Tourney Data Visualization
 tags:
 - featured
 - featured R
+- featured Data Viz
 ---
