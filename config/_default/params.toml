@@ -111,7 +111,7 @@ email = "kyle.cuilla@gmail.com"
  contact_links = [
    {icon = "linkedin", icon_pack = "fab", name = "kylecuilla", link = "https://www.linkedin.com/in/kylecuilla"},
    {icon = "github", icon_pack = "fab", name = "kcuilla", link = "https://github.com/kcuilla"},
-  # {icon = "keybase", icon_pack = "fab", name = "Chat on Keybase", link = "https://keybase.io/"},
+   {icon = "twitter", icon_pack = "fab", name = "kc_analytics", link = "https://twitter.com/kc_analytics"},
   # {icon = "comments", icon_pack = "fas", name = "Discuss on Forum", link = "https://discourse.gohugo.io"},
   # {icon = "telegram", icon_pack = "fab", name = "Telegram Me", link = "https://telegram.me/@Telegram"},
   ]
