@@ -29,6 +29,9 @@ social:
 - icon: linkedin
   icon_pack: fab
   link: https://www.linkedin.com/in/kylecuilla
+- icon: twitter
+  icon_pack: fab
+  link: https://twitter.com/kc_analytics
 - icon: github
   icon_pack: fab
   link: https://github.com/kcuilla
