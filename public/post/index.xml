@@ -5,7 +5,7 @@
     <link>/post/</link>
       <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2020</copyright><lastBuildDate>Mon, 12 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Mon, 12 Oct 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
       <title>Posts</title>
@@ -2927,6 +2927,361 @@ Note: Strength of Schedule (SoS) aligns with the ski trail difficulty rating sys
   margin-left: 7px;
 }
 &lt;/style&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Importing Multiple Files Quickly and Efficiently</title>
+      <link>/post/import-multiple-csv-files/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/post/import-multiple-csv-files/</guid>
+      <description>
+
+
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;vroom&amp;#39; was built under R version 4.0.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tictoc&amp;#39; was built under R version 4.0.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;microbenchmark&amp;#39; was built under R version 4.0.3&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;need-for-speed&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Need for Speed&lt;/h1&gt;
+&lt;center&gt;
+&lt;img src=&#34;https://media.giphy.com/media/26AHLNr8en8J3ovOo/giphy.gif&#34; /&gt;
+&lt;/center&gt;
+&lt;p&gt;If you’re a data professional like me, it’s likely that at some point in your career you have needed to combine multiple files together.&lt;/p&gt;
+&lt;p&gt;Let’s say that you have three .csv files you need to combine. All three files contain the same columns but the data in each is different because one is for the year 2018, another for 2019, and another for 2020.&lt;/p&gt;
+&lt;p&gt;When I first started learning R, the way I would do this is to import each file individually and then use &lt;code&gt;rbind&lt;/code&gt; to combine them all together like this:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;file1 &amp;lt;- read.csv(&amp;quot;file_2018.csv&amp;quot;)
+file2 &amp;lt;- read.csv(&amp;quot;file_2019.csv&amp;quot;)
+file3 &amp;lt;- read.csv(&amp;quot;file_2020.csv&amp;quot;)
+
+files &amp;lt;- rbind(file1, file2, file3)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This method is fine, especially if you only have three files to combine. But what happens when you have 10, 20, or even 100 files? Not only would this method be extremely time-consuming, but it also increases the chance of an error since you need to make sure you type in the name of each .csv file correctly and all the names you assign to each file are unique.&lt;/p&gt;
+&lt;p&gt;There has to be a better way, right?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;fast-functions&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Fast Functions&lt;/h1&gt;
+&lt;p&gt;If you follow me on &lt;a href=&#34;https://twitter.com/kc_analytics&#34;&gt;Twitter&lt;/a&gt;, you may already know that the answer is yes, there is a much better AND faster way!&lt;/p&gt;
+&lt;center&gt;
+&lt;blockquote class=&#34;twitter-tweet&#34;&gt;
+&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;
+&lt;a href=&#34;https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#rstats&lt;/a&gt;&lt;br&gt;&lt;br&gt;How it started How it’s going &lt;a href=&#34;https://t.co/mGzn9vqOBt&#34;&gt;pic.twitter.com/mGzn9vqOBt&lt;/a&gt;
+&lt;/p&gt;
+— Kyle Cuilla (&lt;span class=&#34;citation&#34;&gt;@kc_analytics&lt;/span&gt;) &lt;a href=&#34;https://twitter.com/kc_analytics/status/1345434428059881480?ref_src=twsrc%5Etfw&#34;&gt;January 2, 2021&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+&lt;/center&gt;
+&lt;p&gt;Here’s the solution I proposed in the picture above on the right so it’s easier to follow along:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;files &amp;lt;- 
+  list.files(pattern = &amp;quot;*.csv&amp;quot;) %&amp;gt;%
+  map_df(~fread(.))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The function &lt;code&gt;list.files()&lt;/code&gt; simply generates a list of all of the .csv files (as specified by &lt;code&gt;pattern = &#34;*.csv&#34;&lt;/code&gt;) that are located in your current working directory.&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;
+Note: depending on where the files are stored on your computer, you may need to run &lt;code&gt;setwd()&lt;/code&gt; beforehand to the folder that contains the files. Also, if there are no other file types in your folder, then you can simply the code even further and remove &lt;code&gt;pattern = &#34;*.csv&#34;&lt;/code&gt; from the code above and just use &lt;code&gt;list.files()&lt;/code&gt;.
+&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;Now that we have our list of files, we then pipe that into the &lt;code&gt;map_df()&lt;/code&gt; function which comes from the purrr package:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;map_df&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## function (.x, .f, ..., .id = NULL) 
+## {
+##     if (!is_installed(&amp;quot;dplyr&amp;quot;)) {
+##         abort(&amp;quot;`map_df()` requires dplyr&amp;quot;)
+##     }
+##     .f &amp;lt;- as_mapper(.f, ...)
+##     res &amp;lt;- map(.x, .f, ...)
+##     dplyr::bind_rows(res, .id = .id)
+## }
+## &amp;lt;bytecode: 0x00000000191f7f90&amp;gt;
+## &amp;lt;environment: namespace:purrr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can see that &lt;code&gt;map_df&lt;/code&gt; essentially takes the list of files and uses &lt;code&gt;bind_rows()&lt;/code&gt; to combine them into a single dataframe by passing it through a function (&lt;code&gt;.f&lt;/code&gt;) that you provide. In this case, the function that we are using is &lt;code&gt;fread()&lt;/code&gt; which comes from the data.table package. &lt;code&gt;fread()&lt;/code&gt; is essentially the same as &lt;code&gt;read.csv()&lt;/code&gt; but it is significantly faster.&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;
+Note: if you want to use any of the arguments within &lt;code&gt;fread()&lt;/code&gt; such as &lt;code&gt;stringsAsFactors&lt;/code&gt;, &lt;code&gt;select&lt;/code&gt;, &lt;code&gt;fill&lt;/code&gt;, etc. then you need to include the &lt;code&gt;~&lt;/code&gt; before calling fread and your argument options. If you don’t need to add any arguments then you can just simply use &lt;code&gt;map_df(fread)&lt;/code&gt;.
+&lt;/i&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;importing-and-combining-500-.csv-files-in-1-sec&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Importing and Combining 500 .csv files in &amp;lt;1 sec&lt;/h1&gt;
+&lt;p&gt;To demonstrate just how fast and easy it is to use &lt;code&gt;map_df()&lt;/code&gt;, I created a folder containing 500 .csv files that I would like to import into R and combine into a single dataframe.&lt;/p&gt;
+&lt;p&gt;The files, which were generated using &lt;a href=&#34;https://watsonbox.github.io/exportify/&#34;&gt;Exportify&lt;/a&gt;, consist of different playlists found on Spotify. Below is an example of some of the playlists in the folder:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(list.files(&amp;quot;C:/Users/Kyle/Documents/purrr_demo/&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;&amp;#39;90s_pop_rock_essentials.csv&amp;quot; &amp;quot;00s_ballads.csv&amp;quot;             
+## [3] &amp;quot;00s_indie_dance_party.csv&amp;quot;    &amp;quot;00s_latino.csv&amp;quot;              
+## [5] &amp;quot;00s_rock_anthems.csv&amp;quot;         &amp;quot;10s_rock_anthems.csv&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To confirm there are 500 files in the folder, we can run &lt;code&gt;length(list.files())&lt;/code&gt; to count the total number of files:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;length(list.files(&amp;quot;C:/Users/Kyle/Documents/purrr_demo/&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 500&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that we confirmed that all 500 files are present, let’s import and combine them all into one dataset that just consists of the artist, track, and album name of each song:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;files &amp;lt;-
+  list.files() %&amp;gt;%
+  map_df(~fread(., select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)))
+
+str(files)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Classes &amp;#39;data.table&amp;#39; and &amp;#39;data.frame&amp;#39;:   32751 obs. of  3 variables:
+##  $ Artist Name: chr  &amp;quot;Third Eye Blind&amp;quot; &amp;quot;Counting Crows&amp;quot; &amp;quot;Spin Doctors&amp;quot; &amp;quot;Semisonic&amp;quot; ...
+##  $ Track Name : chr  &amp;quot;Semi-Charmed Life&amp;quot; &amp;quot;Mr. Jones&amp;quot; &amp;quot;Two Princes&amp;quot; &amp;quot;Closing Time&amp;quot; ...
+##  $ Album Name : chr  &amp;quot;Third Eye Blind&amp;quot; &amp;quot;August And Everything After&amp;quot; &amp;quot;Pocket Full Of Kryptonite&amp;quot; &amp;quot;Feeling Strangely Fine&amp;quot; ...
+##  - attr(*, &amp;quot;.internal.selfref&amp;quot;)=&amp;lt;externalptr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The output above shows that there are a total of 32,751 rows in our combined dataset (and three columns which we selected).&lt;/p&gt;
+&lt;p&gt;So now the question is how long did it take to import and combine 500 .csv files containing over 32k rows in total?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tic()
+files &amp;lt;-
+  list.files() %&amp;gt;%
+  map_df(~fread(., select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)))
+toc()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 0.75 sec elapsed&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The answer: less than one second!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;bonus-including-file-names&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Bonus: Including File Names&lt;/h1&gt;
+&lt;p&gt;Currently, our file contains the artist, track, and album name for each song as shown below:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(files)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         Artist Name        Track Name                   Album Name
+## 1:  Third Eye Blind Semi-Charmed Life              Third Eye Blind
+## 2:   Counting Crows         Mr. Jones  August And Everything After
+## 3:     Spin Doctors       Two Princes    Pocket Full Of Kryptonite
+## 4:        Semisonic      Closing Time       Feeling Strangely Fine
+## 5: Eagle-Eye Cherry      Save Tonight                   Desireless
+## 6:  Matchbox Twenty              Push Yourself or Someone Like You&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you would like to add a column that says what playlist each song came from, we can create a function that inserts the file name as a column called ‘Playlist Name’ using &lt;code&gt;mutate&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;file_names &amp;lt;- function(x) {
+  fread(x, select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)) %&amp;gt;% 
+    mutate(&amp;quot;Playlist Name&amp;quot; = str_extract(x, &amp;#39;.*(?=\\.csv)&amp;#39;))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;i&gt;Note: I’m using &lt;code&gt;str_extract&lt;/code&gt; above to remove the ‘.csv’ from each of the playlist names since they are present in the file names.&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;And then all we need to do is call that function within &lt;code&gt;map_df()&lt;/code&gt; and now we have our dataset with the names of the playlists included:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;files_with_names &amp;lt;-
+  list.files() %&amp;gt;%
+  map_df(file_names)
+
+head(files_with_names)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         Artist Name        Track Name                   Album Name
+## 1:  Third Eye Blind Semi-Charmed Life              Third Eye Blind
+## 2:   Counting Crows         Mr. Jones  August And Everything After
+## 3:     Spin Doctors       Two Princes    Pocket Full Of Kryptonite
+## 4:        Semisonic      Closing Time       Feeling Strangely Fine
+## 5: Eagle-Eye Cherry      Save Tonight                   Desireless
+## 6:  Matchbox Twenty              Push Yourself or Someone Like You
+##               Playlist Name
+## 1: &amp;#39;90s_pop_rock_essentials
+## 2: &amp;#39;90s_pop_rock_essentials
+## 3: &amp;#39;90s_pop_rock_essentials
+## 4: &amp;#39;90s_pop_rock_essentials
+## 5: &amp;#39;90s_pop_rock_essentials
+## 6: &amp;#39;90s_pop_rock_essentials&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;other-fast-functions&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Other Fast Functions&lt;/h1&gt;
+&lt;p&gt;In addition to &lt;code&gt;map_df()&lt;/code&gt; there are a couple other functions that you can use to import and combine files quickly and efficiently.&lt;/p&gt;
+&lt;p&gt;The first one uses &lt;code&gt;rbindlist()&lt;/code&gt; from the data.table package:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tic()
+files &amp;lt;- 
+  rbindlist(lapply(list.files(), fread, select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)))
+toc()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 0.56 sec elapsed&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is actually just a tick faster than &lt;code&gt;map_df()&lt;/code&gt; and only requires one package (data.table) vs two (data.table and purrr) so it is a solid alternative.&lt;/p&gt;
+&lt;p&gt;The other function you can use is &lt;code&gt;vroom()&lt;/code&gt; from the aforementioned vroom package. One minor difference between &lt;code&gt;vroom()&lt;/code&gt; vs the other two methods is that the results are stored in a tibble vs a dataframe:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tic()
+files &amp;lt;- 
+  vroom(list.files(), col_select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;))
+toc()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 1.14 sec elapsed&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For this example, &lt;code&gt;vroom()&lt;/code&gt; is actually a bit slower than both &lt;code&gt;map_df()&lt;/code&gt; and &lt;code&gt;rbindlist()&lt;/code&gt;. However, depending on the number of files and the size of the files you are combining, the speed will vary.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;speed-test-summary&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Speed Test Summary&lt;/h1&gt;
+&lt;p&gt;Here is a summary of the three methods we’ve used and how each of them performed when importing and combining 500 .csv files using the microbenchmark package:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;speed_test &amp;lt;- microbenchmark::microbenchmark(
+  list.files() %&amp;gt;% map_df(~fread(., select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;))),
+  rbindlist(lapply(list.files(), fread, select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;))),
+  vroom(list.files(), col_select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)),
+  times = 10,
+  unit = &amp;quot;s&amp;quot;
+)
+
+speed_test&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Unit: seconds
+##                                                                                                expr
+##      list.files() %&amp;gt;% map_df(~fread(., select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;,      &amp;quot;Album Name&amp;quot;)))
+##  rbindlist(lapply(list.files(), fread, select = c(&amp;quot;Artist Name&amp;quot;,      &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)))
+##                 vroom(list.files(), col_select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;,      &amp;quot;Album Name&amp;quot;))
+##        min        lq      mean    median        uq       max neval
+##  0.7231874 0.7403406 0.7742053 0.7560406 0.7830264 0.9066070    10
+##  0.5583432 0.5674325 0.5813755 0.5732221 0.5954112 0.6134301    10
+##  1.0276368 1.0452856 1.1004041 1.0840950 1.1293809 1.2675621    10&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In conclusion, it doesn’t really matter which of the three methods above that you use to import and combine files because they are all incredibly fast. What matters is that if you’re still using &lt;code&gt;read.csv()&lt;/code&gt; and &lt;code&gt;rbind()&lt;/code&gt; to import and combine your files, hopefully now you’re aware there are much easier, faster, and infallible ways to accomplish this task.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Importing Multiple Files Quickly and Efficiently</title>
+      <link>/post/import-multiple-files/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/post/import-multiple-files/</guid>
+      <description>
+
+
+&lt;div id=&#34;need-for-speed&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Need for Speed&lt;/h1&gt;
+&lt;center&gt;
+&lt;img src=&#34;https://media.giphy.com/media/26AHLNr8en8J3ovOo/giphy.gif&#34; /&gt;
+&lt;/center&gt;
+&lt;p&gt;If you’re a data professional like me, it’s likely that at some point in your career you have needed to combine multiple files together.&lt;/p&gt;
+&lt;p&gt;For example, let’s say that you have three .csv files. One file contains data for 2018, one for 2019, and another for 2020. If you wanted to combine these three files into one dataframe, how would you go about doing that?&lt;/p&gt;
+&lt;p&gt;Well when I first started learning R, the way I would do this is to import each file individually and then use &lt;code&gt;rbind&lt;/code&gt; to combine them all together like this:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;file1 &amp;lt;- read.csv(&amp;quot;file_2018.csv&amp;quot;)
+file2 &amp;lt;- read.csv(&amp;quot;file_2019.csv&amp;quot;)
+file3 &amp;lt;- read.csv(&amp;quot;file_2020.csv&amp;quot;)
+
+files &amp;lt;- rbind(file1, file2, file3)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This method is fine, especially if you only have three files to combine. But what happens when you have 10, 20, or even 100 files? Not only would this method be extremely time-consuming, but it also increases the chance of an error since you need to make sure you type in the name of each .csv file correctly and all the names you assign to each file are unique.&lt;/p&gt;
+&lt;p&gt;There has to be a better way, right?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;fast-functions&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Fast Functions&lt;/h1&gt;
+&lt;p&gt;If you follow me on &lt;a href=&#34;https://twitter.com/kc_analytics&#34;&gt;Twitter&lt;/a&gt;, you may already know the answer to that question is yes, there is a much better AND faster way!&lt;/p&gt;
+&lt;center&gt;
+&lt;blockquote class=&#34;twitter-tweet&#34;&gt;
+&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;
+&lt;a href=&#34;https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#rstats&lt;/a&gt;&lt;br&gt;&lt;br&gt;How it started How it’s going &lt;a href=&#34;https://t.co/mGzn9vqOBt&#34;&gt;pic.twitter.com/mGzn9vqOBt&lt;/a&gt;
+&lt;/p&gt;
+— Kyle Cuilla (&lt;span class=&#34;citation&#34;&gt;@kc_analytics&lt;/span&gt;) &lt;a href=&#34;https://twitter.com/kc_analytics/status/1345434428059881480?ref_src=twsrc%5Etfw&#34;&gt;January 2, 2021&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+&lt;/center&gt;
+&lt;p&gt;Here’s the solution I proposed in the picture above on the right so it’s easier to follow along:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;files &amp;lt;- 
+  list.files(pattern = &amp;quot;*.csv&amp;quot;) %&amp;gt;%
+  map_df(~fread(.))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To explain how this works, the function &lt;code&gt;list.files()&lt;/code&gt; simply generates a list of all of the .csv files (as specified by &lt;code&gt;pattern = &#34;*.csv&#34;&lt;/code&gt;) that are located in your current working directory.&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;
+Note: depending on where the files are stored on your computer, you may need to change your working directory to the folder that contains the files. Also, if there are no other file types in your folder, then you don’t need the &lt;code&gt;pattern = &#34;*.csv&#34;&lt;/code&gt; and just use &lt;code&gt;list.files()&lt;/code&gt; instead.
+&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;The list of files are then piped into the &lt;code&gt;map_df()&lt;/code&gt; function which comes from the purrr package:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;map_df&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## function (.x, .f, ..., .id = NULL) 
+## {
+##     if (!is_installed(&amp;quot;dplyr&amp;quot;)) {
+##         abort(&amp;quot;`map_df()` requires dplyr&amp;quot;)
+##     }
+##     .f &amp;lt;- as_mapper(.f, ...)
+##     res &amp;lt;- map(.x, .f, ...)
+##     dplyr::bind_rows(res, .id = .id)
+## }
+## &amp;lt;bytecode: 0x000000001918b7b8&amp;gt;
+## &amp;lt;environment: namespace:purrr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can see that &lt;code&gt;map_df&lt;/code&gt; essentially takes the list of files and uses &lt;code&gt;bind_rows()&lt;/code&gt; to combine them into a single dataframe by passing it through a function (&lt;code&gt;.f&lt;/code&gt;) that you provide. In this case, the function that we are using is &lt;code&gt;fread()&lt;/code&gt; which comes from the data.table package. &lt;code&gt;fread()&lt;/code&gt; is essentially the same as &lt;code&gt;read.csv()&lt;/code&gt; but it is significantly faster.&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;
+Note: if you want to use any of the arguments within &lt;code&gt;fread()&lt;/code&gt; such as &lt;code&gt;stringsAsFactors&lt;/code&gt;, &lt;code&gt;select&lt;/code&gt;, &lt;code&gt;fill&lt;/code&gt;, etc. then you need to include the &lt;code&gt;~&lt;/code&gt; before calling fread and your argument options. If you don’t need to add any arguments then you can just simply use &lt;code&gt;map_df(fread)&lt;/code&gt;.
+&lt;/i&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;importing-and-combining-500-.csv-files-in-1-sec&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Importing and Combining 500 .csv Files in &amp;lt;1 sec&lt;/h1&gt;
+&lt;p&gt;To demonstrate just how fast and easy it is to use &lt;code&gt;map_df()&lt;/code&gt; to import and combine files, I created a folder containing 500 .csv files.&lt;/p&gt;
+&lt;p&gt;The files, which were generated using &lt;a href=&#34;https://watsonbox.github.io/exportify/&#34;&gt;Exportify&lt;/a&gt;, consist of different playlists found on Spotify. Below is an example of some of the playlists in the folder:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(list.files())&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;&amp;#39;90s_pop_rock_essentials.csv&amp;quot; &amp;quot;00s_ballads.csv&amp;quot;             
+## [3] &amp;quot;00s_indie_dance_party.csv&amp;quot;    &amp;quot;00s_latino.csv&amp;quot;              
+## [5] &amp;quot;00s_rock_anthems.csv&amp;quot;         &amp;quot;10s_rock_anthems.csv&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To confirm there are 500 files in the folder, we can run &lt;code&gt;length(list.files())&lt;/code&gt; to count the total number of files:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;length(list.files())&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 500&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that we confirmed that all 500 files are present, let’s import and combine them all into one dataset that just consists of the artist, track, and album name of each song:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;files &amp;lt;-
+  list.files() %&amp;gt;%
+  map_df(~fread(., select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)))
+
+str(files)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Classes &amp;#39;data.table&amp;#39; and &amp;#39;data.frame&amp;#39;:   32751 obs. of  3 variables:
+##  $ Artist Name: chr  &amp;quot;Third Eye Blind&amp;quot; &amp;quot;Counting Crows&amp;quot; &amp;quot;Spin Doctors&amp;quot; &amp;quot;Semisonic&amp;quot; ...
+##  $ Track Name : chr  &amp;quot;Semi-Charmed Life&amp;quot; &amp;quot;Mr. Jones&amp;quot; &amp;quot;Two Princes&amp;quot; &amp;quot;Closing Time&amp;quot; ...
+##  $ Album Name : chr  &amp;quot;Third Eye Blind&amp;quot; &amp;quot;August And Everything After&amp;quot; &amp;quot;Pocket Full Of Kryptonite&amp;quot; &amp;quot;Feeling Strangely Fine&amp;quot; ...
+##  - attr(*, &amp;quot;.internal.selfref&amp;quot;)=&amp;lt;externalptr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The output above shows that there are a total of 32,751 rows in our combined dataset (and three columns which we selected).&lt;/p&gt;
+&lt;p&gt;So now the question is how long did it take to import and combine 500 .csv files containing over 32k rows in total?&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tic()
+files &amp;lt;-
+  list.files() %&amp;gt;%
+  map_df(~fread(., select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)))
+toc()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 0.76 sec elapsed&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The answer: less than one second!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;bonus-including-file-names&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Bonus: Including File Names&lt;/h1&gt;
+&lt;p&gt;Currently, our file contains the artist, track, and album name for each song as shown below:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(files)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         Artist Name        Track Name                   Album Name
+## 1:  Third Eye Blind Semi-Charmed Life              Third Eye Blind
+## 2:   Counting Crows         Mr. Jones  August And Everything After
+## 3:     Spin Doctors       Two Princes    Pocket Full Of Kryptonite
+## 4:        Semisonic      Closing Time       Feeling Strangely Fine
+## 5: Eagle-Eye Cherry      Save Tonight                   Desireless
+## 6:  Matchbox Twenty              Push Yourself or Someone Like You&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you would like to add a column that says what playlist each song came from, we can create a function that inserts the file name as a column called ‘Playlist Name’ using &lt;code&gt;mutate&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;file_names &amp;lt;- function(x) {
+  fread(x, select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)) %&amp;gt;% 
+    mutate(&amp;quot;Playlist Name&amp;quot; = str_extract(x, &amp;#39;.*(?=\\.csv)&amp;#39;))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;i&gt;Note: I’m using &lt;code&gt;str_extract&lt;/code&gt; above to remove the ‘.csv’ from each of the playlist names since they are present in the file names.&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;And then all we need to do is call that function within &lt;code&gt;map_df()&lt;/code&gt; and now we have our dataset with the names of the playlists included:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;files_with_names &amp;lt;-
+  list.files() %&amp;gt;%
+  map_df(file_names)
+
+head(files_with_names)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         Artist Name        Track Name                   Album Name
+## 1:  Third Eye Blind Semi-Charmed Life              Third Eye Blind
+## 2:   Counting Crows         Mr. Jones  August And Everything After
+## 3:     Spin Doctors       Two Princes    Pocket Full Of Kryptonite
+## 4:        Semisonic      Closing Time       Feeling Strangely Fine
+## 5: Eagle-Eye Cherry      Save Tonight                   Desireless
+## 6:  Matchbox Twenty              Push Yourself or Someone Like You
+##               Playlist Name
+## 1: &amp;#39;90s_pop_rock_essentials
+## 2: &amp;#39;90s_pop_rock_essentials
+## 3: &amp;#39;90s_pop_rock_essentials
+## 4: &amp;#39;90s_pop_rock_essentials
+## 5: &amp;#39;90s_pop_rock_essentials
+## 6: &amp;#39;90s_pop_rock_essentials&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;other-fast-functions&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Other Fast Functions&lt;/h1&gt;
+&lt;p&gt;In addition to &lt;code&gt;map_df()&lt;/code&gt; there are a couple other functions that you can use to import and combine files quickly and efficiently.&lt;/p&gt;
+&lt;p&gt;The first one uses &lt;code&gt;rbindlist()&lt;/code&gt; from the data.table package:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tic()
+files &amp;lt;- 
+  rbindlist(lapply(list.files(), fread, select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)))
+toc()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 0.59 sec elapsed&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is actually just a tick faster than &lt;code&gt;map_df()&lt;/code&gt; and only requires one package (data.table) vs two (data.table and purrr) so it is a solid alternative.&lt;/p&gt;
+&lt;p&gt;The other function you can use is &lt;code&gt;vroom()&lt;/code&gt; from the vroom package. One minor difference between &lt;code&gt;vroom()&lt;/code&gt; vs the other two methods is that the results are stored in a tibble vs a dataframe:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tic()
+files &amp;lt;- 
+  vroom(list.files(), col_select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;))
+toc()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 1.26 sec elapsed&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For this example, &lt;code&gt;vroom()&lt;/code&gt; is a tiny bit slower than both &lt;code&gt;map_df()&lt;/code&gt; and &lt;code&gt;rbindlist()&lt;/code&gt; but is still another great alternative.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;speed-test-summary&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Speed Test Summary&lt;/h1&gt;
+&lt;p&gt;Here is a summary of the three functions we’ve used and how each of them performed when importing and combining 500 .csv files using the microbenchmark package:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;speed_test &amp;lt;- microbenchmark::microbenchmark(
+  list.files() %&amp;gt;% map_df(~fread(., select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;))),
+  rbindlist(lapply(list.files(), fread, select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;))),
+  vroom(list.files(), col_select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)),
+  times = 10,
+  unit = &amp;quot;s&amp;quot;
+)
+
+speed_test&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Unit: seconds
+##                                                                                                expr
+##      list.files() %&amp;gt;% map_df(~fread(., select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;,      &amp;quot;Album Name&amp;quot;)))
+##  rbindlist(lapply(list.files(), fread, select = c(&amp;quot;Artist Name&amp;quot;,      &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)))
+##                 vroom(list.files(), col_select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;,      &amp;quot;Album Name&amp;quot;))
+##        min        lq      mean    median        uq       max neval
+##  0.7464110 0.7699284 0.7860245 0.7781628 0.7984391 0.8584313    10
+##  0.5788282 0.5884131 0.5979170 0.5949189 0.6083272 0.6182663    10
+##  1.1633350 1.1763357 1.1982412 1.1823488 1.1935186 1.3324059    10&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As you can see, all three functions we used (&lt;code&gt;map_df()&lt;/code&gt;, &lt;code&gt;rbindlist()&lt;/code&gt;, and &lt;code&gt;vroom()&lt;/code&gt;) are incredibly fast at importing and combining files in R. For our scenario of combining 500 .csv files containing &amp;gt;32k rows in total, &lt;code&gt;rbindlist()&lt;/code&gt; was the fastest, followed closely by &lt;code&gt;map_df()&lt;/code&gt; and &lt;code&gt;vroom()&lt;/code&gt;. However, depending on the number and size of the files you’re combining, the speeds for each method will vary and this may not always be the order in which they finish iterating. The bottom line is that it doesn’t really matter which of the three methods above that you use to import and combine files because they are all incredibly fast. What matters is that if you’re still using &lt;code&gt;read.csv()&lt;/code&gt; and &lt;code&gt;rbind()&lt;/code&gt; to import and combine your files, hopefully now you’re aware there are much easier, faster, and infallible ways to accomplish this task.&lt;/p&gt;
+&lt;/div&gt;
 </description>
     </item>
     
