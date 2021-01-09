@@ -14,7 +14,7 @@ output: html_document
 </center>
 <p>If you’re a data professional like me, it’s likely that at some point in your career you have needed to combine multiple files together.</p>
 <p>For example, let’s say that you have three .csv files. One file contains data for 2018, one for 2019, and another for 2020. If you wanted to combine these three files into one dataframe, how would you go about doing that?</p>
-<p>Well when I first started learning R, the way I would do this is to import each file individually and then use <code>rbind</code> to combine them all together like this:</p>
+<p>When I first started learning R, the way I would do this is to import each file individually and then use <code>rbind</code> to combine them all together like this:</p>
 <pre class="r"><code>file1 &lt;- read.csv(&quot;file_2018.csv&quot;)
 file2 &lt;- read.csv(&quot;file_2019.csv&quot;)
 file3 &lt;- read.csv(&quot;file_2020.csv&quot;)
@@ -54,7 +54,7 @@ Note: depending on where the files are stored on your computer, you may need to 
 ##     res &lt;- map(.x, .f, ...)
 ##     dplyr::bind_rows(res, .id = .id)
 ## }
-## &lt;bytecode: 0x0000000019194ec0&gt;
+## &lt;bytecode: 0x00000000191a2ba8&gt;
 ## &lt;environment: namespace:purrr&gt;</code></pre>
 <p>You can see that <code>map_df</code> essentially takes the list of files and uses <code>bind_rows()</code> to combine them into a single dataframe by passing it through a function (<code>.f</code>) that you provide. In this case, the function that we are using is <code>fread()</code> which comes from the data.table package. <code>fread()</code> is essentially the same as <code>read.csv()</code> but it is significantly faster.</p>
 <p><i>
@@ -139,14 +139,14 @@ head(files_with_names)</code></pre>
 files &lt;- 
   rbindlist(lapply(list.files(), fread, select = c(&quot;Artist Name&quot;, &quot;Track Name&quot;, &quot;Album Name&quot;)))
 toc()</code></pre>
-<pre><code>## 0.59 sec elapsed</code></pre>
+<pre><code>## 0.58 sec elapsed</code></pre>
 <p>This is actually just a tick faster than <code>map_df()</code> and only requires one package (data.table) vs two (data.table and purrr) so it is a solid alternative.</p>
 <p>The other function you can use is <code>vroom()</code> from the vroom package. One minor difference between <code>vroom()</code> vs the other two methods is that the results are stored in a tibble vs a dataframe:</p>
 <pre class="r"><code>tic()
 files &lt;- 
   vroom(list.files(), col_select = c(&quot;Artist Name&quot;, &quot;Track Name&quot;, &quot;Album Name&quot;))
 toc()</code></pre>
-<pre><code>## 1.22 sec elapsed</code></pre>
+<pre><code>## 1.44 sec elapsed</code></pre>
 <p>For this example, <code>vroom()</code> is a tiny bit slower than both <code>map_df()</code> and <code>rbindlist()</code> but is still another great alternative.</p>
 </div>
 <div id="speed-test-summary" class="section level1">
@@ -167,8 +167,8 @@ speed_test</code></pre>
 ##  rbindlist(lapply(list.files(), fread, select = c(&quot;Artist Name&quot;,      &quot;Track Name&quot;, &quot;Album Name&quot;)))
 ##                 vroom(list.files(), col_select = c(&quot;Artist Name&quot;, &quot;Track Name&quot;,      &quot;Album Name&quot;))
 ##        min        lq      mean    median        uq       max neval
-##  0.7241022 0.7552314 0.8063713 0.7977024 0.8515354 0.9034365    10
-##  0.5615830 0.5678512 0.5866432 0.5858547 0.5998004 0.6244466    10
-##  1.0920459 1.1162036 1.1492919 1.1268590 1.1507385 1.2891664    10</code></pre>
+##  0.7153794 0.7197508 0.7614534 0.7355419 0.7709669 0.8696369    10
+##  0.5606332 0.5716534 0.5960617 0.5798439 0.6085903 0.6925603    10
+##  1.0916513 1.0962253 1.1337700 1.1104312 1.1295315 1.3433832    10</code></pre>
 <p>As you can see, all three functions we used (<code>map_df()</code>, <code>rbindlist()</code>, and <code>vroom()</code>) are incredibly fast at importing and combining files in R. For our scenario of combining 500 .csv files containing &gt;32k rows in total, <code>rbindlist()</code> was the fastest, followed closely by <code>map_df()</code> and <code>vroom()</code>. However, depending on the number and size of the files you’re combining, the speeds for each method will vary and this may not always be the order in which they finish iterating. The bottom line is that it doesn’t really matter which of the three methods above that you use to import and combine files because they are all incredibly fast. What matters is that if you’re still using <code>read.csv()</code> and <code>rbind()</code> to import and combine your files, hopefully now you’re aware there are much easier, faster, and infallible ways to accomplish this task.</p>
 </div>

@@ -24,7 +24,7 @@ If you're a data professional like me, it's likely that at some point in your ca
 
 For example, let's say that you have three .csv files. One file contains data for 2018, one for 2019, and another for 2020. If you wanted to combine these three files into one dataframe, how would you go about doing that?
 
-Well when I first started learning R, the way I would do this is to import each file individually and then use `rbind` to combine them all together like this:
+When I first started learning R, the way I would do this is to import each file individually and then use `rbind` to combine them all together like this:
 
 ```{r, eval=FALSE}
 file1 <- read.csv("file_2018.csv")
