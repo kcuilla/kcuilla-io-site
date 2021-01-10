@@ -25,20 +25,20 @@
 &lt;center&gt;
 &lt;img src=&#34;https://media.giphy.com/media/26AHLNr8en8J3ovOo/giphy.gif&#34; /&gt;
 &lt;/center&gt;
-&lt;p&gt;If you’re a data professional like me, it’s likely that at some point in your career you have needed to combine multiple files together.&lt;/p&gt;
-&lt;p&gt;For example, let’s say that you have three .csv files. One file contains data for 2018, one for 2019, and another for 2020. If you wanted to combine these three files into one dataframe, how would you go about doing that?&lt;/p&gt;
-&lt;p&gt;Well when I first started learning R, the way I would do this is to import each file individually and then use &lt;code&gt;rbind&lt;/code&gt; to combine them all together like this:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;file1 &amp;lt;- read.csv(&amp;quot;file_2018.csv&amp;quot;)
-file2 &amp;lt;- read.csv(&amp;quot;file_2019.csv&amp;quot;)
-file3 &amp;lt;- read.csv(&amp;quot;file_2020.csv&amp;quot;)
+&lt;p&gt;If you’re a data professional like me, odds are that at some point in your career you’ve needed to combine multiple files together.&lt;/p&gt;
+&lt;p&gt;For example, let’s say that your boss asks you to analyze the trend of the sales data for your company for the past three months. The sales data are stored in separate .csv files for each month and are named using a “month_year” format.&lt;/p&gt;
+&lt;p&gt;You know how to code in R, so rather than copying and pasting everything together in Excel, you run this simple script and save the data for the past three months into a single dataframe called “sales”:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;file1 &amp;lt;- read.csv(&amp;quot;october_2020.csv&amp;quot;)
+file2 &amp;lt;- read.csv(&amp;quot;november_2020.csv&amp;quot;)
+file3 &amp;lt;- read.csv(&amp;quot;december_2020.csv&amp;quot;)
 
 files &amp;lt;- rbind(file1, file2, file3)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This method is fine, especially if you only have three files to combine. But what happens when you have 10, 20, or even 100 files? Not only would this method be extremely time-consuming, but it also increases the chance of an error since you need to make sure you type in the name of each .csv file correctly and all the names you assign to each file are unique.&lt;/p&gt;
-&lt;p&gt;There has to be a better way, right?&lt;/p&gt;
+&lt;p&gt;Then you analyze the data and send it over to your boss. Your boss thanks you but tells you that you now need to analyze the sales trend over the past 10 years and it needs to be done ASAP that’s about to start. Suddenly, the method you used above doesn’t seem so efficient anymore now that you have 120 files to combine. Not only is it going to take time for you to type out the names of each file, but there’s also a decent chance that you make a typo, especially given that you’re crunched for time.&lt;/p&gt;
+&lt;p&gt;There has to be a faster and easier way of doing this, right?&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;fast-functions&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Fast Functions&lt;/h1&gt;
-&lt;p&gt;If you follow me on &lt;a href=&#34;https://twitter.com/kc_analytics&#34;&gt;Twitter&lt;/a&gt;, you may already know the answer to that question is yes, there is a much better AND faster way!&lt;/p&gt;
+&lt;p&gt;If you follow me on &lt;a href=&#34;https://twitter.com/kc_analytics&#34;&gt;Twitter&lt;/a&gt;, you may already know the answer to that question is yes!&lt;/p&gt;
 &lt;center&gt;
 &lt;blockquote class=&#34;twitter-tweet&#34;&gt;
 &lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;
@@ -67,7 +67,7 @@ Note: depending on where the files are stored on your computer, you may need to 
 ##     res &amp;lt;- map(.x, .f, ...)
 ##     dplyr::bind_rows(res, .id = .id)
 ## }
-## &amp;lt;bytecode: 0x0000000019194ec0&amp;gt;
+## &amp;lt;bytecode: 0x0000000019192e38&amp;gt;
 ## &amp;lt;environment: namespace:purrr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;You can see that &lt;code&gt;map_df&lt;/code&gt; essentially takes the list of files and uses &lt;code&gt;bind_rows()&lt;/code&gt; to combine them into a single dataframe by passing it through a function (&lt;code&gt;.f&lt;/code&gt;) that you provide. In this case, the function that we are using is &lt;code&gt;fread()&lt;/code&gt; which comes from the data.table package. &lt;code&gt;fread()&lt;/code&gt; is essentially the same as &lt;code&gt;read.csv()&lt;/code&gt; but it is significantly faster.&lt;/p&gt;
 &lt;p&gt;&lt;i&gt;
@@ -103,7 +103,7 @@ files &amp;lt;-
   list.files() %&amp;gt;%
   map_df(~fread(., select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)))
 toc()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 0.77 sec elapsed&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 0.72 sec elapsed&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The answer: less than one second!&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;bonus-including-file-names&#34; class=&#34;section level1&#34;&gt;
@@ -152,14 +152,14 @@ head(files_with_names)&lt;/code&gt;&lt;/pre&gt;
 files &amp;lt;- 
   rbindlist(lapply(list.files(), fread, select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)))
 toc()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 0.59 sec elapsed&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 0.62 sec elapsed&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This is actually just a tick faster than &lt;code&gt;map_df()&lt;/code&gt; and only requires one package (data.table) vs two (data.table and purrr) so it is a solid alternative.&lt;/p&gt;
 &lt;p&gt;The other function you can use is &lt;code&gt;vroom()&lt;/code&gt; from the vroom package. One minor difference between &lt;code&gt;vroom()&lt;/code&gt; vs the other two methods is that the results are stored in a tibble vs a dataframe:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tic()
 files &amp;lt;- 
   vroom(list.files(), col_select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;))
 toc()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 1.22 sec elapsed&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 2.31 sec elapsed&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;For this example, &lt;code&gt;vroom()&lt;/code&gt; is a tiny bit slower than both &lt;code&gt;map_df()&lt;/code&gt; and &lt;code&gt;rbindlist()&lt;/code&gt; but is still another great alternative.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;speed-test-summary&#34; class=&#34;section level1&#34;&gt;
@@ -180,9 +180,9 @@ speed_test&lt;/code&gt;&lt;/pre&gt;
 ##  rbindlist(lapply(list.files(), fread, select = c(&amp;quot;Artist Name&amp;quot;,      &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)))
 ##                 vroom(list.files(), col_select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;,      &amp;quot;Album Name&amp;quot;))
 ##        min        lq      mean    median        uq       max neval
-##  0.7241022 0.7552314 0.8063713 0.7977024 0.8515354 0.9034365    10
-##  0.5615830 0.5678512 0.5866432 0.5858547 0.5998004 0.6244466    10
-##  1.0920459 1.1162036 1.1492919 1.1268590 1.1507385 1.2891664    10&lt;/code&gt;&lt;/pre&gt;
+##  0.7266409 0.7328835 1.5208955 0.7496282 0.8117767 8.3111663    10
+##  0.5263606 0.5456663 0.5666337 0.5634593 0.5825008 0.6184404    10
+##  1.1421748 1.1460929 1.4699359 1.1941536 1.3426595 3.7730310    10&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;As you can see, all three functions we used (&lt;code&gt;map_df()&lt;/code&gt;, &lt;code&gt;rbindlist()&lt;/code&gt;, and &lt;code&gt;vroom()&lt;/code&gt;) are incredibly fast at importing and combining files in R. For our scenario of combining 500 .csv files containing &amp;gt;32k rows in total, &lt;code&gt;rbindlist()&lt;/code&gt; was the fastest, followed closely by &lt;code&gt;map_df()&lt;/code&gt; and &lt;code&gt;vroom()&lt;/code&gt;. However, depending on the number and size of the files you’re combining, the speeds for each method will vary and this may not always be the order in which they finish iterating. The bottom line is that it doesn’t really matter which of the three methods above that you use to import and combine files because they are all incredibly fast. What matters is that if you’re still using &lt;code&gt;read.csv()&lt;/code&gt; and &lt;code&gt;rbind()&lt;/code&gt; to import and combine your files, hopefully now you’re aware there are much easier, faster, and infallible ways to accomplish this task.&lt;/p&gt;
 &lt;/div&gt;
 </description>

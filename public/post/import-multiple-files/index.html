@@ -28,8 +28,8 @@
   
     
   
-  <meta name="description" content="Need for SpeedIf you’re a data professional like me, it’s likely that at some point in your career you have needed to combine multiple files together.
-For example, let’s say that you have three .csv files. One file contains data for 2018, one for 2019, and another for 2020. If you wanted to combine these three files into one dataframe, how would you go about doing that?">
+  <meta name="description" content="Need for SpeedIf you’re a data professional like me, odds are that at some point in your career you’ve needed to combine multiple files together.
+For example, let’s say that your boss asks you to analyze the trend of the sales data for your company for the past three months. The sales data are stored in separate .csv files for each month and are named using a “month_year” format.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/import-multiple-files/">
@@ -230,8 +230,8 @@ For example, let’s say that you have three .csv files. One file contains data 
   <meta property="og:site_name" content="Kyle Cuilla">
   <meta property="og:url" content="/post/import-multiple-files/">
   <meta property="og:title" content="Importing Multiple Files Quickly and Efficiently | Kyle Cuilla">
-  <meta property="og:description" content="Need for SpeedIf you’re a data professional like me, it’s likely that at some point in your career you have needed to combine multiple files together.
-For example, let’s say that you have three .csv files. One file contains data for 2018, one for 2019, and another for 2020. If you wanted to combine these three files into one dataframe, how would you go about doing that?"><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:circle]">
+  <meta property="og:description" content="Need for SpeedIf you’re a data professional like me, odds are that at some point in your career you’ve needed to combine multiple files together.
+For example, let’s say that your boss asks you to analyze the trend of the sales data for your company for the past three months. The sales data are stored in separate .csv files for each month and are named using a “month_year” format."><meta property="og:image" content="img/map[gravatar:%!s(bool=false) shape:circle]">
   <meta property="twitter:image" content="img/map[gravatar:%!s(bool=false) shape:circle]"><meta property="og:locale" content="en-us">
   
     
@@ -283,7 +283,7 @@ For example, let’s say that you have three .csv files. One file contains data 
       "url": "img//"
     }
   },
-  "description": "Need for Speed\r\r\rIf you’re a data professional like me, it’s likely that at some point in your career you have needed to combine multiple files together.\nFor example, let’s say that you have three .csv files. One file contains data for 2018, one for 2019, and another for 2020. If you wanted to combine these three files into one dataframe, how would you go about doing that?"
+  "description": "Need for Speed\r\r\rIf you’re a data professional like me, odds are that at some point in your career you’ve needed to combine multiple files together.\nFor example, let’s say that your boss asks you to analyze the trend of the sales data for your company for the past three months. The sales data are stored in separate .csv files for each month and are named using a “month_year” format."
 }
 </script>
 
@@ -540,7 +540,7 @@ For example, let’s say that you have three .csv files. One file contains data 
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    7 min read
+    8 min read
   </span>
   
 
@@ -584,20 +584,20 @@ For example, let’s say that you have three .csv files. One file contains data 
 <center>
 <img src="https://media.giphy.com/media/26AHLNr8en8J3ovOo/giphy.gif" />
 </center>
-<p>If you’re a data professional like me, it’s likely that at some point in your career you have needed to combine multiple files together.</p>
-<p>For example, let’s say that you have three .csv files. One file contains data for 2018, one for 2019, and another for 2020. If you wanted to combine these three files into one dataframe, how would you go about doing that?</p>
-<p>When I first started learning R, the way I would do this is to import each file individually and then use <code>rbind</code> to combine them all together like this:</p>
-<pre class="r"><code>file1 &lt;- read.csv(&quot;file_2018.csv&quot;)
-file2 &lt;- read.csv(&quot;file_2019.csv&quot;)
-file3 &lt;- read.csv(&quot;file_2020.csv&quot;)
+<p>If you’re a data professional like me, odds are that at some point in your career you’ve needed to combine multiple files together.</p>
+<p>For example, let’s say that your boss asks you to analyze the trend of the sales data for your company for the past three months. The sales data are stored in separate .csv files for each month and are named using a “month_year” format.</p>
+<p>You know how to code in R, so rather than copying and pasting everything together in Excel, you run this simple script and save the data for the past three months into a single dataframe called “sales”:</p>
+<pre class="r"><code>file1 &lt;- read.csv(&quot;october_2020.csv&quot;)
+file2 &lt;- read.csv(&quot;november_2020.csv&quot;)
+file3 &lt;- read.csv(&quot;december_2020.csv&quot;)
 
 files &lt;- rbind(file1, file2, file3)</code></pre>
-<p>This method is fine, especially if you only have three files to combine. But what happens when you have 10, 20, or even 100 files? Not only would this method be extremely time-consuming, but it also increases the chance of an error since you need to make sure you type in the name of each .csv file correctly and all the names you assign to each file are unique.</p>
-<p>There has to be a better way, right?</p>
+<p>Then you analyze the data and send it over to your boss. Your boss thanks you but tells you that you now need to analyze the sales trend over the past 10 years and it needs to be done ASAP that’s about to start. Suddenly, the method you used above doesn’t seem so efficient anymore now that you have 120 files to combine. Not only is it going to take time for you to type out the names of each file, but there’s also a decent chance that you make a typo, especially given that you’re crunched for time.</p>
+<p>There has to be a faster and easier way of doing this, right?</p>
 </div>
 <div id="fast-functions" class="section level1">
 <h1>Fast Functions</h1>
-<p>If you follow me on <a href="https://twitter.com/kc_analytics">Twitter</a>, you may already know the answer to that question is yes, there is a much better AND faster way!</p>
+<p>If you follow me on <a href="https://twitter.com/kc_analytics">Twitter</a>, you may already know the answer to that question is yes!</p>
 <center>
 <blockquote class="twitter-tweet">
 <p lang="en" dir="ltr">
@@ -626,7 +626,7 @@ Note: depending on where the files are stored on your computer, you may need to 
 ##     res &lt;- map(.x, .f, ...)
 ##     dplyr::bind_rows(res, .id = .id)
 ## }
-## &lt;bytecode: 0x00000000191a2ba8&gt;
+## &lt;bytecode: 0x0000000019192e38&gt;
 ## &lt;environment: namespace:purrr&gt;</code></pre>
 <p>You can see that <code>map_df</code> essentially takes the list of files and uses <code>bind_rows()</code> to combine them into a single dataframe by passing it through a function (<code>.f</code>) that you provide. In this case, the function that we are using is <code>fread()</code> which comes from the data.table package. <code>fread()</code> is essentially the same as <code>read.csv()</code> but it is significantly faster.</p>
 <p><i>
@@ -662,7 +662,7 @@ files &lt;-
   list.files() %&gt;%
   map_df(~fread(., select = c(&quot;Artist Name&quot;, &quot;Track Name&quot;, &quot;Album Name&quot;)))
 toc()</code></pre>
-<pre><code>## 0.77 sec elapsed</code></pre>
+<pre><code>## 0.72 sec elapsed</code></pre>
 <p>The answer: less than one second!</p>
 </div>
 <div id="bonus-including-file-names" class="section level1">
@@ -711,14 +711,14 @@ head(files_with_names)</code></pre>
 files &lt;- 
   rbindlist(lapply(list.files(), fread, select = c(&quot;Artist Name&quot;, &quot;Track Name&quot;, &quot;Album Name&quot;)))
 toc()</code></pre>
-<pre><code>## 0.58 sec elapsed</code></pre>
+<pre><code>## 0.62 sec elapsed</code></pre>
 <p>This is actually just a tick faster than <code>map_df()</code> and only requires one package (data.table) vs two (data.table and purrr) so it is a solid alternative.</p>
 <p>The other function you can use is <code>vroom()</code> from the vroom package. One minor difference between <code>vroom()</code> vs the other two methods is that the results are stored in a tibble vs a dataframe:</p>
 <pre class="r"><code>tic()
 files &lt;- 
   vroom(list.files(), col_select = c(&quot;Artist Name&quot;, &quot;Track Name&quot;, &quot;Album Name&quot;))
 toc()</code></pre>
-<pre><code>## 1.44 sec elapsed</code></pre>
+<pre><code>## 2.31 sec elapsed</code></pre>
 <p>For this example, <code>vroom()</code> is a tiny bit slower than both <code>map_df()</code> and <code>rbindlist()</code> but is still another great alternative.</p>
 </div>
 <div id="speed-test-summary" class="section level1">
@@ -739,9 +739,9 @@ speed_test</code></pre>
 ##  rbindlist(lapply(list.files(), fread, select = c(&quot;Artist Name&quot;,      &quot;Track Name&quot;, &quot;Album Name&quot;)))
 ##                 vroom(list.files(), col_select = c(&quot;Artist Name&quot;, &quot;Track Name&quot;,      &quot;Album Name&quot;))
 ##        min        lq      mean    median        uq       max neval
-##  0.7153794 0.7197508 0.7614534 0.7355419 0.7709669 0.8696369    10
-##  0.5606332 0.5716534 0.5960617 0.5798439 0.6085903 0.6925603    10
-##  1.0916513 1.0962253 1.1337700 1.1104312 1.1295315 1.3433832    10</code></pre>
+##  0.7266409 0.7328835 1.5208955 0.7496282 0.8117767 8.3111663    10
+##  0.5263606 0.5456663 0.5666337 0.5634593 0.5825008 0.6184404    10
+##  1.1421748 1.1460929 1.4699359 1.1941536 1.3426595 3.7730310    10</code></pre>
 <p>As you can see, all three functions we used (<code>map_df()</code>, <code>rbindlist()</code>, and <code>vroom()</code>) are incredibly fast at importing and combining files in R. For our scenario of combining 500 .csv files containing &gt;32k rows in total, <code>rbindlist()</code> was the fastest, followed closely by <code>map_df()</code> and <code>vroom()</code>. However, depending on the number and size of the files you’re combining, the speeds for each method will vary and this may not always be the order in which they finish iterating. The bottom line is that it doesn’t really matter which of the three methods above that you use to import and combine files because they are all incredibly fast. What matters is that if you’re still using <code>read.csv()</code> and <code>rbind()</code> to import and combine your files, hopefully now you’re aware there are much easier, faster, and infallible ways to accomplish this task.</p>
 </div>
 

@@ -20,27 +20,27 @@ library(microbenchmark)
 ![](https://media.giphy.com/media/26AHLNr8en8J3ovOo/giphy.gif)
 </center>
 
-If you're a data professional like me, it's likely that at some point in your career you have needed to combine multiple files together.
+If you're a data professional like me, odds are that at some point in your career you've needed to combine multiple files together.
 
-For example, let's say that you have three .csv files. One file contains data for 2018, one for 2019, and another for 2020. If you wanted to combine these three files into one dataframe, how would you go about doing that?
+For example, let's say that your boss asks you to analyze the trend of the sales data for your company for the past three months. The sales data are stored in separate .csv files for each month and are named using a "month_year" format.
 
-When I first started learning R, the way I would do this is to import each file individually and then use `rbind` to combine them all together like this:
+You know how to code in R, so rather than copying and pasting everything together in Excel, you run this simple script and save the data for the past three months into a single dataframe called "sales":
 
 ```{r, eval=FALSE}
-file1 <- read.csv("file_2018.csv")
-file2 <- read.csv("file_2019.csv")
-file3 <- read.csv("file_2020.csv")
+file1 <- read.csv("october_2020.csv")
+file2 <- read.csv("november_2020.csv")
+file3 <- read.csv("december_2020.csv")
 
 files <- rbind(file1, file2, file3)
 ```
 
-This method is fine, especially if you only have three files to combine. But what happens when you have 10, 20, or even 100 files? Not only would this method be extremely time-consuming, but it also increases the chance of an error since you need to make sure you type in the name of each .csv file correctly and all the names you assign to each file are unique.
+Then you analyze the data and send it over to your boss. Your boss thanks you but tells you that you now need to analyze the sales trend over the past 10 years and it needs to be done ASAP that's about to start. Suddenly, the method you used above doesn't seem so efficient anymore now that you have 120 files to combine. Not only is it going to take time for you to type out the names of each file, but there's also a decent chance that you make a typo, especially given that you're crunched for time.
 
-There has to be a better way, right?
+There has to be a faster and easier way of doing this, right?
 
 # Fast Functions
 
-If you follow me on [Twitter](https://twitter.com/kc_analytics), you may already know the answer to that question is yes, there is a much better AND faster way!
+If you follow me on [Twitter](https://twitter.com/kc_analytics), you may already know the answer to that question is yes!
 
 <center>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a><br><br>How it started How it’s going <a href="https://t.co/mGzn9vqOBt">pic.twitter.com/mGzn9vqOBt</a></p>&mdash; Kyle Cuilla (@kc_analytics) <a href="https://twitter.com/kc_analytics/status/1345434428059881480?ref_src=twsrc%5Etfw">January 2, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
