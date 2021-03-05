@@ -1,0 +1,14 @@
+---
+title: '2020 RStudio Table Contest'
+author: "Kyle Cuilla"
+date: "1st of January 2021"
+output: html_document
+---
+
+Near the end of 2020, RStudio hosted an inaugural table contest. For my entry, I decided to submit the table I created in this [post](https://kcuilla.netlify.app/post/2019-nfl-team-ratings/) (with a few minor updates).
+
+Out of 80+ entries to the contest, my table received an honorable mention! [Winners of the 2020 RStudio Table Contest](https://blog.rstudio.com/2020/12/23/winners-of-the-2020-rstudio-table-contest/)
+
+The table I entered can be seen on [RPubs](https://rpubs.com/kcuilla/nfl_team_ratings), and the code to create the table can be found on my [GitHub](https://github.com/kcuilla/2020-RStudio-Table-Contest).
+
+

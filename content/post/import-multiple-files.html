@@ -5,6 +5,7 @@ date: 2021-01-08T21:13:14-05:00
 output: html_document
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <div id="need-for-speed" class="section level1">
@@ -26,12 +27,13 @@ files &lt;- rbind(file1, file2, file3)</code></pre>
 <div id="fast-functions" class="section level1">
 <h1>Fast Functions</h1>
 <p>If you follow me on <a href="https://twitter.com/kc_analytics">Twitter</a>, you may already know the answer to that question is yes!</p>
+<p>Here is what Jared Lander, an adjunct professor at Columbia University, said about my proposed solution in the “How it’s going” image on the right:</p>
 <center>
 <blockquote class="twitter-tweet">
 <p lang="en" dir="ltr">
-<a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a><br><br>How it started How it’s going <a href="https://t.co/mGzn9vqOBt">pic.twitter.com/mGzn9vqOBt</a>
+I have saved clients hundreds of hours with this one line. <a href="https://t.co/YNl0oCqZXn">https://t.co/YNl0oCqZXn</a>
 </p>
-— Kyle Cuilla (<span class="citation">@kc_analytics</span>) <a href="https://twitter.com/kc_analytics/status/1345434428059881480?ref_src=twsrc%5Etfw">January 2, 2021</a>
+— Jared Lander (<span class="citation">@jaredlander</span>) <a href="https://twitter.com/jaredlander/status/1345460714425737220?ref_src=twsrc%5Etfw">January 2, 2021</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </center>
@@ -54,7 +56,7 @@ Note: depending on where the files are stored on your computer, you may need to 
 ##     res &lt;- map(.x, .f, ...)
 ##     dplyr::bind_rows(res, .id = .id)
 ## }
-## &lt;bytecode: 0x0000000019192e38&gt;
+## &lt;bytecode: 0x0000000021e019e0&gt;
 ## &lt;environment: namespace:purrr&gt;</code></pre>
 <p>You can see that <code>map_df</code> essentially takes the list of files and uses <code>bind_rows()</code> to combine them into a single dataframe by passing it through a function (<code>.f</code>) that you provide. In this case, the function that we are using is <code>fread()</code> which comes from the data.table package. <code>fread()</code> is essentially the same as <code>read.csv()</code> but it is significantly faster.</p>
 <p><i>
@@ -90,7 +92,7 @@ files &lt;-
   list.files() %&gt;%
   map_df(~fread(., select = c(&quot;Artist Name&quot;, &quot;Track Name&quot;, &quot;Album Name&quot;)))
 toc()</code></pre>
-<pre><code>## 0.72 sec elapsed</code></pre>
+<pre><code>## 1.67 sec elapsed</code></pre>
 <p>The answer: less than one second!</p>
 </div>
 <div id="bonus-including-file-names" class="section level1">
@@ -139,14 +141,14 @@ head(files_with_names)</code></pre>
 files &lt;- 
   rbindlist(lapply(list.files(), fread, select = c(&quot;Artist Name&quot;, &quot;Track Name&quot;, &quot;Album Name&quot;)))
 toc()</code></pre>
-<pre><code>## 0.62 sec elapsed</code></pre>
+<pre><code>## 8.14 sec elapsed</code></pre>
 <p>This is actually just a tick faster than <code>map_df()</code> and only requires one package (data.table) vs two (data.table and purrr) so it is a solid alternative.</p>
 <p>The other function you can use is <code>vroom()</code> from the vroom package. One minor difference between <code>vroom()</code> vs the other two methods is that the results are stored in a tibble vs a dataframe:</p>
 <pre class="r"><code>tic()
 files &lt;- 
   vroom(list.files(), col_select = c(&quot;Artist Name&quot;, &quot;Track Name&quot;, &quot;Album Name&quot;))
 toc()</code></pre>
-<pre><code>## 2.31 sec elapsed</code></pre>
+<pre><code>## 10.17 sec elapsed</code></pre>
 <p>For this example, <code>vroom()</code> is a tiny bit slower than both <code>map_df()</code> and <code>rbindlist()</code> but is still another great alternative.</p>
 </div>
 <div id="speed-test-summary" class="section level1">
@@ -166,9 +168,9 @@ speed_test</code></pre>
 ##      list.files() %&gt;% map_df(~fread(., select = c(&quot;Artist Name&quot;, &quot;Track Name&quot;,      &quot;Album Name&quot;)))
 ##  rbindlist(lapply(list.files(), fread, select = c(&quot;Artist Name&quot;,      &quot;Track Name&quot;, &quot;Album Name&quot;)))
 ##                 vroom(list.files(), col_select = c(&quot;Artist Name&quot;, &quot;Track Name&quot;,      &quot;Album Name&quot;))
-##        min        lq      mean    median        uq       max neval
-##  0.7266409 0.7328835 1.5208955 0.7496282 0.8117767 8.3111663    10
-##  0.5263606 0.5456663 0.5666337 0.5634593 0.5825008 0.6184404    10
-##  1.1421748 1.1460929 1.4699359 1.1941536 1.3426595 3.7730310    10</code></pre>
+##       min       lq     mean   median       uq      max neval
+##  1.417118 1.436994 1.598792 1.536278 1.737358 2.007896    10
+##  1.065039 1.181272 1.244438 1.231189 1.326574 1.412732    10
+##  2.052682 2.176258 2.695787 2.402457 2.554196 5.714179    10</code></pre>
 <p>As you can see, all three functions we used (<code>map_df()</code>, <code>rbindlist()</code>, and <code>vroom()</code>) are incredibly fast at importing and combining files in R. For our scenario of combining 500 .csv files containing &gt;32k rows in total, <code>rbindlist()</code> was the fastest, followed closely by <code>map_df()</code> and <code>vroom()</code>. However, depending on the number and size of the files you’re combining, the speeds for each method will vary and this may not always be the order in which they finish iterating. The bottom line is that it doesn’t really matter which of the three methods above that you use to import and combine files because they are all incredibly fast. What matters is that if you’re still using <code>read.csv()</code> and <code>rbind()</code> to import and combine your files, hopefully now you’re aware there are much easier, faster, and infallible ways to accomplish this task.</p>
 </div>

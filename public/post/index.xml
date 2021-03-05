@@ -18,6 +18,7 @@
       <pubDate>Fri, 08 Jan 2021 21:13:14 -0500</pubDate>
       <guid>/post/import-multiple-files/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;div id=&#34;need-for-speed&#34; class=&#34;section level1&#34;&gt;
@@ -39,12 +40,13 @@ files &amp;lt;- rbind(file1, file2, file3)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;fast-functions&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Fast Functions&lt;/h1&gt;
 &lt;p&gt;If you follow me on &lt;a href=&#34;https://twitter.com/kc_analytics&#34;&gt;Twitter&lt;/a&gt;, you may already know the answer to that question is yes!&lt;/p&gt;
+&lt;p&gt;Here is what Jared Lander, an adjunct professor at Columbia University, said about my proposed solution in the “How it’s going” image on the right:&lt;/p&gt;
 &lt;center&gt;
 &lt;blockquote class=&#34;twitter-tweet&#34;&gt;
 &lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;
-&lt;a href=&#34;https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#rstats&lt;/a&gt;&lt;br&gt;&lt;br&gt;How it started How it’s going &lt;a href=&#34;https://t.co/mGzn9vqOBt&#34;&gt;pic.twitter.com/mGzn9vqOBt&lt;/a&gt;
+I have saved clients hundreds of hours with this one line. &lt;a href=&#34;https://t.co/YNl0oCqZXn&#34;&gt;https://t.co/YNl0oCqZXn&lt;/a&gt;
 &lt;/p&gt;
-— Kyle Cuilla (&lt;span class=&#34;citation&#34;&gt;@kc_analytics&lt;/span&gt;) &lt;a href=&#34;https://twitter.com/kc_analytics/status/1345434428059881480?ref_src=twsrc%5Etfw&#34;&gt;January 2, 2021&lt;/a&gt;
+— Jared Lander (&lt;span class=&#34;citation&#34;&gt;@jaredlander&lt;/span&gt;) &lt;a href=&#34;https://twitter.com/jaredlander/status/1345460714425737220?ref_src=twsrc%5Etfw&#34;&gt;January 2, 2021&lt;/a&gt;
 &lt;/blockquote&gt;
 &lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
 &lt;/center&gt;
@@ -67,7 +69,7 @@ Note: depending on where the files are stored on your computer, you may need to 
 ##     res &amp;lt;- map(.x, .f, ...)
 ##     dplyr::bind_rows(res, .id = .id)
 ## }
-## &amp;lt;bytecode: 0x0000000019192e38&amp;gt;
+## &amp;lt;bytecode: 0x0000000021e019e0&amp;gt;
 ## &amp;lt;environment: namespace:purrr&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;You can see that &lt;code&gt;map_df&lt;/code&gt; essentially takes the list of files and uses &lt;code&gt;bind_rows()&lt;/code&gt; to combine them into a single dataframe by passing it through a function (&lt;code&gt;.f&lt;/code&gt;) that you provide. In this case, the function that we are using is &lt;code&gt;fread()&lt;/code&gt; which comes from the data.table package. &lt;code&gt;fread()&lt;/code&gt; is essentially the same as &lt;code&gt;read.csv()&lt;/code&gt; but it is significantly faster.&lt;/p&gt;
 &lt;p&gt;&lt;i&gt;
@@ -103,7 +105,7 @@ files &amp;lt;-
   list.files() %&amp;gt;%
   map_df(~fread(., select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)))
 toc()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 0.72 sec elapsed&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 1.67 sec elapsed&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The answer: less than one second!&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;bonus-including-file-names&#34; class=&#34;section level1&#34;&gt;
@@ -152,14 +154,14 @@ head(files_with_names)&lt;/code&gt;&lt;/pre&gt;
 files &amp;lt;- 
   rbindlist(lapply(list.files(), fread, select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)))
 toc()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 0.62 sec elapsed&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 8.14 sec elapsed&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This is actually just a tick faster than &lt;code&gt;map_df()&lt;/code&gt; and only requires one package (data.table) vs two (data.table and purrr) so it is a solid alternative.&lt;/p&gt;
 &lt;p&gt;The other function you can use is &lt;code&gt;vroom()&lt;/code&gt; from the vroom package. One minor difference between &lt;code&gt;vroom()&lt;/code&gt; vs the other two methods is that the results are stored in a tibble vs a dataframe:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tic()
 files &amp;lt;- 
   vroom(list.files(), col_select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;))
 toc()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 2.31 sec elapsed&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 10.17 sec elapsed&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;For this example, &lt;code&gt;vroom()&lt;/code&gt; is a tiny bit slower than both &lt;code&gt;map_df()&lt;/code&gt; and &lt;code&gt;rbindlist()&lt;/code&gt; but is still another great alternative.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;speed-test-summary&#34; class=&#34;section level1&#34;&gt;
@@ -179,10 +181,10 @@ speed_test&lt;/code&gt;&lt;/pre&gt;
 ##      list.files() %&amp;gt;% map_df(~fread(., select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;,      &amp;quot;Album Name&amp;quot;)))
 ##  rbindlist(lapply(list.files(), fread, select = c(&amp;quot;Artist Name&amp;quot;,      &amp;quot;Track Name&amp;quot;, &amp;quot;Album Name&amp;quot;)))
 ##                 vroom(list.files(), col_select = c(&amp;quot;Artist Name&amp;quot;, &amp;quot;Track Name&amp;quot;,      &amp;quot;Album Name&amp;quot;))
-##        min        lq      mean    median        uq       max neval
-##  0.7266409 0.7328835 1.5208955 0.7496282 0.8117767 8.3111663    10
-##  0.5263606 0.5456663 0.5666337 0.5634593 0.5825008 0.6184404    10
-##  1.1421748 1.1460929 1.4699359 1.1941536 1.3426595 3.7730310    10&lt;/code&gt;&lt;/pre&gt;
+##       min       lq     mean   median       uq      max neval
+##  1.417118 1.436994 1.598792 1.536278 1.737358 2.007896    10
+##  1.065039 1.181272 1.244438 1.231189 1.326574 1.412732    10
+##  2.052682 2.176258 2.695787 2.402457 2.554196 5.714179    10&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;As you can see, all three functions we used (&lt;code&gt;map_df()&lt;/code&gt;, &lt;code&gt;rbindlist()&lt;/code&gt;, and &lt;code&gt;vroom()&lt;/code&gt;) are incredibly fast at importing and combining files in R. For our scenario of combining 500 .csv files containing &amp;gt;32k rows in total, &lt;code&gt;rbindlist()&lt;/code&gt; was the fastest, followed closely by &lt;code&gt;map_df()&lt;/code&gt; and &lt;code&gt;vroom()&lt;/code&gt;. However, depending on the number and size of the files you’re combining, the speeds for each method will vary and this may not always be the order in which they finish iterating. The bottom line is that it doesn’t really matter which of the three methods above that you use to import and combine files because they are all incredibly fast. What matters is that if you’re still using &lt;code&gt;read.csv()&lt;/code&gt; and &lt;code&gt;rbind()&lt;/code&gt; to import and combine your files, hopefully now you’re aware there are much easier, faster, and infallible ways to accomplish this task.&lt;/p&gt;
 &lt;/div&gt;
 </description>
@@ -2226,6 +2228,7 @@ custom_breaks &amp;lt;- c(min(dataset$date),
       <pubDate>Sun, 05 Apr 2020 21:13:14 -0500</pubDate>
       <guid>/post/maps-in-r/</guid>
       <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 &lt;script src=&#34;/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
 &lt;script src=&#34;/rmarkdown-libs/pymjs/pym.v1.js&#34;&gt;&lt;/script&gt;
 &lt;script src=&#34;/rmarkdown-libs/widgetframe-binding/widgetframe.js&#34;&gt;&lt;/script&gt;
@@ -2247,7 +2250,8 @@ custom_breaks &amp;lt;- c(min(dataset$date),
 &lt;p&gt;The first interactive map I will show you how to create is a population density map by county for the state of Texas:&lt;/p&gt;
 &lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:100%;height:480px;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
 &lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-2.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
 &lt;div id=&#34;prerequisites&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Prerequisites&lt;/h3&gt;
 &lt;p&gt;Before we get started, you will need to load the following packages:&lt;/p&gt;
@@ -2268,8 +2272,8 @@ county_df &amp;lt;- fread(&amp;quot;C:/Users/Kyle/Downloads/People.csv&amp;quot;
 tx_counties &amp;lt;- get_data_from_map(download_map_data(&amp;quot;countries/us/us-tx-all&amp;quot;))
 
 glimpse(tx_counties)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Observations: 254
-## Variables: 7
+&lt;pre&gt;&lt;code&gt;## Rows: 254
+## Columns: 7
 ## $ `hc-group`    &amp;lt;chr&amp;gt; &amp;quot;admin2&amp;quot;, &amp;quot;admin2&amp;quot;, &amp;quot;admin2&amp;quot;, &amp;quot;admin2&amp;quot;, &amp;quot;admin2&amp;quot;, &amp;quot;ad...
 ## $ `hc-middle-x` &amp;lt;dbl&amp;gt; 0.50, 0.50, 0.50, 0.50, 0.50, 0.52, 0.36, 0.50, 0.50,...
 ## $ `hc-middle-y` &amp;lt;dbl&amp;gt; 0.50, 0.50, 0.50, 0.50, 0.77, 0.50, 0.36, 0.50, 0.50,...
@@ -2284,13 +2288,13 @@ density_df &amp;lt;- county_df %&amp;gt;%
   mutate(density = round(TotalPopEst2018/LandAreaSQMiles2010,0))
 
 head(density_df)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##    fips   County TotalPopEst2018 LandAreaSQMiles2010 density
-## 1 48000    Texas        28701845           261231.71     110
-## 2 48001 Anderson           58057             1062.60      55
-## 3 48003  Andrews           18128             1500.71      12
-## 4 48005 Angelina           87092              797.78     109
-## 5 48007  Aransas           23792              252.07      94
-## 6 48009   Archer            8786              903.11      10&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     fips   County TotalPopEst2018 LandAreaSQMiles2010 density
+## 1: 48000    Texas        28701845           261231.71     110
+## 2: 48001 Anderson           58057             1062.60      55
+## 3: 48003  Andrews           18128             1500.71      12
+## 4: 48005 Angelina           87092              797.78     109
+## 5: 48007  Aransas           23792              252.07      94
+## 6: 48009   Archer            8786              903.11      10&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;creating-the-map&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Creating the Map&lt;/h3&gt;
@@ -2303,34 +2307,39 @@ density_map &amp;lt;- hcmap(map = &amp;quot;countries/us/us-tx-all&amp;quot;,
   hc_mapNavigation(enabled = TRUE)&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;htmlwidget-2&#34; style=&#34;width:100%;height:480px;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
 &lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-2&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-8.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
 &lt;div id=&#34;customizing-the-map&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Customizing the Map&lt;/h4&gt;
 &lt;p&gt;In the map above, the counties with the highest population densities clearly stand out. However, it is difficult to distinguish the differences between the counties with lower population densities.&lt;/p&gt;
 &lt;p&gt;In order to correct this, we can assign color breaks to the data by utilizing the &lt;code&gt;hc_colorAxis&lt;/code&gt; function and assigning a color palette from the &lt;code&gt;RColorBrewer&lt;/code&gt; package:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Add color classes and legend to map
-density_map &amp;lt;- hcmap(map = &amp;quot;countries/us/us-tx-all&amp;quot;, 
-      data = density_df, 
-      value = &amp;quot;density&amp;quot;, 
-      joinBy = c(&amp;quot;fips&amp;quot;),
-      borderWidth = 0.3)  %&amp;gt;%
-  hc_mapNavigation(enabled = TRUE) %&amp;gt;% 
-  hc_legend(layout = &amp;quot;vertical&amp;quot;, 
+density_map &amp;lt;- hcmap(
+  map = &amp;quot;countries/us/us-tx-all&amp;quot;,
+  data = density_df,
+  value = &amp;quot;density&amp;quot;,
+  joinBy = c(&amp;quot;fips&amp;quot;),
+  borderWidth = 0.3
+)  %&amp;gt;%
+  hc_mapNavigation(enabled = TRUE) %&amp;gt;%
+  hc_legend(layout = &amp;quot;vertical&amp;quot;,
             align = &amp;quot;right&amp;quot;,
             valueDecimals = 0) %&amp;gt;% 
-  hc_colorAxis(dataClasses = color_classes(breaks = c(0,10,25,50,100,250,500,1000,2500,max(density_df$density)),
-              colors = brewer.pal(name=&amp;quot;YlOrRd&amp;quot;,n=9)))&lt;/code&gt;&lt;/pre&gt;
+  hc_colorAxis(dataClasses = color_classes(
+    breaks = c(0, 5, 10, 25, 50, 100, 1000, 2000, 3000, 3500),
+    colors = c(&amp;quot;#FECE91&amp;quot;,&amp;quot;#FE9F6D&amp;quot;,&amp;quot;#F76F5C&amp;quot;,&amp;quot;#DE4968&amp;quot;,&amp;quot;#B63679&amp;quot;,&amp;quot;#8C2981&amp;quot;,&amp;quot;#641A80&amp;quot;,&amp;quot;#3B0F70&amp;quot;,&amp;quot;#150E37&amp;quot;)
+  ))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The next thing we will need to do is modify what is displayed when you hover (or click if you are viewing on a mobile device) on a particular county.&lt;/p&gt;
-&lt;p&gt;By creating a JavaScript function within the &lt;code&gt;hc_tooltip&lt;/code&gt; option, we can more clearly display the name and population density for each county.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Add custom tooltip to map
 density_map &amp;lt;- density_map %&amp;gt;%
-    hc_tooltip(formatter = JS(&amp;quot;function() {
-  return (&amp;#39;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;County:&amp;lt;/b&amp;gt; &amp;#39; + this.point.County +
-          &amp;#39;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;Population Density:&amp;lt;/b&amp;gt; &amp;#39; + this.point.density + &amp;#39; people per sq mi&amp;#39;
-  )}&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+  hc_tooltip(
+    headerFormat = &amp;quot;&amp;quot;,
+    pointFormat = &amp;quot;{point.name}: {point.value}&amp;quot;,
+    valueDecimals = 0
+  )&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now, the only thing left is to add a title and source to the map which we can do with the &lt;code&gt;hc_title&lt;/code&gt; and &lt;code&gt;hc_credits&lt;/code&gt; options:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Add title and credits to map
-density_map &amp;lt;- density_map %&amp;gt;% 
+density_map &amp;lt;- density_map %&amp;gt;%
   hc_title(text = &amp;quot;Population Density by County, 2018&amp;quot;) %&amp;gt;%
   hc_credits(enabled = TRUE,
              text = &amp;quot;Author: Kyle Cuilla, Data: USDA ERS&amp;quot;,
@@ -2338,7 +2347,8 @@ density_map &amp;lt;- density_map %&amp;gt;%
 &lt;p&gt;And here is our final result!&lt;/p&gt;
 &lt;div id=&#34;htmlwidget-3&#34; style=&#34;width:100%;height:480px;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
 &lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-3&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-12.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
-&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -2347,9 +2357,7 @@ density_map &amp;lt;- density_map %&amp;gt;%
 &lt;p&gt;So now we have our map that displays the population density by county in 2018.&lt;/p&gt;
 &lt;p&gt;Let’s say that we want to see how the population density has changed over time. How would we go about doing this?&lt;/p&gt;
 &lt;p&gt;Well, we could create nine separate maps (one for each year from 2010 to 2018), but this would take up a lot of space and because the maps would each be separate, and because each map would be separate, it may be difficult to detect subtle difference between each year.&lt;/p&gt;
-&lt;p&gt;To solve these issues, we can create an animated map instead:&lt;/p&gt;
-&lt;div id=&#34;htmlwidget-4&#34; style=&#34;width:100%;height:480px;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
-&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-4&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-14.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;p&gt;To solve these issues, we can create an animated map instead.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;div id=&#34;data-prep-1&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Data Prep&lt;/h3&gt;
@@ -2357,27 +2365,32 @@ density_map &amp;lt;- density_map %&amp;gt;%
 &lt;p&gt;We can calculate the population densities for each of these years by creating a function called ‘pop_density’ and applying it to each population estimate.&lt;/p&gt;
 &lt;p&gt;We can then use the &lt;code&gt;gather&lt;/code&gt; function from the &lt;code&gt;tidyr&lt;/code&gt; package to put all of the population densities into a single column called ‘density’ and all of the years into a single column called ‘years’.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Calculate population density for each year in dataset
-pop_density &amp;lt;- function(x){
-  round(x/county_df$LandAreaSQMiles2010,0)
+pop_density &amp;lt;- function(x) {
+  round(x / county_df$LandAreaSQMiles2010, 0)
 }
 
-density_df_by_year &amp;lt;- county_df %&amp;gt;% 
-  select(c(FIPS,State,County,
-           &amp;#39;2010&amp;#39;=TotalPopEst2010,
-           &amp;#39;2011&amp;#39;=TotalPopEst2011,
-           &amp;#39;2012&amp;#39;=TotalPopEst2012,
-           &amp;#39;2013&amp;#39;=TotalPopEst2013,
-           &amp;#39;2014&amp;#39;=TotalPopEst2014,
-           &amp;#39;2015&amp;#39;=TotalPopEst2015,
-           &amp;#39;2016&amp;#39;=TotalPopEst2016,
-           &amp;#39;2017&amp;#39;=TotalPopEst2017,
-           &amp;#39;2018&amp;#39;=TotalPopEst2018)) %&amp;gt;%
-  mutate_at(vars(matches(&amp;quot;201&amp;quot;)),pop_density) %&amp;gt;%
+density_df_by_year &amp;lt;- county_df %&amp;gt;%
+  select(
+    c(
+      FIPS,
+      State,
+      County,
+      &amp;#39;2010&amp;#39; = TotalPopEst2010,
+      &amp;#39;2011&amp;#39; = TotalPopEst2011,
+      &amp;#39;2012&amp;#39; = TotalPopEst2012,
+      &amp;#39;2013&amp;#39; = TotalPopEst2013,
+      &amp;#39;2014&amp;#39; = TotalPopEst2014,
+      &amp;#39;2015&amp;#39; = TotalPopEst2015,
+      &amp;#39;2016&amp;#39; = TotalPopEst2016,
+      &amp;#39;2017&amp;#39; = TotalPopEst2017,
+      &amp;#39;2018&amp;#39; = TotalPopEst2018
+    )
+  ) %&amp;gt;%
+  mutate_at(vars(matches(&amp;quot;201&amp;quot;)), pop_density) %&amp;gt;%
   filter(State == &amp;#39;TX&amp;#39;) %&amp;gt;%
-  gather(year,density,-c(FIPS,State,County)) %&amp;gt;%
-  mutate(fips = ifelse(nchar(FIPS)&amp;lt;5,paste0(&amp;quot;0&amp;quot;,FIPS),FIPS)) %&amp;gt;%
-  filter(!grepl(&amp;#39;000&amp;#39;,FIPS),
-         !State == &amp;#39;US&amp;#39;)
+  gather(year, density, -c(FIPS, State, County)) %&amp;gt;%
+  mutate(fips = ifelse(nchar(FIPS) &amp;lt; 5, paste0(&amp;quot;0&amp;quot;, FIPS), FIPS)) %&amp;gt;%
+  filter(!grepl(&amp;#39;000&amp;#39;, FIPS),!State == &amp;#39;US&amp;#39;)
 
 head(density_df_by_year)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    FIPS State    County year density  fips
@@ -2394,10 +2407,8 @@ density_df_seq &amp;lt;- density_df_by_year %&amp;gt;%
   do(sequence = list_parse(select(., value = density)))
 
 head(density_df_seq)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Source: local data frame [6 x 2]
-## Groups: &amp;lt;by row&amp;gt;
-## 
-## # A tibble: 6 x 2
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 2
+## # Rowwise: 
 ##    fips sequence  
 ##   &amp;lt;int&amp;gt; &amp;lt;list&amp;gt;    
 ## 1 48001 &amp;lt;list [9]&amp;gt;
@@ -2431,35 +2442,42 @@ density_df_by_year &amp;lt;- left_join(density_df_by_year,density_df_seq)&lt;/co
 &lt;h3&gt;Creating the Map&lt;/h3&gt;
 &lt;p&gt;To create the animated map, all we need to do is take the existing &lt;code&gt;density_map&lt;/code&gt; that we created and update the dataset from &lt;code&gt;density_df&lt;/code&gt; to &lt;code&gt;density_df_by_year&lt;/code&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Create interactive map of Texas counties
-animated_map &amp;lt;- hcmap(map = &amp;quot;countries/us/us-tx-all&amp;quot;, 
-      data = density_df_by_year, 
-      value = &amp;quot;density&amp;quot;, 
-      joinBy = c(&amp;quot;fips&amp;quot;),
-      borderWidth = 0.3)  %&amp;gt;%
-  hc_mapNavigation(enabled = TRUE) %&amp;gt;% 
-   hc_colorAxis(dataClasses = color_classes(breaks = c(0,10,25,50,100,250,500,1000,2500,max(density_df_by_year$density)),
-              colors = brewer.pal(name=&amp;quot;YlOrRd&amp;quot;,n=9))) %&amp;gt;%
-  hc_legend(layout = &amp;quot;vertical&amp;quot;, 
+animated_map &amp;lt;- hcmap(
+  map = &amp;quot;countries/us/us-tx-all&amp;quot;,
+  data = density_df_by_year,
+  value = &amp;quot;density&amp;quot;,
+  joinBy = c(&amp;quot;fips&amp;quot;),
+  borderWidth = 0.3
+)  %&amp;gt;%
+  hc_mapNavigation(enabled = TRUE) %&amp;gt;%
+  hc_colorAxis(dataClasses = color_classes(
+    breaks = c(0, 5, 10, 25, 50, 100, 1000, 2000, 3000, 3500),
+    colors = c(&amp;quot;#FECE91&amp;quot;,&amp;quot;#FE9F6D&amp;quot;,&amp;quot;#F76F5C&amp;quot;,&amp;quot;#DE4968&amp;quot;,&amp;quot;#B63679&amp;quot;,&amp;quot;#8C2981&amp;quot;,&amp;quot;#641A80&amp;quot;,&amp;quot;#3B0F70&amp;quot;,&amp;quot;#150E37&amp;quot;)
+  )) %&amp;gt;%
+  hc_legend(layout = &amp;quot;vertical&amp;quot;,
             align = &amp;quot;right&amp;quot;,
-            valueDecimals = 0) %&amp;gt;% 
-    hc_tooltip(formatter = JS(&amp;quot;function() {
-  return (&amp;#39;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;County:&amp;lt;/b&amp;gt; &amp;#39; + this.point.County +
-          &amp;#39;&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;Population Density:&amp;lt;/b&amp;gt; &amp;#39; + this.point.density + &amp;#39; people per sq mi&amp;#39;
-  )}&amp;quot;)) %&amp;gt;%
+            valueDecimals = 0) %&amp;gt;%
+  hc_tooltip(
+    headerFormat = &amp;quot;&amp;quot;,
+    pointFormat = &amp;quot;{point.name}: {point.value}&amp;quot;,
+    valueDecimals = 0
+  ) %&amp;gt;%
   hc_title(text = &amp;quot;Population Density by County, 2010 to 2018&amp;quot;) %&amp;gt;%
   hc_credits(enabled = TRUE,
              text = &amp;quot;Author: Kyle Cuilla, Data: USDA ERS&amp;quot;,
              href = &amp;quot;https://www.ers.usda.gov/data-products/atlas-of-rural-and-small-town-america/download-the-data/&amp;quot;)  &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And then add the &lt;code&gt;hc_motion&lt;/code&gt; option to the map:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Add animation to map
-animated_map &amp;lt;- animated_map %&amp;gt;% 
-      hc_motion(enabled = TRUE, 
-          series = 0, 
-          autoPlay = TRUE,
-          loop = TRUE,
-          labels = unique(density_df_by_year$year))&lt;/code&gt;&lt;/pre&gt;
-&lt;div id=&#34;htmlwidget-5&#34; style=&#34;width:100%;height:480px;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
-&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-5&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-20.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+animated_map &amp;lt;- animated_map %&amp;gt;%
+  hc_motion(
+    enabled = TRUE,
+    series = 0,
+    autoPlay = TRUE,
+    loop = TRUE,
+    labels = unique(density_df_by_year$year)
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-4&#34; style=&#34;width:100%;height:480px;&#34; class=&#34;widgetframe html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-4&#34;&gt;{&#34;x&#34;:{&#34;url&#34;:&#34;/post/maps-in-r_files/figure-html//widgets/widget_unnamed-chunk-19.html&#34;,&#34;options&#34;:{&#34;xdomain&#34;:&#34;*&#34;,&#34;allowfullscreen&#34;:false,&#34;lazyload&#34;:false}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -3103,6 +3121,36 @@ Note: Strength of Schedule (SoS) aligns with the ski trail difficulty rating sys
   margin-left: 7px;
 }
 &lt;/style&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>2020 RStudio Table Contest</title>
+      <link>/post/2020_nfl_table_contest/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/post/2020_nfl_table_contest/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Near the end of 2020, RStudio hosted an inaugural table contest. For my entry, I decided to submit the table I created in this &lt;a href=&#34;https://kcuilla.netlify.app/post/2019-nfl-team-ratings/&#34;&gt;post&lt;/a&gt; (with a few minor updates).&lt;/p&gt;
+&lt;p&gt;Out of 80+ entries to the contest, my table received an honorable mention! &lt;a href=&#34;https://blog.rstudio.com/2020/12/23/winners-of-the-2020-rstudio-table-contest/&#34;&gt;Winners of the 2020 RStudio Table Contest&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The table I entered can be seen on &lt;a href=&#34;https://rpubs.com/kcuilla/nfl_team_ratings&#34;&gt;RPubs&lt;/a&gt;, and the code to create the table can be found on my &lt;a href=&#34;https://github.com/kcuilla/2020-RStudio-Table-Contest&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>2020 RStudio Table Contest</title>
+      <link>/post/2020_rstudio_table_contest/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/post/2020_rstudio_table_contest/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Near the end of 2020, RStudio hosted an inaugural table contest. For my entry, I decided to submit the table I created in this &lt;a href=&#34;https://kcuilla.netlify.app/post/2019-nfl-team-ratings/&#34;&gt;post&lt;/a&gt; (with a few minor updates).&lt;/p&gt;
+&lt;p&gt;Out of 80+ entries to the contest, my table received an honorable mention! &lt;a href=&#34;https://blog.rstudio.com/2020/12/23/winners-of-the-2020-rstudio-table-contest/&#34;&gt;Winners of the 2020 RStudio Table Contest&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The table I entered can be seen on &lt;a href=&#34;https://rpubs.com/kcuilla/nfl_team_ratings&#34;&gt;RPubs&lt;/a&gt;, and the code to create the table can be found on my &lt;a href=&#34;https://github.com/kcuilla/2020-RStudio-Table-Contest&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
